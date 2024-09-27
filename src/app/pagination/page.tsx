@@ -45,7 +45,7 @@ export default function PaginationPage({ searchParams }: PageProps) {
   nextParams.set("selectedDates", next);
 
   return (
-    <div className="container flex flex-col gap-8">
+    <div className="flex w-full flex-col gap-8">
       <div className="flex flex-col">
         <div className="flex justify-between text-lg text-red-300">
           <strong className="text-2xl">Boundaries:</strong>
