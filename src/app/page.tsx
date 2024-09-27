@@ -73,18 +73,20 @@ function TZDateClient() {
       <div className="h-8" />
       <div className="flex flex-col gap-2">
         <Display label="new Date().toISOString()">
-          <Time>{new Date().toISOString()}</Time>
+          <Time pattern={pattern}>{new Date().toISOString()}</Time>
         </Display>
 
         <div />
         <Display label={`format(new Date(), pattern)`}>
-          <Time>{format(new Date(), pattern)}</Time>
+          <Time pattern={pattern}>{format(new Date(), pattern)}</Time>
         </Display>
         <Display label={`format(new TZDate(), pattern)`}>
-          <Time>{format(new TZDate(), pattern)}</Time>
+          <Time pattern={pattern}>{format(new TZDate(), pattern)}</Time>
         </Display>
         <Display label={`format(TZDate.tz("Asia/Singapore"), pattern)`}>
-          <Time>{format(TZDate.tz("Asia/Singapore"), pattern)}</Time>
+          <Time pattern={pattern}>
+            {format(TZDate.tz("Asia/Singapore"), pattern)}
+          </Time>
         </Display>
       </div>
 
