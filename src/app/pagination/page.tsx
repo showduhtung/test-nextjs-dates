@@ -1,3 +1,4 @@
+import { TZDate } from "@date-fns/tz";
 import { addDays, endOfDay, format, isSameDay, max, min, startOfDay, subDays } from "date-fns";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
@@ -33,8 +34,14 @@ export default function PaginationPage({ searchParams }: PageProps) {
     const forward = min([endOfDay(addDays(end, cycle)), boundaryEnd]);
 
     return [
-      [back, endOfDay(addDays(back, cycle - 1))],
-      [startOfDay(subDays(forward, cycle - 1)), forward],
+      [
+        new TZDate(back, "Asia/Singapore"),
+        new TZDate(endOfDay(addDays(back, cycle - 1)), "Asia/Singapore"),
+      ],
+      [
+        new TZDate(startOfDay(subDays(forward, cycle - 1)), "Asia/Singapore"),
+        new TZDate(forward, "Asia/Singapore"),
+      ],
     ];
   })();
 
