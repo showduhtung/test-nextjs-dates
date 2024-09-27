@@ -1,3 +1,4 @@
+import { TZDate } from "@date-fns/tz";
 import { format } from "date-fns";
 import type { ReactNode } from "react";
 
@@ -12,6 +13,14 @@ export default function Home() {
           </Display>
           <Display label={`format(new Date(), "yyyy-MM-dd HH:mm")`}>
             {format(new Date(), "yyyy-MM-dd HH:mm")}
+          </Display>
+          <Display label={`format(new TZDate(), "yyyy-MM-dd HH:mm")`}>
+            {format(new TZDate(), "yyyy-MM-dd HH:mm")}
+          </Display>
+          <Display
+            label={`format(TZDate.tz("Asia/Singapore"), "yyyy-MM-dd HH:mm")`}
+          >
+            {format(TZDate.tz("Asia/Singapore"), "yyyy-MM-dd HH:mm")}
           </Display>
         </div>
       </main>
