@@ -147,6 +147,15 @@ export default function PaginationPage({ searchParams }: PageProps) {
           </div>
         ))}
       </div>
+
+      <div className="flex items-center gap-2"></div>
+
+      <div className="flex justify-between text-lg">
+        <p>Interval:</p>
+        <div className="flex gap-4">
+          <p className="capitalize">{interval}</p>
+        </div>
+      </div>
     </div>
   );
 }
