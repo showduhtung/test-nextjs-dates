@@ -64,6 +64,30 @@ export default function PaginationPage({ searchParams }: PageProps) {
         </div>
       </div>
 
+      <div className="flex justify-between text-lg text-red-300">
+        <span className="flex items-baseline gap-2">
+          <strong className="text-2xl">URL STATE:</strong>
+          <dfn className="text-sm">(what the user sees)</dfn>
+        </span>
+        <div className="flex gap-4">
+          <p>{format(start, "MMM dd yyyy, hh:mm:ss a z")}</p>
+          <p>|</p>
+          <p>{format(end, "MMM dd yyyy, hh:mm:ss a z")}</p>
+        </div>
+      </div>
+
+      <div className="flex justify-between text-lg">
+        <span className="flex items-baseline gap-2">
+          <strong className="text-2xl">Queries:</strong>
+          <dfn className="text-sm">(what we pass into our endpoints)</dfn>
+        </span>
+        <div className="flex gap-4">
+          <p>{start.toISOString()}</p>
+          <p>|</p>
+          <p>{end.toISOString()}</p>
+        </div>
+      </div>
+
       <div className="flex items-center gap-2">
         <Link
           href={`/pagination?${prevParams.toString()}`}
@@ -85,14 +109,7 @@ export default function PaginationPage({ searchParams }: PageProps) {
           <ChevronRightIcon className="text-black" />
         </Link>
       </div>
-      <div className="flex justify-between text-lg text-red-300">
-        <strong className="text-2xl">URL STATE:</strong>
-        <div className="flex gap-4">
-          <p>{format(start, "MMM dd yyyy, hh:mm:ss a z")}</p>
-          <p>|</p>
-          <p>{format(end, "MMM dd yyyy, hh:mm:ss a z")}</p>
-        </div>
-      </div>
+
       <div>
         {[
           { title: "Prev", dates: prev },
