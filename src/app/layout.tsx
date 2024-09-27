@@ -1,11 +1,27 @@
+import Link from "next/link";
 import "./globals.css";
+import { Display } from "~/testers";
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <div className="grid grid-rows-[20px_1fr_20px] justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+          <div className="flex gap-12">
+            <Link href="/">Static</Link>
+            <Link href="/dynamic">Dynamic</Link>
+            <Link href="/ppr">PPR</Link>
+          </div>
+          <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
+            {children}
+          </main>
+          <footer>
+            <Display label="pattern">yyyy-MM-dd HH:mm:ss</Display>
+          </footer>
+        </div>
+      </body>
     </html>
   );
 }
