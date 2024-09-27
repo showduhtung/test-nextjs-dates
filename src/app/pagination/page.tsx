@@ -3,7 +3,9 @@ import { addDays, endOfDay, format, isSameDay, max, min, startOfDay, subDays } f
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { PATTERN } from "~/common";
 import { parseSearchParams, PageSearchParams, SearchParams } from "~/common/utilities";
+import { Time } from "~/components/time";
 import { cn } from "~/libs/tailwind";
 const intervals = { hourly: 1, daily: 7, weekly: 30 } as const;
 
@@ -67,12 +69,24 @@ export default function PaginationPage({ searchParams }: PageProps) {
       <div className="flex justify-between text-lg text-red-300">
         <span className="flex items-baseline gap-2">
           <strong className="text-2xl">URL STATE:</strong>
-          <dfn className="text-sm">(what the user sees)</dfn>
+          <dfn className="text-sm">(what the url is)</dfn>
         </span>
         <div className="flex gap-4">
           <p>{format(start, "MMM dd yyyy, hh:mm:ss a z")}</p>
           <p>|</p>
           <p>{format(end, "MMM dd yyyy, hh:mm:ss a z")}</p>
+        </div>
+      </div>
+
+      <div className="flex justify-between text-lg text-red-300">
+        <span className="flex items-baseline gap-2">
+          <strong className="text-2xl">Display:</strong>
+          <dfn className="text-sm">(what the user sees using time component)</dfn>
+        </span>
+        <div className="flex gap-4">
+          <Time pattern={PATTERN}>{start.toISOString()}</Time>
+          <p>|</p>
+          <Time pattern={PATTERN}>{end.toISOString()}</Time>
         </div>
       </div>
 
@@ -82,9 +96,9 @@ export default function PaginationPage({ searchParams }: PageProps) {
           <dfn className="text-sm">(what we pass into our endpoints)</dfn>
         </span>
         <div className="flex gap-4">
-          <p>{start.toISOString()}</p>
+          <time>{start.toISOString()}</time>
           <p>|</p>
-          <p>{end.toISOString()}</p>
+          <time>{end.toISOString()}</time>
         </div>
       </div>
 

@@ -1,69 +1,52 @@
 "use client";
 
 import { TZDate } from "@date-fns/tz";
-import { Slot } from "@radix-ui/react-slot";
 import { format } from "date-fns";
-import { isValidElement } from "react";
+import { isValidElement, ReactNode } from "react";
+import { TIME_ZONE } from "~/common";
 
-type TimeProps = {
-  asChild?: boolean;
-  pattern?: string;
-  value?: Date | string | number;
-} & React.ComponentPropsWithoutRef<"time">;
+type TimeProps = React.ComponentPropsWithoutRef<"time">;
 
+// To display in Singapore and to suppress hydration warning
 function Time({
   children,
-  asChild,
   pattern = "yyyy-MM-dd HH:mm",
-  value,
   ...props
-}: TimeProps) {
-  const Comp = asChild ? Slot : "time";
-  const slotProps = {} as TimeProps;
-  const dateTime = formatDateTime(pattern, value || children);
-  if (asChild && dateTime) slotProps.dateTime = dateTime;
+}: TimeProps & { pattern?: string }) {
+  const dateTime = formatDateTime(children);
+  if (dateTime === null) throw new Error("Invalid date time");
 
-  const parsedValue =
-    value instanceof Date
-      ? format(new TZDate(value, "Asia/Singapore"), pattern)
-      : value;
+  const slotProps = {} as TimeProps;
+  if (dateTime) slotProps.dateTime = dateTime.toISOString();
 
   return (
-    <Comp suppressHydrationWarning {...slotProps} {...props}>
-      {dateTime || parsedValue || children}
-    </Comp>
+    <time suppressHydrationWarning {...slotProps} {...props}>
+      {format(dateTime, pattern)}
+    </time>
   );
 }
 
-function formatDateTime(
-  pattern: string,
-  node?: Date | React.ReactNode
-): string | null {
-  let dateInput: string | number | Date;
+function formatDateTime(node?: ReactNode): Date | null {
+  let dateInput: string | number | Date | undefined;
 
-  if (!node) dateInput = new Date();
-  else if (
-    typeof node === "string" ||
-    typeof node === "number" ||
-    node instanceof Date
-  ) {
-    dateInput = node;
-  } else if (isValidElement(node) && typeof node.props.children === "string") {
-    dateInput = node.props.children;
+  // Extracts node type
+  if (typeof node === "string" || typeof node === "number") dateInput = node;
+  else if (isValidElement(node) && typeof node.props.children === "string") {
+    dateInput = node.props.children; // Extracts children's string
   } else return null;
 
-  // Check if the dateInput is string or number, and convert it to Date if needed
   if (typeof dateInput === "string" || typeof dateInput === "number") {
-    const parsedDate = new Date(dateInput);
-    if (isNaN(parsedDate.getTime())) return null;
+    const parsedDate = new TZDate(dateInput as string, TIME_ZONE);
+
+    if (isNaN(parsedDate.getTime())) return null; // Checks for invalid dates
     dateInput = parsedDate;
   }
 
-  const date = new Date(dateInput);
-  if (isNaN(date.getTime())) return null;
+  if (dateInput instanceof Date && !isNaN(dateInput.getTime())) {
+    return dateInput;
+  }
 
-  // Return the formatted date
-  return format(date, pattern);
+  return null;
 }
 
 export { Time };

@@ -16,9 +16,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <NavLink href="/hourly">Hourly Blocks</NavLink>
           </div>
           <div className="flex flex-col justify-between justify-items-center gap-16">
-            {/* <main className="container row-start-2 mx-auto flex w-full flex-col items-center gap-8 sm:items-start"> */}
             {children}
-            {/* </main> */}
             <footer>
               <div className="w-fit justify-items-center">
                 <Display label="pattern">{PATTERN}</Display>
