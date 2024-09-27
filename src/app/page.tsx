@@ -5,6 +5,8 @@ import { Time } from "~/components/time";
 
 // export const dynamic = "force-dynamic";
 
+const pattern = "yyyy-MM-dd HH:mm:ss";
+
 export default function Home() {
   return (
     <div className="grid grid-rows-[20px_1fr_20px] justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
@@ -17,7 +19,7 @@ export default function Home() {
         </div>
       </main>
       <footer>
-        <Display label="pattern">yyyy-MM-dd HH:mm</Display>
+        <Display label="pattern">yyyy-MM-dd HH:mm:ss</Display>
       </footer>
     </div>
   );
@@ -49,13 +51,13 @@ function TextTZDate() {
 
         <div />
         <Display label={`format(new Date(), pattern)`}>
-          {format(new Date(), "yyyy-MM-dd HH:mm")}
+          {format(new Date(), pattern)}
         </Display>
         <Display label={`format(new TZDate(), pattern)`}>
-          {format(new TZDate(), "yyyy-MM-dd HH:mm")}
+          {format(new TZDate(), pattern)}
         </Display>
         <Display label={`format(TZDate.tz("Asia/Singapore"), pattern)`}>
-          {format(TZDate.tz("Asia/Singapore"), "yyyy-MM-dd HH:mm")}
+          {format(TZDate.tz("Asia/Singapore"), pattern)}
         </Display>
       </div>
 
@@ -76,13 +78,13 @@ function TZDateClient() {
 
         <div />
         <Display label={`format(new Date(), pattern)`}>
-          <Time>{format(new Date(), "yyyy-MM-dd HH:mm")}</Time>
+          <Time>{format(new Date(), pattern)}</Time>
         </Display>
         <Display label={`format(new TZDate(), pattern)`}>
-          <Time>{format(new TZDate(), "yyyy-MM-dd HH:mm")}</Time>
+          <Time>{format(new TZDate(), pattern)}</Time>
         </Display>
         <Display label={`format(TZDate.tz("Asia/Singapore"), pattern)`}>
-          <Time>{format(TZDate.tz("Asia/Singapore"), "yyyy-MM-dd HH:mm")}</Time>
+          <Time>{format(TZDate.tz("Asia/Singapore"), pattern)}</Time>
         </Display>
       </div>
 
