@@ -1,8 +1,7 @@
 import { TestDate, TextTZDate, TZDateClient } from "~/testers";
 
-export const experimental_ppr = true;
-
-export default function PPR() {
+export const dynamic = "force-dynamic";
+export default function ForceDynamic() {
   return (
     <div className="flex gap-20">
       <TestDate />
