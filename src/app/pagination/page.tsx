@@ -15,8 +15,8 @@ type PaginationSearchParams = Partial<{ selectedDates: IntervalDateRange; interv
 
 type PageProps = { searchParams: PageSearchParams<PaginationSearchParams> };
 const [boundaryStart, boundaryEnd] = [
-  new Date("Aug 31, 2022, 16:00"),
-  new Date("Sept 29, 2026, 16:00"),
+  new Date("Aug 31 2022, 04:00:00 PM GMT+0"),
+  new Date("Sep 29 2026, 04:00:00 PM GMT+0"),
 ];
 
 export default function PaginationPage({ searchParams }: PageProps) {
@@ -30,23 +30,19 @@ export default function PaginationPage({ searchParams }: PageProps) {
     redirect(`/pagination?${queries.toString()}`);
   }
 
-  const [start, end] = selectedDates;
+  const [selectedStart, selectedEnd] = selectedDates;
   const [prev, next] = (() => {
     const cycle = intervals[interval];
+
+    const [start, end] = [new TZDate(selectedStart), new TZDate(selectedEnd)];
 
     // Calculate the "back" and "forward" date with cycle, ensuring it doesn't go beyond boundaries
     const back = max([startOfDay(subDays(start, cycle)), boundaryStart]);
     const forward = min([endOfDay(addDays(end, cycle)), boundaryEnd]);
 
     return [
-      [
-        new TZDate(back, "Asia/Singapore"),
-        new TZDate(endOfDay(addDays(back, cycle - 1)), "Asia/Singapore"),
-      ],
-      [
-        new TZDate(startOfDay(subDays(forward, cycle - 1)), "Asia/Singapore"),
-        new TZDate(forward, "Asia/Singapore"),
-      ],
+      [new TZDate(back), new TZDate(endOfDay(addDays(back, cycle - 1)))],
+      [new TZDate(startOfDay(subDays(forward, cycle - 1))), new TZDate(forward)],
     ];
   })();
 
@@ -75,9 +71,9 @@ export default function PaginationPage({ searchParams }: PageProps) {
           <dfn className="text-sm">(what the url is)</dfn>
         </span>
         <div className="flex gap-4">
-          <p>{format(start, "MMM dd yyyy, hh:mm:ss a z")}</p>
+          <p>{format(selectedStart, "MMM dd yyyy, hh:mm:ss a z")}</p>
           <p>|</p>
-          <p>{format(end, "MMM dd yyyy, hh:mm:ss a z")}</p>
+          <p>{format(selectedEnd, "MMM dd yyyy, hh:mm:ss a z")}</p>
         </div>
       </div>
 
@@ -87,9 +83,9 @@ export default function PaginationPage({ searchParams }: PageProps) {
           <dfn className="text-sm">(what the user sees using time component)</dfn>
         </span>
         <div className="flex gap-4">
-          <Time pattern={PATTERN}>{start.toISOString()}</Time>
+          <Time pattern={PATTERN}>{selectedStart.toISOString()}</Time>
           <p>|</p>
-          <Time pattern={PATTERN}>{end.toISOString()}</Time>
+          <Time pattern={PATTERN}>{selectedEnd.toISOString()}</Time>
         </div>
       </div>
 
@@ -99,9 +95,9 @@ export default function PaginationPage({ searchParams }: PageProps) {
           <dfn className="text-sm">(what we pass into our endpoints)</dfn>
         </span>
         <div className="flex gap-4">
-          <time>{start.toISOString()}</time>
+          <time>{selectedStart.toISOString()}</time>
           <p>|</p>
-          <time>{end.toISOString()}</time>
+          <time>{selectedEnd.toISOString()}</time>
         </div>
       </div>
 
@@ -113,7 +109,7 @@ export default function PaginationPage({ searchParams }: PageProps) {
           href={`/pagination?${prevParams.toString()}`}
           className={cn(
             "button-press-effect flex h-7 w-7 min-w-0 items-center justify-center rounded-md border bg-white",
-            isSameDay(boundaryStart, start) ? "border-grey-200 pointer-events-none" : "",
+            isSameDay(boundaryStart, selectedStart) ? "border-grey-200 pointer-events-none" : "",
           )}
         >
           <ChevronLeftIcon className="text-black" />
@@ -123,7 +119,9 @@ export default function PaginationPage({ searchParams }: PageProps) {
           href={`/pagination?${nextParams.toString()}`}
           className={cn(
             "button-press-effect flex h-7 w-7 min-w-0 items-center justify-center rounded-md border bg-white",
-            isSameDay(boundaryEnd, end) ? "pointer-events-none text-gray-400" : "text-black",
+            isSameDay(boundaryEnd, selectedEnd)
+              ? "pointer-events-none text-gray-400"
+              : "text-black",
           )}
         >
           <ChevronRightIcon className="text-black" />
