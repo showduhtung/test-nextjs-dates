@@ -3,13 +3,13 @@ import { format } from "date-fns";
 import type { ReactNode } from "react";
 import { Time } from "~/components/time";
 
-const pattern = "yyyy-MM-dd HH:mm:ss";
 export const experimental_ppr = true;
+const pattern = "yyyy-MM-dd HH:mm:ss";
 
-export default function Home() {
+export default function PPR() {
   return (
     <div className="grid grid-rows-[20px_1fr_20px] justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <h1 className="text-4xl font-bold">Statically Rendered</h1>
+      <h1 className="text-4xl font-bold">PPR Rendered</h1>
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
         <div className="flex gap-20">
           <TestDate />
