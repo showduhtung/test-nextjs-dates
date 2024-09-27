@@ -2,42 +2,31 @@ import { addDays, endOfDay, format, isSameDay, max, min, startOfDay, subDays } f
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { parseSearchParams, SearchParams } from "~/common/utilities";
+import { parseSearchParams, PageSearchParams, SearchParams } from "~/common/utilities";
 import { cn } from "~/libs/tailwind";
-// const intervals = { hourly: 1, daily: 7, weekly: 30 } as const;
+const intervals = { hourly: 1, daily: 7, weekly: 30 } as const;
 
 type Interval = "hourly" | "daily" | "weekly";
 type IntervalDateRange = [Date, Date];
-type PageSearchParams = { selectedDates: IntervalDateRange };
+type PaginationSearchParams = Partial<{ selectedDates: IntervalDateRange; interval: Interval }>;
 
-type PageProps = { searchParams: SearchParams<PageSearchParams> };
+type PageProps = { searchParams: PageSearchParams<PaginationSearchParams> };
 const [boundaryStart, boundaryEnd] = [new Date("Sept 1, 2022"), new Date("Sept 30, 2026")];
 
-class JSONURLSearchParams extends URLSearchParams {
-  set(key: string, value: unknown) {
-    super.set(key, JSON.stringify(value));
-  }
-}
-
-export default function Page({ searchParams }: PageProps) {
-  const { selectedDates, interval } = parseSearchParams<{
-    selectedDates: IntervalDateRange;
-    interval: Interval;
-  }>(searchParams);
+export default function PaginationPage({ searchParams }: PageProps) {
+  const { selectedDates, interval } = parseSearchParams<PaginationSearchParams>(searchParams);
 
   if (!interval || !selectedDates) {
-    const hello = new JSONURLSearchParams(searchParams);
-    if (!interval) hello.set("interval", "hourly");
-    if (!selectedDates) hello.set("selectedDates", [new Date(), new Date()]);
+    const queries = new SearchParams(searchParams);
+    if (!interval) queries.set("interval", "hourly");
+    if (!selectedDates) queries.set("selectedDates", [boundaryStart, addDays(boundaryStart, 1)]);
 
-    redirect(`/pagination?${hello.toString()}`);
+    redirect(`/pagination?${queries.toString()}`);
   }
 
   const [start, end] = selectedDates;
-
   const [prev, next] = (() => {
-    // const cycle = intervals[interval];
-    const cycle = 1;
+    const cycle = intervals[interval];
 
     // Calculate the "back" and "forward" date with cycle, ensuring it doesn't go beyond boundaries
     const back = max([startOfDay(subDays(start, cycle)), boundaryStart]);
@@ -49,39 +38,30 @@ export default function Page({ searchParams }: PageProps) {
     ];
   })();
 
-  const prevParams = new JSONURLSearchParams(searchParams);
+  const prevParams = new SearchParams(searchParams);
   prevParams.set("selectedDates", prev);
 
-  const nextParams = new JSONURLSearchParams(searchParams);
+  const nextParams = new SearchParams(searchParams);
   nextParams.set("selectedDates", next);
 
   const stuff = [
     { title: "Prev", dates: prev },
-    { title: "Current", dates: [start, end] },
     { title: "Next", dates: next },
   ];
 
   return (
     <div className="container flex flex-col gap-8">
-      <div className="flex justify-between text-lg">
-        <p>URL:</p>
-        <div className="flex gap-4">
-          <p>{format(start, "MMM dd yyyy, hh:mm:ss a")}</p>
-          <p>|</p>
-          <p>{format(end, "MMM dd yyyy, hh:mm:ss a")}</p>
+      <div className="flex flex-col">
+        <div className="flex justify-between text-lg text-red-300">
+          <strong className="text-2xl">Boundaries:</strong>
+          <div className="flex gap-4">
+            <p>{format(boundaryStart, "MMM dd yyyy, hh:mm:ss a")}</p>
+            <p>|</p>
+            <p>{format(boundaryEnd, "MMM dd yyyy, hh:mm:ss a")}</p>
+          </div>
         </div>
       </div>
 
-      <div className="flex flex-col">
-        <h1 className="text-2xl">Boundaries</h1>
-        <div className="flex gap-4">
-          <p className="text-lg">
-            Boundary Start: {format(boundaryStart, "MMM dd yyyy, hh:mm:ss a")}
-          </p>
-          <p>|</p>
-          <p className="text-lg">Boundary End: {format(boundaryEnd, "MMM dd yyyy, hh:mm:ss a")}</p>
-        </div>
-      </div>
       <div className="flex items-center gap-2">
         <Link
           href={`/pagination?${prevParams.toString()}`}
@@ -103,10 +83,15 @@ export default function Page({ searchParams }: PageProps) {
           <ChevronRightIcon className="text-black" />
         </Link>
       </div>
-
-      <div className="flex flex-col gap-1">
-        <h1 className="text-2xl">Pagination</h1>
-
+      <div className="flex justify-between text-lg text-red-300">
+        <strong className="text-2xl">URL STATE:</strong>
+        <div className="flex gap-4">
+          <p>{format(start, "MMM dd yyyy, hh:mm:ss a")}</p>
+          <p>|</p>
+          <p>{format(end, "MMM dd yyyy, hh:mm:ss a")}</p>
+        </div>
+      </div>
+      <div>
         {stuff.map(({ title, dates }) => (
           <div className="flex justify-between text-lg" key={title}>
             <p>{title}:</p>
