@@ -41,14 +41,30 @@ export default function Page({ searchParams }: PageProps) {
     return [prevParams, nextParams];
   })();
 
+  const [prev, next] = (() => {
+    // const cycle = intervals[interval];
+    const cycle = 1;
+
+    // Calculate the "back" and "forward" date with cycle, ensuring it doesn't go beyond boundaries
+    const back = max([startOfDay(subDays(start, cycle)), boundaryStart]);
+    const forward = min([endOfDay(addDays(end, cycle)), boundaryEnd]);
+
+    return [
+      [back, endOfDay(addDays(back, cycle - 1))],
+      [startOfDay(subDays(forward, cycle - 1)), forward],
+    ];
+  })();
+
   return (
     <div className="container flex flex-col gap-8">
       <div className="flex flex-col">
         <h1 className="text-2xl">Boundaries</h1>
         <div className="flex gap-4">
-          <p className="text-lg">Boundary Start: {format(boundaryStart, "MMM dd yyyy, hh:mm a")}</p>
+          <p className="text-lg">
+            Boundary Start: {format(boundaryStart, "MMM dd yyyy, hh:mm:ss a")}
+          </p>
           <p>|</p>
-          <p className="text-lg">Boundary End: {format(boundaryEnd, "MMM dd yyyy, hh:mm a")}</p>
+          <p className="text-lg">Boundary End: {format(boundaryEnd, "MMM dd yyyy, hh:mm:ss a")}</p>
         </div>
       </div>
       <div className="flex items-center gap-2">
@@ -61,7 +77,6 @@ export default function Page({ searchParams }: PageProps) {
         >
           <ChevronLeftIcon className="text-black" />
         </Link>
-        <p className="text-lg">start: {format(start, "MMM dd hh:mm a")}</p>
 
         <Link
           href={`/pagination?${nextParams.toString()}`}
@@ -72,6 +87,22 @@ export default function Page({ searchParams }: PageProps) {
         >
           <ChevronRightIcon className="text-black" />
         </Link>
+      </div>
+
+      <div className="flex flex-col">
+        <h1 className="text-2xl">Pagination</h1>
+        <div className="flex gap-4 text-lg">
+          <p>prev:</p>
+          <p>{format(prev[0], "MMM dd yyyy, hh:mm:ss a")}</p>
+          <p>|</p>
+          <p>{format(prev[1], "MMM dd yyyy, hh:mm:ss a")}</p>
+        </div>
+        <div className="flex gap-4 text-lg">
+          <p>next:</p>
+          <p>{format(next[0], "MMM dd yyyy, hh:mm:ss a")}</p>
+          <p>|</p>
+          <p>{format(next[1], "MMM dd yyyy, hh:mm:ss a")}</p>
+        </div>
       </div>
     </div>
   );
