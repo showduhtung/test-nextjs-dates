@@ -55,9 +55,9 @@ export default function PaginationPage({ searchParams }: PageProps) {
         <div className="flex justify-between text-lg text-red-300">
           <strong className="text-2xl">Boundaries:</strong>
           <div className="flex gap-4">
-            <p>{format(boundaryStart, "MMM dd yyyy, hh:mm:ss a")}</p>
+            <p>{format(boundaryStart, "MMM dd yyyy, hh:mm:ss a z")}</p>
             <p>|</p>
-            <p>{format(boundaryEnd, "MMM dd yyyy, hh:mm:ss a")}</p>
+            <p>{format(boundaryEnd, "MMM dd yyyy, hh:mm:ss a z")}</p>
           </div>
         </div>
       </div>
@@ -86,9 +86,9 @@ export default function PaginationPage({ searchParams }: PageProps) {
       <div className="flex justify-between text-lg text-red-300">
         <strong className="text-2xl">URL STATE:</strong>
         <div className="flex gap-4">
-          <p>{format(start, "MMM dd yyyy, hh:mm:ss a")}</p>
+          <p>{format(start, "MMM dd yyyy, hh:mm:ss a z")}</p>
           <p>|</p>
-          <p>{format(end, "MMM dd yyyy, hh:mm:ss a")}</p>
+          <p>{format(end, "MMM dd yyyy, hh:mm:ss a z")}</p>
         </div>
       </div>
       <div>
@@ -96,9 +96,9 @@ export default function PaginationPage({ searchParams }: PageProps) {
           <div className="flex justify-between text-lg" key={title}>
             <p>{title}:</p>
             <div className="flex gap-4">
-              <p>{format(dates[0], "MMM dd yyyy, hh:mm:ss a")}</p>
+              <p>{format(dates[0], "MMM dd yyyy, hh:mm:ss a z")}</p>
               <p>|</p>
-              <p>{format(dates[1], "MMM dd yyyy, hh:mm:ss a")}</p>
+              <p>{format(dates[1], "MMM dd yyyy, hh:mm:ss a z")}</p>
             </div>
           </div>
         ))}

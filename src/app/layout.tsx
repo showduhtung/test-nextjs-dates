@@ -12,6 +12,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <NavLink href="/dynamic">Dynamic</NavLink>
             <NavLink href="/ppr">PPR</NavLink>
             <NavLink href="/pagination">Pagination</NavLink>
+            <NavLink href="/hourly">Hourly Blocks</NavLink>
           </div>
           <div className="flex flex-col justify-between justify-items-center gap-16">
             <main className="row-start-2 flex flex-col items-center gap-8 sm:items-start">
