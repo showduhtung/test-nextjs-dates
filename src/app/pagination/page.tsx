@@ -42,7 +42,15 @@ export default function Page({ searchParams }: PageProps) {
   })();
 
   return (
-    <div className="container">
+    <div className="container flex flex-col gap-8">
+      <div className="flex flex-col">
+        <h1 className="text-2xl">Boundaries</h1>
+        <div className="flex gap-4">
+          <p className="text-lg">Boundary Start: {format(boundaryStart, "MMM dd yyyy, hh:mm a")}</p>
+          <p>|</p>
+          <p className="text-lg">Boundary End: {format(boundaryEnd, "MMM dd yyyy, hh:mm a")}</p>
+        </div>
+      </div>
       <div className="flex items-center gap-2">
         <Link
           href={`/pagination?${prevParams.toString()}`}
@@ -51,11 +59,10 @@ export default function Page({ searchParams }: PageProps) {
             isSameDay(boundaryStart, start) ? "border-grey-200 pointer-events-none" : "",
           )}
         >
-          <ChevronLeftIcon
-            className={cn(isSameDay(boundaryStart, start) ? "text-gray-400" : "text-black")}
-          />
+          <ChevronLeftIcon className="text-black" />
         </Link>
         <p className="text-lg">start: {format(start, "MMM dd hh:mm a")}</p>
+
         <Link
           href={`/pagination?${nextParams.toString()}`}
           className={cn(
@@ -63,7 +70,7 @@ export default function Page({ searchParams }: PageProps) {
             isSameDay(boundaryEnd, end) ? "pointer-events-none text-gray-400" : "text-black",
           )}
         >
-          <ChevronRightIcon className={cn(isSameDay(boundaryEnd, end) ? "text-gray-400" : "")} />
+          <ChevronRightIcon className="text-black" />
         </Link>
       </div>
     </div>

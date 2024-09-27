@@ -2,9 +2,7 @@ type PageParams<T> = Record<keyof T, string>;
 
 const isValidDate = (date: string) => !isNaN(new Date(date).getTime());
 
-function parseParams<T extends Record<string, unknown>>(
-  entries: Record<string, string>
-) {
+function parseParams<T extends Record<string, unknown>>(entries: Record<string, string>) {
   const queries = Object.entries(entries).reduce((acc, [key, val]) => {
     const value = decodeURIComponent(val);
     if (isValidDate(value)) return { ...acc, [key]: new Date(value) };
@@ -14,11 +12,10 @@ function parseParams<T extends Record<string, unknown>>(
 }
 
 type SearchParams<T> = Partial<Record<keyof T, string>>;
-function parseSearchParams<T extends Record<string, unknown>>(
-  entries: Record<string, string>
-) {
+function parseSearchParams<T extends Record<string, unknown>>(entries: Record<string, string>) {
   const queries = Object.entries(entries).reduce((acc, [key, val]) => {
-    const value = decodeURIComponent(val);
+    const value = JSON.parse(val);
+
     if (isValidDate(value)) return { ...acc, [key]: new Date(value) };
     else if (Array.isArray(value) && value.every(isValidDate)) {
       return { ...acc, [key]: value.map((v) => new Date(v)) };
