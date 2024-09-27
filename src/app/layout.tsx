@@ -1,26 +1,24 @@
-import Link from "next/link";
 import "./globals.css";
 import { Display } from "~/testers";
+import { NavLink } from "~/components/nav-link";
 
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
       <body>
-        <div className="grid grid-rows-[20px_1fr_20px] min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-          <div className="flex gap-12 ">
-            <Link href="/">Static</Link>
-            <Link href="/dynamic">Dynamic</Link>
-            <Link href="/ppr">PPR</Link>
-            <Link href="/pagination">Pagination</Link>
+        <div className="grid min-h-screen grid-rows-[20px_1fr_20px] gap-16 p-8 pb-20 font-[family-name:var(--font-geist-sans)] sm:p-20">
+          <div className="flex gap-12">
+            <NavLink href="/">Static</NavLink>
+            <NavLink href="/dynamic">Dynamic</NavLink>
+            <NavLink href="/ppr">PPR</NavLink>
+            <NavLink href="/pagination">Pagination</NavLink>
           </div>
           <div className="flex flex-col justify-between justify-items-center gap-16">
-            <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
+            <main className="row-start-2 flex flex-col items-center gap-8 sm:items-start">
               {children}
             </main>
             <footer>
-              <div className="justify-items-center w-fit">
+              <div className="w-fit justify-items-center">
                 <Display label="pattern">yyyy-MM-dd HH:mm:ss</Display>
               </div>
             </footer>
