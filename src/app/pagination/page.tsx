@@ -14,7 +14,10 @@ type IntervalDateRange = [Date, Date];
 type PaginationSearchParams = Partial<{ selectedDates: IntervalDateRange; interval: Interval }>;
 
 type PageProps = { searchParams: PageSearchParams<PaginationSearchParams> };
-const [boundaryStart, boundaryEnd] = [new Date("Sept 1, 2022"), new Date("Sept 30, 2026")];
+const [boundaryStart, boundaryEnd] = [
+  new Date("Aug 31, 2022, 16:00"),
+  new Date("Sept 29, 2026, 16:00"),
+];
 
 export default function PaginationPage({ searchParams }: PageProps) {
   const { selectedDates, interval } = parseSearchParams<PaginationSearchParams>(searchParams);
