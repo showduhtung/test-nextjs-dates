@@ -89,19 +89,32 @@ export default function Page({ searchParams }: PageProps) {
         </Link>
       </div>
 
-      <div className="flex flex-col">
+      <div className="flex flex-col gap-1">
         <h1 className="text-2xl">Pagination</h1>
-        <div className="flex gap-4 text-lg">
-          <p>prev:</p>
-          <p>{format(prev[0], "MMM dd yyyy, hh:mm:ss a")}</p>
-          <p>|</p>
-          <p>{format(prev[1], "MMM dd yyyy, hh:mm:ss a")}</p>
+        <div className="flex justify-between text-lg">
+          <p>Prev:</p>
+          <div className="flex gap-4">
+            <p>{format(prev[0], "MMM dd yyyy, hh:mm:ss a")}</p>
+            <p>|</p>
+            <p>{format(prev[1], "MMM dd yyyy, hh:mm:ss a")}</p>
+          </div>
         </div>
-        <div className="flex gap-4 text-lg">
-          <p>next:</p>
-          <p>{format(next[0], "MMM dd yyyy, hh:mm:ss a")}</p>
-          <p>|</p>
-          <p>{format(next[1], "MMM dd yyyy, hh:mm:ss a")}</p>
+        <div className="flex justify-between text-lg">
+          <p>Current:</p>
+          <div className="flex gap-4">
+            <p>{format(start, "MMM dd yyyy, hh:mm:ss a")}</p>
+            <p>|</p>
+            <p>{format(end, "MMM dd yyyy, hh:mm:ss a")}</p>
+          </div>
+        </div>
+
+        <div className="flex justify-between text-lg">
+          <p>Next:</p>
+          <div className="flex gap-4">
+            <p>{format(next[0], "MMM dd yyyy, hh:mm:ss a")}</p>
+            <p>|</p>
+            <p>{format(next[1], "MMM dd yyyy, hh:mm:ss a")}</p>
+          </div>
         </div>
       </div>
     </div>
