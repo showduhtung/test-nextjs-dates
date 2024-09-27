@@ -13,6 +13,7 @@ export default function RootLayout({
             <Link href="/">Static</Link>
             <Link href="/dynamic">Dynamic</Link>
             <Link href="/ppr">PPR</Link>
+            <Link href="/pagination">Pagination</Link>
           </div>
           <div className="flex flex-col justify-between justify-items-center gap-16">
             <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
