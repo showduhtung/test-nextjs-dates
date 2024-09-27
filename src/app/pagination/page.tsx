@@ -41,8 +41,8 @@ export default function PaginationPage({ searchParams }: PageProps) {
     const forward = min([endOfDay(addDays(end, cycle)), boundaryEnd]);
 
     return [
-      [new TZDate(back), new TZDate(endOfDay(addDays(back, cycle - 1)))],
-      [new TZDate(startOfDay(subDays(forward, cycle - 1))), new TZDate(forward)],
+      [back, endOfDay(addDays(back, cycle - 1))],
+      [startOfDay(subDays(forward, cycle - 1)), forward],
     ];
   })();
 
