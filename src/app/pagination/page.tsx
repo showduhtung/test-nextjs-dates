@@ -1,45 +1,39 @@
 import { addDays, endOfDay, format, isSameDay, max, min, startOfDay, subDays } from "date-fns";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { parseSearchParams, SearchParams } from "~/common/utilities";
 import { cn } from "~/libs/tailwind";
 // const intervals = { hourly: 1, daily: 7, weekly: 30 } as const;
 
-// type Interval = "hourly" | "daily" | "weekly";
+type Interval = "hourly" | "daily" | "weekly";
 type IntervalDateRange = [Date, Date];
 type PageSearchParams = { selectedDates: IntervalDateRange };
 
 type PageProps = { searchParams: SearchParams<PageSearchParams> };
 const [boundaryStart, boundaryEnd] = [new Date("Sept 1, 2022"), new Date("Sept 30, 2026")];
 
+class JSONURLSearchParams extends URLSearchParams {
+  set(key: string, value: unknown) {
+    super.set(key, JSON.stringify(value));
+  }
+}
+
 export default function Page({ searchParams }: PageProps) {
-  const { selectedDates: [start, end] = [new Date(), new Date()] } = parseSearchParams<{
+  const { selectedDates, interval } = parseSearchParams<{
     selectedDates: IntervalDateRange;
+    interval: Interval;
   }>(searchParams);
 
-  const [prevParams, nextParams] = (() => {
-    // const cycle = intervals[interval];
-    const cycle = 1;
+  if (!interval || !selectedDates) {
+    const hello = new JSONURLSearchParams(searchParams);
+    if (!interval) hello.set("interval", "hourly");
+    if (!selectedDates) hello.set("selectedDates", [new Date(), new Date()]);
 
-    // Calculate the "back" and "forward" date with cycle, ensuring it doesn't go beyond boundaries
-    const back = max([startOfDay(subDays(start, cycle)), boundaryStart]);
-    const forward = min([endOfDay(addDays(end, cycle)), boundaryEnd]);
+    redirect(`/pagination?${hello.toString()}`);
+  }
 
-    // "previous" =  ['back',                'back' + 'cycle']
-    const previous = [back, endOfDay(addDays(back, cycle - 1))] as IntervalDateRange;
-
-    // "next" =                 ['forward' - 'cycle',    'forward']
-    const next = [startOfDay(subDays(forward, cycle - 1)), forward] as IntervalDateRange;
-
-    // Clone the original searchParams and set "selectedDates" for both
-    const prevParams = new URLSearchParams(searchParams);
-    prevParams.set("selectedDates", JSON.stringify(previous));
-
-    const nextParams = new URLSearchParams(searchParams);
-    nextParams.set("selectedDates", JSON.stringify(next));
-
-    return [prevParams, nextParams];
-  })();
+  const [start, end] = selectedDates;
 
   const [prev, next] = (() => {
     // const cycle = intervals[interval];
@@ -55,8 +49,29 @@ export default function Page({ searchParams }: PageProps) {
     ];
   })();
 
+  const prevParams = new JSONURLSearchParams(searchParams);
+  prevParams.set("selectedDates", prev);
+
+  const nextParams = new JSONURLSearchParams(searchParams);
+  nextParams.set("selectedDates", next);
+
+  const stuff = [
+    { title: "Prev", dates: prev },
+    { title: "Current", dates: [start, end] },
+    { title: "Next", dates: next },
+  ];
+
   return (
     <div className="container flex flex-col gap-8">
+      <div className="flex justify-between text-lg">
+        <p>URL:</p>
+        <div className="flex gap-4">
+          <p>{format(start, "MMM dd yyyy, hh:mm:ss a")}</p>
+          <p>|</p>
+          <p>{format(end, "MMM dd yyyy, hh:mm:ss a")}</p>
+        </div>
+      </div>
+
       <div className="flex flex-col">
         <h1 className="text-2xl">Boundaries</h1>
         <div className="flex gap-4">
@@ -91,31 +106,17 @@ export default function Page({ searchParams }: PageProps) {
 
       <div className="flex flex-col gap-1">
         <h1 className="text-2xl">Pagination</h1>
-        <div className="flex justify-between text-lg">
-          <p>Prev:</p>
-          <div className="flex gap-4">
-            <p>{format(prev[0], "MMM dd yyyy, hh:mm:ss a")}</p>
-            <p>|</p>
-            <p>{format(prev[1], "MMM dd yyyy, hh:mm:ss a")}</p>
-          </div>
-        </div>
-        <div className="flex justify-between text-lg">
-          <p>Current:</p>
-          <div className="flex gap-4">
-            <p>{format(start, "MMM dd yyyy, hh:mm:ss a")}</p>
-            <p>|</p>
-            <p>{format(end, "MMM dd yyyy, hh:mm:ss a")}</p>
-          </div>
-        </div>
 
-        <div className="flex justify-between text-lg">
-          <p>Next:</p>
-          <div className="flex gap-4">
-            <p>{format(next[0], "MMM dd yyyy, hh:mm:ss a")}</p>
-            <p>|</p>
-            <p>{format(next[1], "MMM dd yyyy, hh:mm:ss a")}</p>
+        {stuff.map(({ title, dates }) => (
+          <div className="flex justify-between text-lg" key={title}>
+            <p>{title}:</p>
+            <div className="flex gap-4">
+              <p>{format(dates[0], "MMM dd yyyy, hh:mm:ss a")}</p>
+              <p>|</p>
+              <p>{format(dates[1], "MMM dd yyyy, hh:mm:ss a")}</p>
+            </div>
           </div>
-        </div>
+        ))}
       </div>
     </div>
   );
