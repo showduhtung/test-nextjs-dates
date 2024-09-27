@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import type { ReactNode } from "react";
 
 export default function Home() {
@@ -8,6 +9,9 @@ export default function Home() {
         <div className="flex flex-col gap-2">
           <Display label="new Date().toISOString()">
             {new Date().toISOString()}
+          </Display>
+          <Display label={`format(new Date(), "yyyy-MM-dd HH:mm")`}>
+            {format(new Date(), "yyyy-MM-dd HH:mm")}
           </Display>
         </div>
       </main>
