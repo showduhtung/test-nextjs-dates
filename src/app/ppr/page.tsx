@@ -1,4 +1,4 @@
-import { TestDate, TextTZDate, TZDateClient } from "~/testers";
+import { TestDate, TextTZDate, TZDateClient } from "~/app/_components";
 
 export const experimental_ppr = true;
 

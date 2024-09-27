@@ -44,11 +44,6 @@ export default function PaginationPage({ searchParams }: PageProps) {
   const nextParams = new SearchParams(searchParams);
   nextParams.set("selectedDates", next);
 
-  const stuff = [
-    { title: "Prev", dates: prev },
-    { title: "Next", dates: next },
-  ];
-
   return (
     <div className="container flex flex-col gap-8">
       <div className="flex flex-col">
@@ -92,7 +87,10 @@ export default function PaginationPage({ searchParams }: PageProps) {
         </div>
       </div>
       <div>
-        {stuff.map(({ title, dates }) => (
+        {[
+          { title: "Prev", dates: prev },
+          { title: "Next", dates: next },
+        ].map(({ title, dates }) => (
           <div className="flex justify-between text-lg" key={title}>
             <p>{title}:</p>
             <div className="flex gap-4">

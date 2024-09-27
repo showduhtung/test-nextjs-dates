@@ -1,1 +1,1 @@
-export const PATTERN = "yyyy-MM-dd hh:mm:ss a";
+export const PATTERN = "MMM dd yyyy, hh:mm:ss a z";

@@ -19,9 +19,7 @@ function TestDate() {
       <h2 className="font-bold">Native Display</h2>
       <div className="h-8" />
       <div className="flex flex-col gap-2">
-        <Display label="new Date().toISOString()">
-          {new Date().toISOString()}
-        </Display>
+        <Display label="new Date().toISOString()">{new Date().toISOString()}</Display>
       </div>
     </div>
   );
@@ -33,17 +31,11 @@ function TextTZDate() {
       <h2 className="font-bold">Testing TZ Date</h2>
       <div className="h-8" />
       <div className="flex flex-col gap-2">
-        <Display label="new Date().toISOString()">
-          {new Date().toISOString()}
-        </Display>
+        <Display label="new Date().toISOString()">{new Date().toISOString()}</Display>
 
         <div />
-        <Display label={`format(new Date(), PATTERN)`}>
-          {format(new Date(), PATTERN)}
-        </Display>
-        <Display label={`format(new TZDate(), PATTERN)`}>
-          {format(new TZDate(), PATTERN)}
-        </Display>
+        <Display label={`format(new Date(), PATTERN)`}>{format(new Date(), PATTERN)}</Display>
+        <Display label={`format(new TZDate(), PATTERN)`}>{format(new TZDate(), PATTERN)}</Display>
         <Display label={`format(TZDate.tz("Asia/Singapore"), PATTERN)`}>
           {format(TZDate.tz("Asia/Singapore"), PATTERN)}
         </Display>
@@ -72,9 +64,7 @@ function TZDateClient() {
           <Time pattern={PATTERN}>{format(new TZDate(), PATTERN)}</Time>
         </Display>
         <Display label={`format(TZDate.tz("Asia/Singapore"), PATTERN)`}>
-          <Time pattern={PATTERN}>
-            {format(TZDate.tz("Asia/Singapore"), PATTERN)}
-          </Time>
+          <Time pattern={PATTERN}>{format(TZDate.tz("Asia/Singapore"), PATTERN)}</Time>
         </Display>
       </div>
 

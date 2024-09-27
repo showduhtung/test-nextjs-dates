@@ -1,5 +1,6 @@
 import "./globals.css";
-import { Display } from "~/testers";
+import { Display } from "~/app/_components";
+import { PATTERN } from "~/common";
 import { NavLink } from "~/components/nav-link";
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -20,7 +21,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             </main>
             <footer>
               <div className="w-fit justify-items-center">
-                <Display label="pattern">yyyy-MM-dd HH:mm:ss</Display>
+                <Display label="pattern">{PATTERN}</Display>
               </div>
             </footer>
           </div>
