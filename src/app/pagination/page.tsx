@@ -52,7 +52,7 @@ export default function PaginationPage({ searchParams }: PageProps) {
   nextParams.set("selectedDates", next);
 
   return (
-    <div className="flex w-full flex-col gap-8">
+    <div className="flex w-full flex-col gap-4">
       <div className="flex flex-col">
         <div className="flex justify-between text-lg text-red-300">
           <strong className="text-2xl">Boundaries:</strong>
@@ -87,6 +87,9 @@ export default function PaginationPage({ searchParams }: PageProps) {
           <p>{end.toISOString()}</p>
         </div>
       </div>
+
+      <br />
+      <br />
 
       <div className="flex items-center gap-2">
         <Link
