@@ -25,7 +25,11 @@ export default function PaginationPage({ searchParams }: PageProps) {
   if (!interval || !selectedDates) {
     const queries = new SearchParams(searchParams);
     if (!interval) queries.set("interval", "hourly");
-    if (!selectedDates) queries.set("selectedDates", [boundaryStart, addDays(boundaryStart, 1)]);
+    if (!selectedDates)
+      queries.set("selectedDates", [
+        new TZDate(boundaryStart),
+        addDays(new TZDate(boundaryStart), 1),
+      ]);
 
     redirect(`/pagination?${queries.toString()}`);
   }
