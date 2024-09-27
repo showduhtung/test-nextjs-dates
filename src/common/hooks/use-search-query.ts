@@ -4,32 +4,25 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { parseSearchParams } from "../utilities";
 
 type SearchHookInterface<T> = {
-  queries: CommonQuery & T;
-  search: (payload: CommonQuery & T, options?: { scroll?: boolean }) => void;
+  queries: T;
+  search: (payload: T, options?: { scroll?: boolean }) => void;
 };
-type CommonQuery = Partial<{ sort: string; query: string; page: number }>;
 
 function useSearchQuery<T extends Record<string, unknown>>(
-  defaultState?: T
+  defaultState?: T,
 ): SearchHookInterface<T> {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
 
   const entries = Object.fromEntries(searchParams);
-  const queries = parseSearchParams<CommonQuery & T>(entries);
+  const queries = parseSearchParams<T>(entries);
 
-  function search(
-    payload: Record<string, unknown>,
-    options?: { scroll?: boolean }
-  ) {
+  function search(payload: Record<string, unknown>, options?: { scroll?: boolean }) {
     const query = new URLSearchParams();
 
     Object.entries({ ...queries, ...payload }).forEach(([key, value]) => {
-      if (
-        Array.isArray(value) &&
-        isDefaultArray(value, (defaultState?.[key] || []) as unknown[])
-      )
+      if (Array.isArray(value) && isDefaultArray(value, (defaultState?.[key] || []) as unknown[]))
         return;
       if (defaultState?.[key] === value) return;
       else if (value === undefined) return;
@@ -37,12 +30,9 @@ function useSearchQuery<T extends Record<string, unknown>>(
       else query.set(key, JSON.stringify(value));
     });
 
-    router.replace(
-      Boolean(query?.size) ? `${pathname}?${query.toString()}` : pathname,
-      {
-        scroll: options?.scroll,
-      }
-    );
+    router.replace(Boolean(query?.size) ? `${pathname}?${query.toString()}` : pathname, {
+      scroll: options?.scroll,
+    });
   }
 
   return { queries, search };
@@ -51,5 +41,4 @@ function useSearchQuery<T extends Record<string, unknown>>(
 const isDefaultArray = (a: unknown[], b: unknown[]) =>
   a.length === b.length && a.every((val, index) => val === b[index]);
 
-export type { CommonQuery };
 export { useSearchQuery };

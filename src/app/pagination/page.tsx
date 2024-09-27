@@ -7,6 +7,13 @@ import { PATTERN } from "~/common";
 import { parseSearchParams, PageSearchParams, SearchParams } from "~/common/utilities";
 import { Time } from "~/components/time";
 import { cn } from "~/libs/tailwind";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "~/components/dropdown-menu";
+import { Button } from "~/components/button";
 const intervals = { hourly: 1, daily: 7, weekly: 30 } as const;
 
 type Interval = "hourly" | "daily" | "weekly";
@@ -57,105 +64,121 @@ export default function PaginationPage({ searchParams }: PageProps) {
   nextParams.set("selectedDates", next);
 
   return (
-    <div className="flex w-full flex-col gap-4">
-      <div className="flex flex-col">
-        <div className="flex justify-between text-lg text-red-300">
-          <strong className="text-2xl">Boundaries:</strong>
-          <div className="flex gap-4">
-            <p>{format(boundaryStart, "MMM dd yyyy, hh:mm:ss a z")}</p>
-            <p>|</p>
-            <p>{format(boundaryEnd, "MMM dd yyyy, hh:mm:ss a z")}</p>
-          </div>
-        </div>
-      </div>
-
-      <div className="flex justify-between text-lg text-red-300">
-        <span className="flex items-baseline gap-2">
-          <strong className="text-2xl">URL STATE:</strong>
-          <dfn className="text-sm">(what the url is)</dfn>
-        </span>
-        <div className="flex gap-4">
-          <p>{format(selectedStart, "MMM dd yyyy, hh:mm:ss a z")}</p>
-          <p>|</p>
-          <p>{format(selectedEnd, "MMM dd yyyy, hh:mm:ss a z")}</p>
-        </div>
-      </div>
-
-      <div className="flex justify-between text-lg text-red-300">
-        <span className="flex items-baseline gap-2">
-          <strong className="text-2xl">Display:</strong>
-          <dfn className="text-sm">(what the user sees using time component)</dfn>
-        </span>
-        <div className="flex gap-4">
-          <Time pattern={PATTERN}>{selectedStart.toISOString()}</Time>
-          <p>|</p>
-          <Time pattern={PATTERN}>{selectedEnd.toISOString()}</Time>
-        </div>
-      </div>
-
-      <div className="flex justify-between text-lg">
-        <span className="flex items-baseline gap-2">
-          <strong className="text-2xl">Queries:</strong>
-          <dfn className="text-sm">(what we pass into our endpoints)</dfn>
-        </span>
-        <div className="flex gap-4">
-          <time>{selectedStart.toISOString()}</time>
-          <p>|</p>
-          <time>{selectedEnd.toISOString()}</time>
-        </div>
-      </div>
-
-      <br />
-      <br />
-
-      <div className="flex items-center gap-2">
-        <Link
-          href={`/pagination?${prevParams.toString()}`}
-          className={cn(
-            "button-press-effect flex h-7 w-7 min-w-0 items-center justify-center rounded-md border bg-white",
-            isSameDay(boundaryStart, selectedStart) ? "border-grey-200 pointer-events-none" : "",
-          )}
-        >
-          <ChevronLeftIcon className="text-black" />
-        </Link>
-
-        <Link
-          href={`/pagination?${nextParams.toString()}`}
-          className={cn(
-            "button-press-effect flex h-7 w-7 min-w-0 items-center justify-center rounded-md border bg-white",
-            isSameDay(boundaryEnd, selectedEnd)
-              ? "pointer-events-none text-gray-400"
-              : "text-black",
-          )}
-        >
-          <ChevronRightIcon className="text-black" />
-        </Link>
-      </div>
-
-      <div>
-        {[
-          { title: "Prev", dates: prev },
-          { title: "Next", dates: next },
-        ].map(({ title, dates }) => (
-          <div className="flex justify-between text-lg" key={title}>
-            <p>{title}:</p>
+    <div className="flex h-full flex-col justify-between">
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-col">
+          <div className="flex justify-between text-lg text-red-300">
+            <strong className="text-2xl">Boundaries:</strong>
             <div className="flex gap-4">
-              <p>{format(dates[0], "MMM dd yyyy, hh:mm:ss a z")}</p>
+              <p>{format(boundaryStart, "MMM dd yyyy, hh:mm:ss a z")}</p>
               <p>|</p>
-              <p>{format(dates[1], "MMM dd yyyy, hh:mm:ss a z")}</p>
+              <p>{format(boundaryEnd, "MMM dd yyyy, hh:mm:ss a z")}</p>
             </div>
           </div>
-        ))}
+        </div>
+
+        <div className="flex justify-between text-lg text-red-300">
+          <span className="flex items-baseline gap-2">
+            <strong className="text-2xl">URL STATE:</strong>
+            <dfn className="text-sm">(what the url is)</dfn>
+          </span>
+          <div className="flex gap-4">
+            <p>{format(selectedStart, "MMM dd yyyy, hh:mm:ss a z")}</p>
+            <p>|</p>
+            <p>{format(selectedEnd, "MMM dd yyyy, hh:mm:ss a z")}</p>
+          </div>
+        </div>
+
+        <div className="flex justify-between text-lg text-red-300">
+          <span className="flex items-baseline gap-2">
+            <strong className="text-2xl">Display:</strong>
+            <dfn className="text-sm">(what the user sees using time component)</dfn>
+          </span>
+          <div className="flex gap-4">
+            <Time pattern={PATTERN}>{selectedStart.toISOString()}</Time>
+            <p>|</p>
+            <Time pattern={PATTERN}>{selectedEnd.toISOString()}</Time>
+          </div>
+        </div>
+
+        <div className="flex justify-between text-lg">
+          <span className="flex items-baseline gap-2">
+            <strong className="text-2xl">Queries:</strong>
+            <dfn className="text-sm">(what we pass into our endpoints)</dfn>
+          </span>
+          <div className="flex gap-4">
+            <time>{selectedStart.toISOString()}</time>
+            <p>|</p>
+            <time>{selectedEnd.toISOString()}</time>
+          </div>
+        </div>
+
+        <br />
+        <br />
+
+        <div className="flex items-center gap-2">
+          <Link
+            href={`/pagination?${prevParams.toString()}`}
+            className={cn(
+              "button-press-effect flex h-7 w-7 min-w-0 items-center justify-center rounded-md border bg-white",
+              isSameDay(boundaryStart, selectedStart) ? "border-grey-200 pointer-events-none" : "",
+            )}
+          >
+            <ChevronLeftIcon className="text-black" />
+          </Link>
+
+          <Link
+            href={`/pagination?${nextParams.toString()}`}
+            className={cn(
+              "button-press-effect flex h-7 w-7 min-w-0 items-center justify-center rounded-md border bg-white",
+              isSameDay(boundaryEnd, selectedEnd)
+                ? "pointer-events-none text-gray-400"
+                : "text-black",
+            )}
+          >
+            <ChevronRightIcon className="text-black" />
+          </Link>
+        </div>
+
+        <div>
+          {[
+            { title: "Prev", dates: prev },
+            { title: "Next", dates: next },
+          ].map(({ title, dates }) => (
+            <div className="flex justify-between text-lg" key={title}>
+              <p>{title}:</p>
+              <div className="flex gap-4">
+                <p>{format(dates[0], "MMM dd yyyy, hh:mm:ss a z")}</p>
+                <p>|</p>
+                <p>{format(dates[1], "MMM dd yyyy, hh:mm:ss a z")}</p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
-      <div className="flex items-center gap-2"></div>
-
       <div className="flex justify-between text-lg">
-        <p>Interval:</p>
-        <div className="flex gap-4">
-          <p className="capitalize">{interval}</p>
-        </div>
+        <DropdownMenu>
+          <DropdownMenuTrigger className="text-lg" asChild>
+            <Button className="capitalize">{interval}</Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            {options.map((option) => {
+              const params = new SearchParams(searchParams);
+              params.set("interval", option);
+              return (
+                <DropdownMenuItem asChild key={option}>
+                  <Link href={`/pagination?${params.toString()}`} className="capitalize">
+                    {option}
+                  </Link>
+                </DropdownMenuItem>
+              );
+            })}
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </div>
   );
 }
+
+const options = ["hourly", "daily", "weekly"] as const;
