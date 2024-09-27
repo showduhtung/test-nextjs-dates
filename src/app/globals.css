@@ -25,3 +25,9 @@ body {
     text-wrap: balance;
   }
 }
+
+@layer components {
+  .button-press-effect {
+    @apply cursor-pointer active:translate-y-px;
+  }
+}
