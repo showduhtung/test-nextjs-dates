@@ -204,7 +204,7 @@ function IntervalSelect({ searchParams }: IntervalSelectProps) {
     if (maxDifference < cycle) return [boundaryStart, boundaryEnd];
 
     // Calculate the projected end of the cycle, and check if it fits within boundaries.
-    const cycleEnd = endOfDay(addDays(start, cycle - 1));
+    const cycleEnd = endOfDay(addDays(new TZDate(start), cycle - 1));
     if (!isAfter(cycleEnd, boundaryEnd)) return [start, cycleEnd];
 
     // If cycle exceeds boundaries, adjust start to fit the range and return updated interval.
