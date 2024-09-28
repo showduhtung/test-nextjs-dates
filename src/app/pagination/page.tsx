@@ -89,12 +89,28 @@ export default function PaginationPage({ searchParams }: PageProps) {
       <div className="flex justify-between text-lg text-red-300">
         <span className="flex items-baseline gap-2">
           <strong className="text-2xl">URL STATE:</strong>
-          <dfn className="text-sm">(what the url is)</dfn>
+          <dfn className="text-xs">
+            <code>&quot;format(url, pattern)&quot;</code>
+          </dfn>
         </span>
         <div className="flex gap-4">
           <p>{format(urlStart, "MMM dd yyyy, hh:mm:ss a z")}</p>
           <p>|</p>
           <p>{format(urlEnd, "MMM dd yyyy, hh:mm:ss a z")}</p>
+        </div>
+      </div>
+
+      <div className="flex justify-between text-lg">
+        <span className="flex items-baseline gap-2">
+          <strong className="text-2xl">Queries:</strong>
+          <dfn className="text-xs">
+            <code>&quot;url.toISOString()&quot;</code>
+          </dfn>
+        </span>
+        <div className="flex gap-4">
+          <time>{urlStart.toISOString()}</time>
+          <p>|</p>
+          <time>{urlEnd.toISOString()}</time>
         </div>
       </div>
 
@@ -107,18 +123,6 @@ export default function PaginationPage({ searchParams }: PageProps) {
           <Time pattern={PATTERN}>{urlStart.toISOString()}</Time>
           <p>|</p>
           <Time pattern={PATTERN}>{urlEnd.toISOString()}</Time>
-        </div>
-      </div>
-
-      <div className="flex justify-between text-lg">
-        <span className="flex items-baseline gap-2">
-          <strong className="text-2xl">Queries:</strong>
-          <dfn className="text-sm">(what we pass into our endpoints)</dfn>
-        </span>
-        <div className="flex gap-4">
-          <time>{urlStart.toISOString()}</time>
-          <p>|</p>
-          <time>{urlEnd.toISOString()}</time>
         </div>
       </div>
 
