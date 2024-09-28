@@ -10,6 +10,8 @@ type PageProps = { params: PageParams<HourlyParams> };
 export default function HourPage({ params }: PageProps) {
   const { selectedHour } = parseParams<HourlyParams>(params);
 
+  if (!selectedHour) throw new Error("Missing selectedHour");
+
   return (
     <div className="flex flex-col gap-4">
       <Button className="w-fit" asChild>
