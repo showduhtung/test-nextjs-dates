@@ -15,28 +15,34 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           enableSystem
           disableTransitionOnChange
         >
-          <div className="grid min-h-screen grid-rows-[20px_1fr_20px] gap-12 p-20 pb-12 font-[family-name:var(--font-geist-sans)]">
-            <div className="flex justify-between">
-              <div className="flex gap-12">
-                <NavLink href="/">Static</NavLink>
-                <NavLink href="/dynamic">Dynamic</NavLink>
-                <NavLink href="/ppr">PPR</NavLink>
-                <NavLink href="/pagination">Pagination</NavLink>
-                <NavLink href="/hourly">Hourly Blocks</NavLink>
+          <div className="container mx-auto flex min-h-screen flex-col justify-between p-20 pb-16">
+            <div className="font-[family-name:var(--font-geist-sans)]">
+              <div className="mb-12 flex justify-between">
+                <Navigation />
+                <ModeToggle />
               </div>
-              <ModeToggle />
-            </div>
-            <div className="container mx-auto flex flex-col justify-between justify-items-center gap-16">
               {children}
-              <footer>
-                <div className="w-fit justify-items-center">
-                  <Display label="pattern">{PATTERN}</Display>
-                </div>
-              </footer>
             </div>
+            <footer>
+              <div className="w-fit justify-items-center">
+                <Display label="pattern">{PATTERN}</Display>
+              </div>
+            </footer>
           </div>
         </ThemeProvider>
       </body>
     </html>
+  );
+}
+
+function Navigation() {
+  return (
+    <div className="flex gap-12">
+      <NavLink href="/">Static</NavLink>
+      <NavLink href="/dynamic">Dynamic</NavLink>
+      <NavLink href="/ppr">PPR</NavLink>
+      <NavLink href="/pagination">Pagination</NavLink>
+      <NavLink href="/hourly">Hourly Blocks</NavLink>
+    </div>
   );
 }
