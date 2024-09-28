@@ -11,8 +11,12 @@ export default function HourPage({ params }: PageProps) {
   const { selectedHour } = parseParams<HourlyParams>(params);
 
   if (!(selectedHour instanceof Date)) {
-    console.error(`Missing selectedHour ${JSON.stringify(params)}`);
-    throw new Error(`Missing selectedHour ${JSON.stringify(params)}`);
+    console.error(
+      `[console] Missing selectedHour ${JSON.stringify(params)} ${typeof selectedHour}`,
+    );
+    throw new Error(
+      `[thrown] Missing selectedHour ${JSON.stringify(params)} ${typeof selectedHour}`,
+    );
   }
 
   return (
