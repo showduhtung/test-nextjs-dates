@@ -58,8 +58,8 @@ export default function PaginationPage({ searchParams }: PageProps) {
     const forward = min([endOfDay(addDays(end, cycle)), boundaryEnd]);
 
     return [
-      [back, endOfDay(subDays(start, 1))],
-      [startOfDay(addDays(end, 1)), forward],
+      [back, endOfDay(subDays(start, 1))].map((date) => new Date(date)),
+      [startOfDay(addDays(end, 1)), forward].map((date) => new Date(date)),
     ];
   })();
 
@@ -73,11 +73,14 @@ export default function PaginationPage({ searchParams }: PageProps) {
     <div className="flex flex-col gap-4">
       <div className="flex flex-col">
         <div className="flex justify-between text-lg text-red-300">
-          <strong className="text-2xl">Boundaries:</strong>
+          <span className="flex items-baseline gap-2">
+            <strong className="text-2xl">Boundaries:</strong>
+            <dfn className="text-sm">(in utc string)</dfn>
+          </span>
           <div className="flex gap-4">
-            <p>{format(boundaryStart, "MMM dd yyyy, hh:mm:ss a z")}</p>
+            <p>{boundaryStart.toUTCString()}</p>
             <p>|</p>
-            <p>{format(boundaryEnd, "MMM dd yyyy, hh:mm:ss a z")}</p>
+            <p>{boundaryEnd.toUTCString()}</p>
           </div>
         </div>
       </div>
