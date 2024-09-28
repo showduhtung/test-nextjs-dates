@@ -77,9 +77,9 @@ export default function PaginationPage({ searchParams }: PageProps) {
           </dfn>
 
           <div className="flex w-[550px] justify-between gap-4">
-            <p>{boundaryStart.toUTCString()}</p>
+            <time>{boundaryStart.toUTCString()}</time>
             <p>|</p>
-            <p>{boundaryEnd.toUTCString()}</p>
+            <time>{boundaryEnd.toUTCString()}</time>
           </div>
         </div>
 
@@ -89,16 +89,15 @@ export default function PaginationPage({ searchParams }: PageProps) {
           </dfn>
 
           <div className="flex w-[550px] justify-between gap-4">
-            <p>{boundaryStart.toISOString()}</p>
+            <time>{boundaryStart.toISOString()}</time>
             <p>|</p>
-            <p>{boundaryEnd.toISOString()}</p>
+            <time>{boundaryEnd.toISOString()}</time>
           </div>
         </div>
       </div>
 
       <div className="flex flex-col gap-1">
         <strong className="text-2xl">URL State:</strong>
-
         <div className="flex items-center justify-between text-red-300">
           <dfn className="text-xs">
             <code>"&lt;Time&gt;&#123;urlStart.toISOString()&#125;&lt;/Time&gt;"</code>
@@ -165,27 +164,31 @@ export default function PaginationPage({ searchParams }: PageProps) {
           { title: "Next", dates: next },
         ].map(({ title, dates }) => (
           <div key={title}>
-            <div className="flex justify-between text-lg">
+            <div className="flex justify-between">
               <span className="flex items-baseline gap-4">
-                <p>{title}:</p>
-                <code className="text-sm">"format(date, pattern)"</code>
+                <strong className="text-lg">{title}:</strong>
+                <dfn className="text-xs">
+                  <code className="text-sm">"format(date, pattern)"</code>
+                </dfn>
               </span>
-              <div className="flex gap-4">
-                <p>{format(dates[0], "MMM dd yyyy, hh:mm:ss a z")}</p>
+              <div className="flex w-[550px] justify-between text-red-300">
+                <time>{format(dates[0], "MMM dd yyyy, hh:mm:ss a z")}</time>
                 <p>|</p>
-                <p>{format(dates[1], "MMM dd yyyy, hh:mm:ss a z")}</p>
+                <time>{format(dates[1], "MMM dd yyyy, hh:mm:ss a z")}</time>
               </div>
             </div>
 
-            <div className="flex justify-between text-lg">
+            <div className="flex justify-between">
               <span className="flex items-baseline gap-4">
                 <div className="w-11" />
-                <code className="text-sm">"date.toISOString()"</code>
+                <dfn className="text-xs">
+                  <code className="text-sm">"date.toISOString()"</code>
+                </dfn>
               </span>
-              <div className="flex gap-4">
-                <p>{dates[0].toISOString()}</p>
+              <div className="flex w-[550px] justify-between text-red-300">
+                <time>{dates[0].toISOString()}</time>
                 <p>|</p>
-                <p>{dates[1].toISOString()}</p>
+                <time>{dates[1].toISOString()}</time>
               </div>
             </div>
           </div>
