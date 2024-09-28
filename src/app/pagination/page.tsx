@@ -64,7 +64,28 @@ export default function PaginationPage({ searchParams }: PageProps) {
   nextParams.set("selectedDates", next);
 
   return (
-    <div className="flex h-full flex-col justify-between">
+    <div className="gap- flex h-full flex-col gap-4">
+      <div className="flex justify-between text-lg">
+        <DropdownMenu>
+          <DropdownMenuTrigger className="text-lg" asChild>
+            <Button className="capitalize">{interval}</Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            {options.map((option) => {
+              const params = new SearchParams(searchParams);
+              params.set("interval", option);
+              return (
+                <DropdownMenuItem asChild key={option}>
+                  <Link href={`/pagination?${params.toString()}`} className="capitalize">
+                    {option}
+                  </Link>
+                </DropdownMenuItem>
+              );
+            })}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+      <div className="h-4" />
       <div className="flex flex-col gap-4">
         <div className="flex flex-col">
           <div className="flex justify-between text-lg text-red-300">
@@ -117,27 +138,23 @@ export default function PaginationPage({ searchParams }: PageProps) {
         <br />
 
         <div className="flex items-center gap-2">
-          <Link
-            href={`/pagination?${prevParams.toString()}`}
-            className={cn(
-              "button-press-effect flex h-7 w-7 min-w-0 items-center justify-center rounded-md border bg-white",
-              isSameDay(boundaryStart, selectedStart) ? "border-grey-200 pointer-events-none" : "",
-            )}
-          >
-            <ChevronLeftIcon className="text-black" />
-          </Link>
+          <Button asChild size="icon" disabled={isSameDay(boundaryStart, selectedStart)}>
+            <Link href={`/pagination?${prevParams.toString()}`}>
+              <ChevronLeftIcon
+                className={cn(
+                  isSameDay(boundaryStart, selectedStart) ? "text-gray-400" : "text-black",
+                )}
+              />
+            </Link>
+          </Button>
 
-          <Link
-            href={`/pagination?${nextParams.toString()}`}
-            className={cn(
-              "button-press-effect flex h-7 w-7 min-w-0 items-center justify-center rounded-md border bg-white",
-              isSameDay(boundaryEnd, selectedEnd)
-                ? "pointer-events-none text-gray-400"
-                : "text-black",
-            )}
-          >
-            <ChevronRightIcon className="text-black" />
-          </Link>
+          <Button asChild size="icon" disabled={isSameDay(boundaryEnd, selectedEnd)}>
+            <Link href={`/pagination?${prevParams.toString()}`}>
+              <ChevronRightIcon
+                className={cn(isSameDay(boundaryEnd, selectedEnd) ? "text-gray-400" : "text-black")}
+              />
+            </Link>
+          </Button>
         </div>
 
         <div>
@@ -155,27 +172,6 @@ export default function PaginationPage({ searchParams }: PageProps) {
             </div>
           ))}
         </div>
-      </div>
-
-      <div className="flex justify-between text-lg">
-        <DropdownMenu>
-          <DropdownMenuTrigger className="text-lg" asChild>
-            <Button className="capitalize">{interval}</Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            {options.map((option) => {
-              const params = new SearchParams(searchParams);
-              params.set("interval", option);
-              return (
-                <DropdownMenuItem asChild key={option}>
-                  <Link href={`/pagination?${params.toString()}`} className="capitalize">
-                    {option}
-                  </Link>
-                </DropdownMenuItem>
-              );
-            })}
-          </DropdownMenuContent>
-        </DropdownMenu>
       </div>
     </div>
   );

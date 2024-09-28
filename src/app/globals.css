@@ -66,7 +66,7 @@ body {
     --popover: 0 0% 10%; /* Matching the card for consistency */
     --popover-foreground: 0 0% 95%; /* Same as card-foreground */
 
-    --primary: 0 0% 90%; /* Lightened a bit to keep a smoother contrast */
+    --primary: 0 0% 90%; /* Lightened a bit to keep a smoother contrast
     --primary-foreground: 0 0% 10%; /* Darker for strong contrast */
 
     --secondary: 0 0% 20%; /* Lightened for better readability */
