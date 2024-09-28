@@ -139,7 +139,7 @@ export default function PaginationPage({ searchParams }: PageProps) {
             )}
           >
             <ChevronLeftIcon
-              className={cn(isSameDay(boundaryStart, urlStart) ? "text-gray-400" : "text-red-400")}
+              className={cn(isSameDay(boundaryStart, urlStart) ? "text-gray-400" : "text-primary")}
             />
           </Link>
         </Button>
@@ -156,7 +156,7 @@ export default function PaginationPage({ searchParams }: PageProps) {
             )}
           >
             <ChevronRightIcon
-              className={cn(isSameDay(boundaryEnd, urlEnd) ? "text-gray-400" : "text-red-400")}
+              className={cn(isSameDay(boundaryEnd, urlEnd) ? "text-gray-400" : "text-primary")}
             />
           </Link>
         </Button>
@@ -227,7 +227,7 @@ function IntervalSelect({ searchParams }: IntervalSelectProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="text-lg" asChild>
-        <Button className="font-bold capitalize text-red-400">{interval}</Button>
+        <Button className="font-bold capitalize text-primary">{interval}</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         {options.map((option) => {
