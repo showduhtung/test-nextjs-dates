@@ -71,7 +71,7 @@ export default function PaginationPage({ searchParams }: PageProps) {
     <div className="flex flex-col gap-4">
       <div className="flex flex-col gap-1">
         <strong className="text-2xl">Boundaries:</strong>
-        <div className="flex items-center justify-between text-red-300">
+        <div className="flex items-center justify-between text-primary">
           <dfn className="text-xs">
             <code>&quot;boundaryStart.toUTCString()&quot;</code>
           </dfn>
@@ -83,7 +83,7 @@ export default function PaginationPage({ searchParams }: PageProps) {
           </div>
         </div>
 
-        <div className="flex items-center justify-between text-red-300">
+        <div className="flex items-center justify-between text-primary">
           <dfn className="text-xs">
             <code>&quot;boundaryStart.toISOString()&quot;</code>
           </dfn>
@@ -99,7 +99,7 @@ export default function PaginationPage({ searchParams }: PageProps) {
       <div className="flex flex-col gap-1">
         <strong className="text-2xl">URL State:</strong>
 
-        <div className="flex items-center justify-between text-red-300">
+        <div className="flex items-center justify-between text-primary">
           <dfn className="text-xs">
             <code>&quot;format(url, pattern)&quot;</code>
           </dfn>
@@ -114,7 +114,7 @@ export default function PaginationPage({ searchParams }: PageProps) {
 
       <div className="flex flex-col gap-1">
         <strong className="text-2xl">UI Display:</strong>
-        <div className="flex items-center justify-between text-red-300">
+        <div className="flex items-center justify-between text-primary">
           <dfn className="text-xs">
             <code>&quot;&lt;Time&gt;&#123;urlStart.toISOString()&#125;&lt;/Time&gt;&quot;</code>
           </dfn>
@@ -171,11 +171,11 @@ export default function PaginationPage({ searchParams }: PageProps) {
             <div className="flex justify-between">
               <span className="flex items-center gap-4">
                 <strong className="text-lg">{title}:</strong>
-                <dfn className="text-xs text-red-300">
+                <dfn className="text-xs text-primary">
                   <code>&quot;format(date, pattern)&quot;</code>
                 </dfn>
               </span>
-              <div className="flex w-[550px] justify-between text-red-300">
+              <div className="flex w-[550px] justify-between text-primary">
                 <time>{format(dates[0], "MMM dd yyyy, hh:mm:ss a z")}</time>
                 <p>|</p>
                 <time>{format(dates[1], "MMM dd yyyy, hh:mm:ss a z")}</time>
@@ -185,11 +185,11 @@ export default function PaginationPage({ searchParams }: PageProps) {
             <div className="flex justify-between">
               <span className="flex items-center gap-4">
                 <div className="w-11" />
-                <dfn className="text-xs text-red-300">
+                <dfn className="text-xs text-primary">
                   <code>&quot;date.toISOString()&quot;</code>
                 </dfn>
               </span>
-              <div className="flex w-[550px] justify-between text-red-300">
+              <div className="flex w-[550px] justify-between text-primary">
                 <time>{dates[0].toISOString()}</time>
                 <p>|</p>
                 <time>{dates[1].toISOString()}</time>

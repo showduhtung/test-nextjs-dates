@@ -8,13 +8,6 @@ body {
   background: var(--background);
 }
 
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #413535;
-    --foreground: #ededed;
-  }
-} */
-
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -29,6 +22,54 @@ body {
 
 @layer base {
   :root {
+    --background: 0 100% 95%;
+    --foreground: 0 5% 7%;
+    --card: 0 50% 90%;
+    --card-foreground: 0 5% 10%;
+    --popover: 0 100% 95%;
+    --popover-foreground: 0 100% 7%;
+    --primary: 0 0% 83.1%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 0 30% 70%;
+    --secondary-foreground: 0 0% 0%;
+    --muted: -38 30% 85%;
+    --muted-foreground: 0 5% 35%;
+    --accent: -38 30% 80%;
+    --accent-foreground: 0 5% 10%;
+    --destructive: 0 100% 30%;
+    --destructive-foreground: 0 5% 90%;
+    --border: 0 30% 50%;
+    --input: 0 30% 18%;
+    --ring: 0 0% 83.1%;
+    --radius: 0.5rem;
+  }
+  .dark {
+    /* --background: 0 50% 7%;
+    --foreground: 0 5% 90%; */
+    --background: #413535;
+    --foreground: #ededed;
+    --card: 0 50% 7%;
+    --card-foreground: 0 5% 90%;
+    --popover: 0 50% 5%;
+    --popover-foreground: 0 5% 90%;
+    /* --primary: 0 0% 83.1%;
+    --primary-foreground: 0 0% 0%; */
+    --primary: 0 94% 82%;
+    --primary-foreground: 0 9.399999999999999% 8.2%;
+    --secondary: 0 30% 10%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: -38 30% 15%;
+    --muted-foreground: 0 5% 60%;
+    --accent: -38 30% 15%;
+    --accent-foreground: 0 5% 90%;
+    --destructive: 0 100% 30%;
+    --destructive-foreground: 0 5% 90%;
+    --border: 0 30% 18%;
+    --input: 0 30% 18%;
+    --ring: 0 0% 83.1%;
+    --radius: 0.5rem;
+  }
+  /* :root {
     --background: 0 0% 100%;
     --foreground: 0 0% 3.9%;
     --card: 0 0% 100%;
@@ -57,69 +98,36 @@ body {
   }
 
   .dark {
-    --background: #413535; /* Keep this for dark theme background */
-    --foreground: #ededed; /* Keep this for light theme text */
+    --gradient: #fca5a5;
 
-    --card: 0 0% 10%; /* Slightly lightened from 3.9% for visibility */
-    --card-foreground: 0 0% 95%; /* Slightly darker for better contrast */
-
-    --popover: 0 0% 10%; /* Matching the card for consistency */
-    --popover-foreground: 0 0% 95%; /* Same as card-foreground */
-
-    --primary: 0 0% 90%; /* Lightened a bit to keep a smoother contrast
-    --primary-foreground: 0 0% 10%; /* Darker for strong contrast */
-
-    --secondary: 0 0% 20%; /* Lightened for better readability */
-    --secondary-foreground: 0 0% 95%; /* Keeping consistency with other elements */
-
-    --muted: 0 0% 25%; /* Lightened for more subtle contrast */
-    --muted-foreground: 0 0% 70%; /* Increased visibility on muted background */
-
-    --accent: 0 0% 25%; /* Keep accent in the muted range for subtle highlights */
-    --accent-foreground: 0 0% 95%; /* Accent foreground should stay bright */
-
-    --destructive: 0 62.8% 40%; /* Darkened destructive slightly to match the theme */
-    --destructive-foreground: 0 0% 95%; /* Keep the foreground bright for warnings */
-
-    --border: 0 0% 20%; /* Border matching secondary color for smoother blending */
-    --input: 0 0% 20%; /* Matches border for a consistent look across inputs */
-
-    --ring: 0 0% 85%; /* Keep ring slightly off-white for a subtle glow effect */
-
-    /* Adjusting chart colors to make them less saturated and more balanced */
-    --chart-1: 220 60% 50%; /* Reduced saturation for softer visuals */
-    --chart-2: 160 50% 45%; /* Lowered saturation and slightly darker */
-    --chart-3: 30 70% 55%; /* Slightly muted for consistency */
-    --chart-4: 280 55% 60%; /* Adjusted to keep a smoother palette */
-    --chart-5: 340 65% 55%; /* Adjusted saturation to match the other charts */
-  }
-  /* --background: 0 0% 3.9%;
-  --foreground: 0 0% 98%; */
-  /* .dark {
     --background: #413535;
     --foreground: #ededed;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
+
+    --muted: 0 47% 24.599999999999998%;
+    --muted-foreground: 0 9.399999999999999% 58.2%;
+
+    --popover: 0 46.2% 10.66%;
+    --popover-foreground: 0 9.399999999999999% 99.1%;
+
+    --card: 0 46.2% 10.66%;
+    --card-foreground: 0 9.399999999999999% 99.1%;
+
+    --border: 0 47% 24.599999999999998%;
+    --input: 0 47% 24.599999999999998%;
+
+    --primary: 0 94% 82%;
+    --primary-foreground: 0 9.399999999999999% 8.2%;
+
+    --secondary: 0 47% 24.599999999999998%;
+    --secondary-foreground: 0 9.399999999999999% 99.1%;
+
+    --accent: 0 47% 24.599999999999998%;
+    --accent-foreground: 0 9.399999999999999% 99.1%;
+
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+    --destructive-foreground: 0 9.399999999999999% 99.1%;
+
+    --ring: 0 94% 82%;
   } */
 }
 

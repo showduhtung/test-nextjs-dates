@@ -7,7 +7,6 @@ import { TIME_ZONE } from "~/common";
 
 type TimeProps = React.ComponentPropsWithoutRef<"time">;
 
-// To display in Singapore and to suppress hydration warning
 function Time({
   children,
   pattern = "yyyy-MM-dd HH:mm",
@@ -41,10 +40,7 @@ function formatDateTime(node?: ReactNode): Date | null {
     if (isNaN(parsedDate.getTime())) return null; // Checks for invalid dates
     dateInput = parsedDate;
   }
-
-  if (dateInput instanceof Date && !isNaN(dateInput.getTime())) {
-    return dateInput;
-  }
+  if (dateInput instanceof Date && !isNaN(dateInput.getTime())) return dateInput;
 
   return null;
 }
