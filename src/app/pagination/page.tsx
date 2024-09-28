@@ -71,7 +71,7 @@ export default function PaginationPage({ searchParams }: PageProps) {
     <div className="flex flex-col gap-4">
       <div className="flex flex-col">
         <div className="flex justify-between text-lg text-red-300">
-          <span className="flex items-baseline gap-2">
+          <span className="flex min-w-96 items-baseline justify-between gap-2">
             <strong className="text-2xl">Boundaries:</strong>
             <dfn className="text-sm">(in utc string)</dfn>
           </span>
@@ -84,8 +84,8 @@ export default function PaginationPage({ searchParams }: PageProps) {
       </div>
 
       <div className="flex justify-between text-lg text-red-300">
-        <span className="flex items-baseline gap-2">
-          <strong className="text-2xl">URL STATE:</strong>
+        <span className="flex min-w-96 items-baseline justify-between gap-2">
+          <strong className="text-2xl">url:</strong>
           <dfn className="text-xs">
             <code>&quot;format(url, pattern)&quot;</code>
           </dfn>
@@ -98,8 +98,8 @@ export default function PaginationPage({ searchParams }: PageProps) {
       </div>
 
       <div className="flex justify-between text-lg">
-        <span className="flex items-baseline gap-2">
-          <strong className="text-2xl">Queries:</strong>
+        <span className="flex min-w-96 items-baseline justify-between gap-2">
+          <strong className="text-2xl"></strong>
           <dfn className="text-xs">
             <code>&quot;url.toISOString()&quot;</code>
           </dfn>
@@ -112,7 +112,7 @@ export default function PaginationPage({ searchParams }: PageProps) {
       </div>
 
       <div className="flex justify-between text-lg text-red-300">
-        <span className="flex items-baseline gap-2">
+        <span className="flex min-w-96 items-baseline justify-between gap-2">
           <strong className="text-2xl">Display:</strong>
           <dfn className="text-sm">(what the user sees using time component)</dfn>
         </span>
