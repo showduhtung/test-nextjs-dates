@@ -17,6 +17,26 @@ function addDays(...args: Parameters<typeof DateFns.addDays>) {
   return DateFns.addDays(new TZDate(date, TIME_ZONE), days, ...rest);
 }
 
+function addHours(...args: Parameters<typeof DateFns.addHours>) {
+  const [date, hours, ...rest] = args;
+  return DateFns.addHours(new TZDate(date, TIME_ZONE), hours, ...rest);
+}
+
+function addMinutes(...args: Parameters<typeof DateFns.addMinutes>) {
+  const [date, minutes, ...rest] = args;
+  return DateFns.addMinutes(new TZDate(date, TIME_ZONE), minutes, ...rest);
+}
+
+function addSeconds(...args: Parameters<typeof DateFns.addSeconds>) {
+  const [date, seconds, ...rest] = args;
+  return DateFns.addSeconds(new TZDate(date, TIME_ZONE), seconds, ...rest);
+}
+
+function getHours(...args: Parameters<typeof DateFns.getHours>) {
+  const [date, ...rest] = args;
+  return DateFns.getHours(new TZDate(date, TIME_ZONE), ...rest);
+}
+
 function differenceInCalendarDays(...args: Parameters<typeof DateFns.differenceInCalendarDays>) {
   const [dateLeft, dateRight, ...rest] = args;
   return DateFns.differenceInCalendarDays(
@@ -55,8 +75,12 @@ function startOfDay(...args: Parameters<typeof DateFns.startOfDay>) {
   return DateFns.startOfDay(new TZDate(date, TIME_ZONE), ...options);
 }
 
+function startOfHour(...args: Parameters<typeof DateFns.startOfHour>) {
+  const [date, ...options] = args;
+  return DateFns.startOfHour(new TZDate(date, TIME_ZONE), ...options);
+}
+
 function subDays(...args: Parameters<typeof DateFns.subDays>) {
-  console.log({ args });
   const [date, days, ...options] = args;
   return DateFns.subDays(new TZDate(date, TIME_ZONE), days, ...options);
 }
@@ -70,4 +94,9 @@ export {
   isSameDay,
   startOfDay,
   subDays,
+  startOfHour,
+  addHours,
+  addMinutes,
+  addSeconds,
+  getHours,
 };

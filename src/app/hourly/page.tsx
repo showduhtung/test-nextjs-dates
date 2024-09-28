@@ -1,12 +1,19 @@
-import { addDays, addHours, format, getHours, startOfDay, startOfHour } from "date-fns";
 import Link from "next/link";
 import { Button } from "~/components/button";
 import { Time } from "~/components/time";
-import { differenceInCalendarDays } from "~/libs/date-fns";
+import {
+  differenceInCalendarDays,
+  addDays,
+  addHours,
+  format,
+  getHours,
+  startOfDay,
+  startOfHour,
+} from "~/libs/date-fns";
 
 const [boundaryStart, boundaryEnd] = [
-  new Date("Aug 31 2024, 03:00:00 PM GMT+0"),
-  new Date("Oct 01 2024, 04:00:00 PM GMT+0"),
+  new Date("Aug 31 2024, 02:00:00 PM GMT+0"),
+  new Date("Oct 01 2024, 02:00:00 PM GMT+0"),
 ];
 
 export default function HourlyBlocks() {
@@ -19,7 +26,7 @@ export default function HourlyBlocks() {
     if (day === 0) hourCount = 24 - getHours(start);
     else if (day === dayCount - 1) hourCount = getHours(end);
 
-    console.log({ dayCount, day, hourCount, end });
+    if (day === 0 || day === dayCount - 1) console.log({ dayCount, day, hourCount, end });
 
     const today = startOfDay(addDays(start, day));
 
