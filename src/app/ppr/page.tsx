@@ -4,19 +4,10 @@ export const experimental_ppr = true;
 
 export default function PPR() {
   return (
-    <div className="flex gap-20">
-      Static
-      <div className="flex w-full flex-wrap gap-8">
-        <div className="flex-1">
-          <TestDate />
-        </div>
-        <div className="min-w-min flex-1">
-          <TextTZDate />
-        </div>
-        <div className="min-w-min flex-1">
-          <TZDateClient />
-        </div>
-      </div>
+    <div className="flex flex-grow flex-col gap-8">
+      <TestDate />
+      <TextTZDate />
+      <TZDateClient />
     </div>
   );
 }

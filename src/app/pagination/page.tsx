@@ -131,16 +131,18 @@ export default function PaginationPage({ searchParams }: PageProps) {
       <br />
 
       <div className="flex items-center gap-2">
-        <Button asChild size="icon" disabled={isSameDay(boundaryStart, urlStart)}>
-          <Link
-            href={`/pagination?${prevParams.toString()}`}
-            className={cn(
-              isSameDay(boundaryStart, urlStart) ? "pointer-events-none" : "pointer-events-auto",
-            )}
-          >
-            <ChevronLeftIcon
-              className={cn(isSameDay(boundaryStart, urlStart) ? "text-gray-400" : "text-primary")}
-            />
+        <Button
+          asChild
+          size="icon"
+          disabled={isSameDay(boundaryStart, urlStart)}
+          className={cn(
+            isSameDay(boundaryStart, urlStart)
+              ? "pointer-events-none opacity-50"
+              : "pointer-events-auto",
+          )}
+        >
+          <Link href={`/pagination?${prevParams.toString()}`}>
+            <ChevronLeftIcon />
           </Link>
         </Button>
 
@@ -152,12 +154,12 @@ export default function PaginationPage({ searchParams }: PageProps) {
           <Link
             href={`/pagination?${nextParams.toString()}`}
             className={cn(
-              isSameDay(boundaryEnd, urlEnd) ? "pointer-events-none" : "pointer-events-auto",
+              isSameDay(boundaryEnd, urlEnd)
+                ? "pointer-events-none opacity-50"
+                : "pointer-events-auto",
             )}
           >
-            <ChevronRightIcon
-              className={cn(isSameDay(boundaryEnd, urlEnd) ? "text-gray-400" : "text-primary")}
-            />
+            <ChevronRightIcon />
           </Link>
         </Button>
       </div>
@@ -227,7 +229,7 @@ function IntervalSelect({ searchParams }: IntervalSelectProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="text-lg" asChild>
-        <Button className="font-bold capitalize text-primary">{interval}</Button>
+        <Button className="font-bold capitalize">{interval}</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         {options.map((option) => {

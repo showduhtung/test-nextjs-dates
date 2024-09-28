@@ -15,8 +15,8 @@ function Display({ label, children }: { label: string; children: ReactNode }) {
 
 function TestDate() {
   return (
-    <div className="rounded-md border border-red-300 p-8">
-      <h2 className="font-bold">Native Display</h2>
+    <div className="rounded-md border border-primary p-8">
+      <h2 className="text-2xl font-bold">Native Display</h2>
       <div className="h-8" />
       <div className="flex flex-col gap-2">
         <Display label="new Date().toISOString()">{new Date().toISOString()}</Display>
@@ -27,8 +27,8 @@ function TestDate() {
 
 function TextTZDate() {
   return (
-    <div className="rounded-md border border-red-300 p-8">
-      <h2 className="font-bold">Testing TZ Date</h2>
+    <div className="rounded-md border border-primary p-8">
+      <h2 className="text-2xl font-bold">Testing TZ Date</h2>
       <div className="h-8" />
       <div className="flex flex-col gap-2">
         <Display label="new Date().toISOString()">{new Date().toISOString()}</Display>
@@ -48,8 +48,8 @@ function TextTZDate() {
 
 function TZDateClient() {
   return (
-    <div className="rounded-md border border-red-300 p-8">
-      <h2 className="font-bold">Testing TZ Date with Client components</h2>
+    <div className="rounded-md border border-primary p-8">
+      <h2 className="text-2xl font-bold">Testing TZ Date with Client components</h2>
       <div className="h-8" />
       <div className="flex flex-col gap-2">
         <Display label="new Date().toISOString()">

@@ -26,7 +26,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               </div>
               <ModeToggle />
             </div>
-            <div className="flex flex-col justify-between justify-items-center gap-16">
+            <div className="container mx-auto flex flex-col justify-between justify-items-center gap-16">
               {children}
               <footer>
                 <div className="w-fit justify-items-center">

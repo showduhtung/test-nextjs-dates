@@ -40,7 +40,7 @@ export default function HourlyBlocks() {
   });
 
   return (
-    <div className="container mx-auto flex flex-col gap-8">
+    <div className="flex flex-col gap-8">
       <div className="flex flex-col gap-1">
         <strong className="text-2xl">Boundaries:</strong>
         <div className="flex items-center justify-between text-primary">
