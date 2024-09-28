@@ -58,8 +58,8 @@ export default function PaginationPage({ searchParams }: PageProps) {
     const forward = min([endOfDay(addDays(end, cycle)), boundaryEnd]);
 
     return [
-      [back, endOfDay(subDays(start, 1))].map((date) => new Date(date)),
-      [startOfDay(addDays(end, 1)), forward].map((date) => new Date(date)),
+      [back, endOfDay(subDays(start, 1))],
+      [startOfDay(addDays(end, 1)), forward],
     ];
   })();
 
@@ -68,9 +68,6 @@ export default function PaginationPage({ searchParams }: PageProps) {
 
   const nextParams = new SearchParams(searchParams);
   nextParams.set("selectedDates", next);
-
-  console.log(prevParams.get("selectedDates"));
-  console.log(nextParams.get("selectedDates"));
 
   return (
     <div className="flex flex-col gap-4">
