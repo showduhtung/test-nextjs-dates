@@ -1,4 +1,3 @@
-import { TZDate } from "@date-fns/tz";
 import {
   addDays,
   differenceInCalendarDays,
@@ -25,6 +24,7 @@ import {
   DropdownMenuTrigger,
 } from "~/components/dropdown-menu";
 import { Button } from "~/components/button";
+import { TZDate } from "~/libs/date-fns";
 const intervals = { hourly: 1, daily: 7, weekly: 30 } as const;
 
 type Interval = "hourly" | "daily" | "weekly";
