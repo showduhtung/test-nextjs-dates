@@ -1,15 +1,4 @@
-import {
-  addDays,
-  differenceInCalendarDays,
-  endOfDay,
-  format,
-  isAfter,
-  isSameDay,
-  max,
-  min,
-  startOfDay,
-  subDays,
-} from "date-fns";
+import { max, min } from "date-fns";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -24,7 +13,17 @@ import {
   DropdownMenuTrigger,
 } from "~/components/dropdown-menu";
 import { Button } from "~/components/button";
-import { TZDate } from "~/libs/date-fns";
+import {
+  TZDate,
+  addDays,
+  differenceInCalendarDays,
+  endOfDay,
+  format,
+  isAfter,
+  isSameDay,
+  startOfDay,
+  subDays,
+} from "~/libs/date-fns";
 const intervals = { hourly: 1, daily: 7, weekly: 30 } as const;
 
 type Interval = "hourly" | "daily" | "weekly";
@@ -43,8 +42,7 @@ export default function PaginationPage({ searchParams }: PageProps) {
   if (!interval || !selectedDates) {
     const queries = new SearchParams(searchParams);
     if (!interval) queries.set("interval", "hourly");
-    if (!selectedDates)
-      queries.set("selectedDates", [boundaryStart, endOfDay(new TZDate(boundaryStart))]);
+    if (!selectedDates) queries.set("selectedDates", [boundaryStart, endOfDay(boundaryStart)]);
 
     redirect(`/pagination?${queries.toString()}`);
   }
@@ -52,15 +50,14 @@ export default function PaginationPage({ searchParams }: PageProps) {
   const [urlStart, urlEnd] = selectedDates;
   const [prev, next] = (() => {
     const cycle = intervals[interval];
-    const [start, end] = [new TZDate(urlStart), new TZDate(urlEnd)];
 
     // Calculate the "back" and "forward" date with cycle, ensuring it doesn't go beyond boundaries
-    const back = max([startOfDay(subDays(start, cycle)), boundaryStart]);
-    const forward = min([endOfDay(addDays(end, cycle)), boundaryEnd]);
+    const back = max([startOfDay(subDays(urlStart, cycle)), boundaryStart]);
+    const forward = min([endOfDay(addDays(urlEnd, cycle)), boundaryEnd]);
 
     return [
-      [back, endOfDay(subDays(start, 1))],
-      [startOfDay(addDays(end, 1)), forward],
+      [back, endOfDay(subDays(urlStart, 1))],
+      [startOfDay(addDays(urlEnd, 1)), forward],
     ];
   })();
 
