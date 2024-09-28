@@ -116,7 +116,7 @@ export default function PaginationPage({ searchParams }: PageProps) {
         <strong className="text-2xl">UI Display:</strong>
         <div className="flex items-center justify-between text-red-300">
           <dfn className="text-xs">
-            <code>"&lt;Time&gt;&#123;urlStart.toISOString()&#125;&lt;/Time&gt;"</code>
+            <code>&quot;&lt;Time&gt;&#123;urlStart.toISOString()&#125;&lt;/Time&gt;&quot;</code>
           </dfn>
 
           <div className="flex w-[550px] justify-between gap-4">
@@ -172,7 +172,7 @@ export default function PaginationPage({ searchParams }: PageProps) {
               <span className="flex items-center gap-4">
                 <strong className="text-lg">{title}:</strong>
                 <dfn className="text-xs text-red-300">
-                  <code>"format(date, pattern)"</code>
+                  <code>&quot;format(date, pattern)&quot;</code>
                 </dfn>
               </span>
               <div className="flex w-[550px] justify-between text-red-300">
@@ -186,7 +186,7 @@ export default function PaginationPage({ searchParams }: PageProps) {
               <span className="flex items-center gap-4">
                 <div className="w-11" />
                 <dfn className="text-xs text-red-300">
-                  <code>"date.toISOString()"</code>
+                  <code>&quot;date.toISOString()&quot;</code>
                 </dfn>
               </span>
               <div className="flex w-[550px] justify-between text-red-300">
