@@ -167,8 +167,8 @@ export default function PaginationPage({ searchParams }: PageProps) {
             <div className="flex justify-between">
               <span className="flex items-baseline gap-4">
                 <strong className="text-lg">{title}:</strong>
-                <dfn className="text-xs">
-                  <code className="text-sm">"format(date, pattern)"</code>
+                <dfn className="text-xs text-red-300">
+                  <code>"format(date, pattern)"</code>
                 </dfn>
               </span>
               <div className="flex w-[550px] justify-between text-red-300">
@@ -181,8 +181,8 @@ export default function PaginationPage({ searchParams }: PageProps) {
             <div className="flex justify-between">
               <span className="flex items-baseline gap-4">
                 <div className="w-11" />
-                <dfn className="text-xs">
-                  <code className="text-sm">"date.toISOString()"</code>
+                <dfn className="text-xs text-red-300">
+                  <code>"date.toISOString()"</code>
                 </dfn>
               </span>
               <div className="flex w-[550px] justify-between text-red-300">
