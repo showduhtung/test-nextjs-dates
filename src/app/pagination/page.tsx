@@ -48,8 +48,6 @@ export default function PaginationPage({ searchParams }: PageProps) {
     redirect(`/pagination?${queries.toString()}`);
   }
 
-  console.log({ selectedDates, interval });
-
   const [urlStart, urlEnd] = selectedDates;
   const [prev, next] = (() => {
     const cycle = intervals[interval];
@@ -70,8 +68,6 @@ export default function PaginationPage({ searchParams }: PageProps) {
 
   const nextParams = new SearchParams(searchParams);
   nextParams.set("selectedDates", next);
-
-  console.log({ prevParams, nextParams });
 
   return (
     <div className="flex flex-col gap-4">
