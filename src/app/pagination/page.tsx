@@ -69,57 +69,58 @@ export default function PaginationPage({ searchParams }: PageProps) {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-col">
-        <div className="flex justify-between text-lg text-red-300">
-          <span className="flex min-w-96 items-baseline justify-between gap-2">
-            <strong className="text-2xl">Boundaries:</strong>
-            <dfn className="text-sm">(in utc string)</dfn>
-          </span>
-          <div className="flex gap-4">
+      <div className="flex flex-col gap-1">
+        <strong className="text-2xl">Boundaries:</strong>
+        <div className="flex items-center justify-between text-red-300">
+          <dfn className="text-xs">
+            <code>&quot;boundaryStart.toUTCString()&quot;</code>
+          </dfn>
+
+          <div className="flex w-[550px] justify-between gap-4">
             <p>{boundaryStart.toUTCString()}</p>
             <p>|</p>
             <p>{boundaryEnd.toUTCString()}</p>
           </div>
         </div>
+
+        <div className="flex items-center justify-between text-red-300">
+          <dfn className="text-xs">
+            <code>&quot;boundaryStart.toISOString()&quot;</code>
+          </dfn>
+
+          <div className="flex w-[550px] justify-between gap-4">
+            <p>{boundaryStart.toISOString()}</p>
+            <p>|</p>
+            <p>{boundaryEnd.toISOString()}</p>
+          </div>
+        </div>
       </div>
 
-      <div className="flex justify-between text-lg text-red-300">
-        <span className="flex min-w-96 items-baseline justify-between gap-2">
-          <strong className="text-2xl">url:</strong>
+      <div className="flex flex-col gap-1">
+        <strong className="text-2xl">URL State:</strong>
+
+        <div className="flex items-center justify-between text-red-300">
+          <dfn className="text-xs">
+            <code>&lt;Time&gt;&#123;urlStart.toISOString()&#125;&lt;/Time&gt;</code>
+          </dfn>
+
+          <div className="flex w-[550px] justify-between gap-4">
+            <Time pattern={PATTERN}>{urlStart.toISOString()}</Time>
+            <p>|</p>
+            <Time pattern={PATTERN}>{urlEnd.toISOString()}</Time>
+          </div>
+        </div>
+
+        <div className="flex items-center justify-between text-red-300">
           <dfn className="text-xs">
             <code>&quot;format(url, pattern)&quot;</code>
           </dfn>
-        </span>
-        <div className="flex gap-4">
-          <p>{format(urlStart, "MMM dd yyyy, hh:mm:ss a z")}</p>
-          <p>|</p>
-          <p>{format(urlEnd, "MMM dd yyyy, hh:mm:ss a z")}</p>
-        </div>
-      </div>
 
-      <div className="flex justify-between text-lg">
-        <span className="flex min-w-96 items-baseline justify-between gap-2">
-          <strong className="text-2xl"></strong>
-          <dfn className="text-xs">
-            <code>&quot;url.toISOString()&quot;</code>
-          </dfn>
-        </span>
-        <div className="flex gap-4">
-          <time>{urlStart.toISOString()}</time>
-          <p>|</p>
-          <time>{urlEnd.toISOString()}</time>
-        </div>
-      </div>
-
-      <div className="flex justify-between text-lg text-red-300">
-        <span className="flex min-w-96 items-baseline justify-between gap-2">
-          <strong className="text-2xl">Display:</strong>
-          <dfn className="text-sm">(what the user sees using time component)</dfn>
-        </span>
-        <div className="flex gap-4">
-          <Time pattern={PATTERN}>{urlStart.toISOString()}</Time>
-          <p>|</p>
-          <Time pattern={PATTERN}>{urlEnd.toISOString()}</Time>
+          <div className="flex w-[550px] justify-between gap-4">
+            <time>{urlStart.toISOString()}</time>
+            <p>|</p>
+            <time>{urlEnd.toISOString()}</time>
+          </div>
         </div>
       </div>
 
