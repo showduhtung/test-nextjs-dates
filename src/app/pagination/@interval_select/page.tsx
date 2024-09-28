@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { parseSearchParams, PageSearchParams, SearchParams } from "~/common/utilities";
+import { parseSearchParams, SearchParams } from "~/common/utilities";
 
 import {
   DropdownMenu,
@@ -17,21 +17,16 @@ import {
   startOfDay,
   subDays,
 } from "~/libs/date-fns";
-import { mockFetchBoundaries } from "../common";
+import {
+  mockFetchBoundaries,
+  type PaginationPageProps,
+  type PaginationSearchParams,
+  type Interval,
+  type IntervalDateRange,
+  intervals,
+} from "../common";
 
-const intervals = { hourly: 1, daily: 7, weekly: 30 } as const;
-
-type Interval = "hourly" | "daily" | "weekly";
-type IntervalDateRange = [Date, Date];
-type PaginationSearchParams = Partial<{ selectedDates: IntervalDateRange; interval: Interval }>;
-type IntervalSelectProps = {
-  searchParams: PageSearchParams<PaginationSearchParams>;
-  boundaries: IntervalDateRange;
-};
-
-export default IntervalSelect;
-
-async function IntervalSelect({ searchParams }: IntervalSelectProps) {
+export default async function IntervalSelect({ searchParams }: PaginationPageProps) {
   const { interval, selectedDates } = parseSearchParams<PaginationSearchParams>(searchParams);
   if (!selectedDates || !interval) return <>Missing params</>;
 

@@ -1,15 +1,12 @@
 import { redirect } from "next/navigation";
 import { PATTERN } from "~/common";
-import { parseSearchParams, PageSearchParams, SearchParams } from "~/common/utilities";
+import { parseSearchParams, SearchParams } from "~/common/utilities";
 import { Time } from "~/components/time";
 import { endOfDay } from "~/libs/date-fns";
-import { mockFetchBoundaries, type Interval, type IntervalDateRange } from "./common";
+import { mockFetchBoundaries, PaginationPageProps, PaginationSearchParams } from "./common";
 
-type PaginationSearchParams = Partial<{ selectedDates: IntervalDateRange; interval: Interval }>;
-type PageProps = { searchParams: PageSearchParams<PaginationSearchParams> };
-
-export default async function PaginationPage({ searchParams }: PageProps) {
-  const { selectedDates, interval } = parseSearchParams<PaginationSearchParams>(searchParams);
+export default async function PaginationPage({ searchParams }: PaginationPageProps) {
+  const { interval, selectedDates } = parseSearchParams<PaginationSearchParams>(searchParams);
 
   const [boundaryStart, boundaryEnd] = await mockFetchBoundaries();
 

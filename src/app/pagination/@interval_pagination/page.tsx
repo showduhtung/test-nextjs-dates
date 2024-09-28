@@ -2,25 +2,20 @@ import { max, min } from "date-fns";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
 
-import { PageSearchParams, parseSearchParams, SearchParams } from "~/common/utilities";
+import { parseSearchParams, SearchParams } from "~/common/utilities";
 import { cn } from "~/libs/tailwind";
 import { Button } from "~/components/button";
 import { addDays, endOfDay, format, isSameDay, startOfDay, subDays } from "~/libs/date-fns";
-import { mockFetchBoundaries } from "../common";
-
-const intervals = { hourly: 1, daily: 7, weekly: 30 } as const;
-
-type Interval = "hourly" | "daily" | "weekly";
-type IntervalDateRange = [Date, Date];
-type PaginationSearchParams = Partial<{ selectedDates: IntervalDateRange; interval: Interval }>;
-type IntervalSelectProps = {
-  searchParams: PageSearchParams<PaginationSearchParams>;
-  boundaries: IntervalDateRange;
-};
+import {
+  intervals,
+  mockFetchBoundaries,
+  type PaginationPageProps,
+  type PaginationSearchParams,
+} from "../common";
 
 export default IntervalPagination;
 
-async function IntervalPagination({ searchParams }: IntervalSelectProps) {
+async function IntervalPagination({ searchParams }: PaginationPageProps) {
   const { interval, selectedDates } = parseSearchParams<PaginationSearchParams>(searchParams);
   if (!selectedDates || !interval) return <>Missing params</>;
 
