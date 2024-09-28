@@ -10,7 +10,7 @@ type PageProps = { params: PageParams<HourlyParams> };
 export default function HourPage({ params }: PageProps) {
   const { selectedHour } = parseParams<HourlyParams>(params);
 
-  if (!selectedHour) throw new Error("Missing selectedHour");
+  if (!selectedHour) throw new Error(`Missing selectedHour ${JSON.stringify(params)}`);
 
   return (
     <div className="flex flex-col gap-4">
