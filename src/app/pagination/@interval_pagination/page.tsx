@@ -12,6 +12,7 @@ import {
   type PaginationPageProps,
   type PaginationSearchParams,
 } from "../common";
+import { ReactNode } from "react";
 
 export default IntervalPagination;
 
@@ -44,33 +45,12 @@ async function IntervalPagination({ searchParams }: PaginationPageProps) {
   return (
     <>
       <div className="flex items-center gap-2">
-        <Button
-          asChild
-          size="icon"
-          disabled={isSameDay(boundaryStart, urlStart)}
-          className={cn(
-            isSameDay(boundaryStart, urlStart)
-              ? "pointer-events-none opacity-50"
-              : "pointer-events-auto",
-          )}
-        >
-          <Link href={`/pagination?${prevParams.toString()}`}>
-            <ChevronLeftIcon />
-          </Link>
-        </Button>
-
-        <Button asChild size="icon" disabled={isSameDay(boundaryEnd, urlEnd)}>
-          <Link
-            href={`/pagination?${nextParams.toString()}`}
-            className={cn(
-              isSameDay(boundaryEnd, urlEnd)
-                ? "pointer-events-none opacity-50"
-                : "pointer-events-auto",
-            )}
-          >
-            <ChevronRightIcon />
-          </Link>
-        </Button>
+        <LinkArrow params={prevParams} boundary={boundaryStart} url={urlStart}>
+          <ChevronLeftIcon />
+        </LinkArrow>
+        <LinkArrow params={nextParams} boundary={boundaryEnd} url={urlEnd}>
+          <ChevronRightIcon />
+        </LinkArrow>
       </div>
       <div className="flex flex-col gap-4">
         {[
@@ -109,5 +89,20 @@ async function IntervalPagination({ searchParams }: PaginationPageProps) {
         ))}
       </div>
     </>
+  );
+}
+
+type LinkArrowProps = { params: SearchParams; boundary: Date; url: Date; children: ReactNode };
+function LinkArrow({ params, boundary, url, children }: LinkArrowProps) {
+  const isDisabled = isSameDay(boundary, url);
+  return (
+    <Button
+      asChild
+      size="icon"
+      disabled={isDisabled}
+      className={cn(isDisabled ? "pointer-events-none opacity-50" : "pointer-events-auto")}
+    >
+      <Link href={`/pagination?${params.toString()}`}>{children}</Link>
+    </Button>
   );
 }
