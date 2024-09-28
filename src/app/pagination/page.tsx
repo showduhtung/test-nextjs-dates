@@ -1,5 +1,16 @@
 import { TZDate } from "@date-fns/tz";
-import { addDays, endOfDay, format, isSameDay, max, min, startOfDay, subDays } from "date-fns";
+import {
+  addDays,
+  differenceInCalendarDays,
+  endOfDay,
+  format,
+  isAfter,
+  isSameDay,
+  max,
+  min,
+  startOfDay,
+  subDays,
+} from "date-fns";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -32,28 +43,25 @@ export default function PaginationPage({ searchParams }: PageProps) {
   if (!interval || !selectedDates) {
     const queries = new SearchParams(searchParams);
     if (!interval) queries.set("interval", "hourly");
-    if (!selectedDates)
-      queries.set("selectedDates", [
-        new TZDate(boundaryStart),
-        addDays(new TZDate(boundaryStart), 1),
-      ]);
+    if (!selectedDates) queries.set("selectedDates", [boundaryStart, endOfDay(boundaryStart)]);
 
     redirect(`/pagination?${queries.toString()}`);
   }
 
-  const [selectedStart, selectedEnd] = selectedDates;
+  console.log({ selectedDates, interval });
+
+  const [urlStart, urlEnd] = selectedDates;
   const [prev, next] = (() => {
     const cycle = intervals[interval];
-
-    const [start, end] = [new TZDate(selectedStart), new TZDate(selectedEnd)];
+    const [start, end] = [new TZDate(urlStart), new TZDate(urlEnd)];
 
     // Calculate the "back" and "forward" date with cycle, ensuring it doesn't go beyond boundaries
     const back = max([startOfDay(subDays(start, cycle)), boundaryStart]);
     const forward = min([endOfDay(addDays(end, cycle)), boundaryEnd]);
 
     return [
-      [back, endOfDay(subDays(back, 1))],
-      [startOfDay(addDays(start, 1)), forward],
+      [back, endOfDay(subDays(start, 1))],
+      [startOfDay(addDays(end, 1)), forward],
     ];
   })();
 
@@ -62,6 +70,8 @@ export default function PaginationPage({ searchParams }: PageProps) {
 
   const nextParams = new SearchParams(searchParams);
   nextParams.set("selectedDates", next);
+
+  console.log({ prevParams, nextParams });
 
   return (
     <div className="flex flex-col gap-4">
@@ -82,9 +92,9 @@ export default function PaginationPage({ searchParams }: PageProps) {
           <dfn className="text-sm">(what the url is)</dfn>
         </span>
         <div className="flex gap-4">
-          <p>{format(selectedStart, "MMM dd yyyy, hh:mm:ss a z")}</p>
+          <p>{format(urlStart, "MMM dd yyyy, hh:mm:ss a z")}</p>
           <p>|</p>
-          <p>{format(selectedEnd, "MMM dd yyyy, hh:mm:ss a z")}</p>
+          <p>{format(urlEnd, "MMM dd yyyy, hh:mm:ss a z")}</p>
         </div>
       </div>
 
@@ -94,9 +104,9 @@ export default function PaginationPage({ searchParams }: PageProps) {
           <dfn className="text-sm">(what the user sees using time component)</dfn>
         </span>
         <div className="flex gap-4">
-          <Time pattern={PATTERN}>{selectedStart.toISOString()}</Time>
+          <Time pattern={PATTERN}>{urlStart.toISOString()}</Time>
           <p>|</p>
-          <Time pattern={PATTERN}>{selectedEnd.toISOString()}</Time>
+          <Time pattern={PATTERN}>{urlEnd.toISOString()}</Time>
         </div>
       </div>
 
@@ -106,9 +116,9 @@ export default function PaginationPage({ searchParams }: PageProps) {
           <dfn className="text-sm">(what we pass into our endpoints)</dfn>
         </span>
         <div className="flex gap-4">
-          <time>{selectedStart.toISOString()}</time>
+          <time>{urlStart.toISOString()}</time>
           <p>|</p>
-          <time>{selectedEnd.toISOString()}</time>
+          <time>{urlEnd.toISOString()}</time>
         </div>
       </div>
 
@@ -116,41 +126,32 @@ export default function PaginationPage({ searchParams }: PageProps) {
       <br />
 
       <div className="flex items-center gap-2">
-        <Button asChild size="icon" disabled={isSameDay(boundaryStart, selectedStart)}>
-          <Link href={`/pagination?${prevParams.toString()}`}>
+        <Button asChild size="icon" disabled={isSameDay(boundaryStart, urlStart)}>
+          <Link
+            href={`/pagination?${prevParams.toString()}`}
+            className={cn(
+              isSameDay(boundaryStart, urlStart) ? "pointer-events-none" : "pointer-events-auto",
+            )}
+          >
             <ChevronLeftIcon
-              className={cn(
-                isSameDay(boundaryStart, selectedStart) ? "text-gray-400" : "text-black",
-              )}
+              className={cn(isSameDay(boundaryStart, urlStart) ? "text-gray-400" : "text-red-400")}
             />
           </Link>
         </Button>
 
         <div className="flex justify-between text-lg">
-          <DropdownMenu>
-            <DropdownMenuTrigger className="text-lg" asChild>
-              <Button className="capitalize text-black">{interval}</Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              {options.map((option) => {
-                const params = new SearchParams(searchParams);
-                params.set("interval", option);
-                return (
-                  <DropdownMenuItem asChild key={option}>
-                    <Link href={`/pagination?${params.toString()}`} className="capitalize">
-                      {option}
-                    </Link>
-                  </DropdownMenuItem>
-                );
-              })}
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <IntervalSelect searchParams={searchParams} />
         </div>
 
-        <Button asChild size="icon" disabled={isSameDay(boundaryEnd, selectedEnd)}>
-          <Link href={`/pagination?${prevParams.toString()}`}>
+        <Button asChild size="icon" disabled={isSameDay(boundaryEnd, urlEnd)}>
+          <Link
+            href={`/pagination?${nextParams.toString()}`}
+            className={cn(
+              isSameDay(boundaryEnd, urlEnd) ? "pointer-events-none" : "pointer-events-auto",
+            )}
+          >
             <ChevronRightIcon
-              className={cn(isSameDay(boundaryEnd, selectedEnd) ? "text-gray-400" : "text-black")}
+              className={cn(isSameDay(boundaryEnd, urlEnd) ? "text-gray-400" : "text-red-400")}
             />
           </Link>
         </Button>
@@ -172,6 +173,51 @@ export default function PaginationPage({ searchParams }: PageProps) {
         ))}
       </div>
     </div>
+  );
+}
+
+type IntervalSelectProps = { searchParams: PageSearchParams<PaginationSearchParams> };
+
+function IntervalSelect({ searchParams }: IntervalSelectProps) {
+  const { interval, selectedDates } = parseSearchParams<PaginationSearchParams>(searchParams);
+  if (!selectedDates || !interval) return <>Missing params</>;
+
+  const [start] = selectedDates;
+
+  function createInterval(interval: Interval): IntervalDateRange {
+    // Get cycle length based on the interval, and return boundaries if the cycle exceeds max range.
+    const cycle = intervals[interval];
+    const maxDifference = differenceInCalendarDays(boundaryEnd, boundaryStart);
+    if (maxDifference < cycle) return [boundaryStart, boundaryEnd];
+
+    // Calculate the projected end of the cycle, and check if it fits within boundaries.
+    const cycleEnd = endOfDay(addDays(start, cycle - 1));
+    if (!isAfter(cycleEnd, boundaryEnd)) return [start, cycleEnd];
+
+    // If cycle exceeds boundaries, adjust start to fit the range and return updated interval.
+    return [startOfDay(subDays(boundaryEnd, cycle)), boundaryEnd];
+  }
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger className="text-lg" asChild>
+        <Button className="font-bold capitalize text-red-400">{interval}</Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        {options.map((option) => {
+          const params = new SearchParams(searchParams);
+          params.set("interval", option);
+          params.set("selectedDates", createInterval(option));
+          return (
+            <DropdownMenuItem asChild key={option}>
+              <Link href={`/pagination?${params.toString()}`} className="capitalize">
+                {option}
+              </Link>
+            </DropdownMenuItem>
+          );
+        })}
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
 
