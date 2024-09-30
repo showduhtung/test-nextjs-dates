@@ -5,7 +5,6 @@ type HourlyLayoutProps = {
   native: React.ReactNode;
   raw_date_fns: React.ReactNode;
   localized_date_fns: React.ReactNode;
-  localized_at_fetch: React.ReactNode;
 };
 
 export default function HourlyLayout({
@@ -13,17 +12,15 @@ export default function HourlyLayout({
   native,
   localized_date_fns,
   raw_date_fns,
-  localized_at_fetch,
 }: HourlyLayoutProps) {
   return (
-    <div className="flex flex-col gap-9">
+    <div className="flex flex-col gap-4">
       {children}
       <div className="my-8 w-full border border-dashed border-primary" />
-      <Tabs defaultValue="localized_date_fns">
-        <TabsList>
+      <Tabs defaultValue="native">
+        <TabsList className="mb-8">
           <TabsTrigger value="native">Native JS</TabsTrigger>
           <TabsTrigger value="raw_date_fns">Raw date-fns</TabsTrigger>
-          <TabsTrigger value="localized_at_fetch">Localized at fetch</TabsTrigger>
           <TabsTrigger value="localized_date_fns">Localized date-fns (Solution)</TabsTrigger>
         </TabsList>
         <TabsContent value="native" className="w-full">
@@ -31,9 +28,6 @@ export default function HourlyLayout({
         </TabsContent>
         <TabsContent value="raw_date_fns" className="w-full">
           {raw_date_fns}
-        </TabsContent>
-        <TabsContent value="localized_at_fetch" className="w-full">
-          {localized_at_fetch}
         </TabsContent>
         <TabsContent value="localized_date_fns" className="w-full">
           {localized_date_fns}

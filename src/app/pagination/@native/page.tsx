@@ -35,13 +35,13 @@ export default async function NativePage({ searchParams }: PaginationPageProps) 
 
   return (
     <div className="flex flex-col gap-12">
-      <IntervalSelect
+      <IntervalPagination
         interval={interval}
         selectedDates={selectedDates}
         functions={functions}
         boundaries={[boundaryStart, boundaryEnd]}
       />
-      <IntervalPagination
+      <IntervalSelect
         interval={interval}
         selectedDates={selectedDates}
         functions={functions}
