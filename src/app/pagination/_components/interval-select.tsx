@@ -2,6 +2,8 @@ import React from "react";
 import Link from "next/link";
 import { parseSearchParams, SearchParams } from "~/common/utilities";
 
+import * as DateFns from "date-fns";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,21 +11,19 @@ import {
   DropdownMenuTrigger,
 } from "~/components/dropdown-menu";
 import { Button } from "~/components/button";
-import {
-  addDays,
-  differenceInCalendarDays,
-  endOfDay,
-  isAfter,
-  startOfDay,
-  subDays,
-} from "~/libs/date-fns";
+
 import { mockFetchBoundaries, type Interval, type IntervalDateRange, intervals } from "../common";
 
-type IntervalSelectProps = { interval: Interval; selectedDates: IntervalDateRange };
+type IntervalSelectProps = {
+  interval: Interval;
+  selectedDates: IntervalDateRange;
+  functions: typeof DateFns;
+};
 
-export async function IntervalSelect({ interval, selectedDates }: IntervalSelectProps) {
+export async function IntervalSelect({ interval, selectedDates, functions }: IntervalSelectProps) {
   const [boundaryStart, boundaryEnd] = await mockFetchBoundaries();
   const [start] = selectedDates;
+  const { addDays, differenceInCalendarDays, endOfDay, isAfter, startOfDay, subDays } = functions;
 
   function createInterval(interval: Interval): IntervalDateRange {
     // Get cycle length based on the interval, and return boundaries if the cycle exceeds max range.
