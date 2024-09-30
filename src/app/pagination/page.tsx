@@ -23,7 +23,10 @@ export default async function PaginationPage({ searchParams }: PaginationPagePro
   return (
     <>
       <div className="flex flex-col gap-1">
-        <strong className="text-2xl">Boundaries:</strong>
+        <span className="flex items-baseline gap-2">
+          <strong className="text-2xl">Boundaries:</strong>
+          <dfn className="inline-flex gap-1 text-xs text-primary">Sept 1, 2024 - Sept 30, 2026</dfn>
+        </span>
         <div className="flex items-center justify-between text-primary">
           <dfn className="text-xs">
             <code>&quot;boundaryStart.toUTCString()&quot;</code>

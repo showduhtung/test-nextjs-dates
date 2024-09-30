@@ -42,7 +42,12 @@ export default function HourlyBlocks() {
   return (
     <div className="flex flex-col gap-8">
       <div className="flex flex-col gap-1">
-        <strong className="text-2xl">Boundaries:</strong>
+        <span className="flex items-baseline gap-2">
+          <strong className="text-2xl">Boundaries:</strong>
+          <dfn className="inline-flex gap-1 text-xs text-primary">
+            Sept 1, 2024 10PM - Oct 1, 2024 10PM
+          </dfn>
+        </span>
         <div className="flex items-center justify-between text-primary">
           <dfn className="text-xs">
             <code>&quot;boundaryStart.toUTCString()&quot;</code>
