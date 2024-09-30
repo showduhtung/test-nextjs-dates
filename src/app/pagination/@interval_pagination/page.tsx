@@ -6,13 +6,14 @@ import Link from "next/link";
 import { parseSearchParams, SearchParams } from "~/common/utilities";
 import { cn } from "~/libs/tailwind";
 import { Button } from "~/components/button";
-import { addDays, endOfDay, format, isSameDay, startOfDay, subDays } from "~/libs/date-fns";
+import { addDays, endOfDay, isSameDay, startOfDay, subDays, format } from "~/libs/date-fns";
 import {
   intervals,
   mockFetchBoundaries,
   type PaginationPageProps,
   type PaginationSearchParams,
 } from "../common";
+import { PATTERN } from "~/common";
 
 export default IntervalPagination;
 
@@ -57,29 +58,26 @@ async function IntervalPagination({ searchParams }: PaginationPageProps) {
           { title: "Prev", intervals: prev },
           { title: "Next", intervals: next },
         ].map(({ title, intervals: [start, end] }) => (
-          <div key={title}>
-            <div className="flex justify-between">
-              <span className="flex items-center gap-4">
-                <strong className="text-lg">{title}:</strong>
-                <dfn className="text-xs text-primary">
-                  <code>&quot;format(date, pattern)&quot;</code>
-                </dfn>
-              </span>
-              <div className="flex w-[550px] justify-between text-primary">
-                <time suppressHydrationWarning>{format(start, "MMM dd yyyy, hh:mm:ss a z")}</time>
+          <div className="flex flex-col gap-1" key={title}>
+            <strong className="text-2xl">{title}:</strong>
+            <div className="flex items-center justify-between text-primary">
+              <dfn className="text-xs text-primary">
+                <code>&quot;format(date, pattern)&quot;</code>
+              </dfn>
+
+              <div className="flex w-[550px] justify-between gap-4">
+                <time suppressHydrationWarning>{format(start, PATTERN)}</time>
                 <p>|</p>
-                <time suppressHydrationWarning>{format(end, "MMM dd yyyy, hh:mm:ss a z")}</time>
+                <time suppressHydrationWarning>{format(end, PATTERN)}</time>
               </div>
             </div>
 
-            <div className="flex justify-between">
-              <span className="flex items-center gap-4">
-                <div className="w-11" />
-                <dfn className="text-xs text-primary">
-                  <code>&quot;date.toISOString()&quot;</code>
-                </dfn>
-              </span>
-              <div className="flex w-[550px] justify-between text-primary">
+            <div className="flex items-center justify-between text-primary">
+              <dfn className="text-xs text-primary">
+                <code>&quot;date.toISOString()&quot;</code>
+              </dfn>
+
+              <div className="flex w-[550px] justify-between gap-4">
                 <time suppressHydrationWarning>{start.toISOString()}</time>
                 <p>|</p>
                 <time suppressHydrationWarning>{end.toISOString()}</time>
