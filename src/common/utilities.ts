@@ -6,11 +6,14 @@ const isValidDate = (date: string) => !isNaN(new Date(date).getTime());
 function parseParams<T extends Record<string, unknown>>(entries: Record<string, string>) {
   const queries = Object.entries(entries).reduce((acc, [key, val]) => {
     const value = decodeURIComponent(val);
+
+    console.log({ val, value, valid: isValidDate(value) });
     if (isValidDate(value)) return { ...acc, [key]: new Date(value) };
     return { ...acc, [key]: value };
   }, {});
   return queries as T;
 }
+
 type PageSearchParams<T> = Partial<Record<keyof T, string>>;
 function parseSearchParams<T extends Record<string, unknown>>(entries: Record<string, string>) {
   const queries = Object.entries(entries).reduce((acc, [key, val]) => {
