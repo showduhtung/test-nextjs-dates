@@ -11,10 +11,11 @@ import {
 } from "date-fns";
 
 import { type DateFunctions } from "~/libs/date-fns";
-import { mockFetchBoundaries } from "~/data";
+import { mockFetchLocalizedBoundaries } from "~/data";
 import { parseSearchParams } from "~/common/utilities";
 import type { PaginationPageProps, PaginationSearchParams } from "../common";
 import { IntervalPagination, IntervalSelect } from "../_components";
+import { TZDate } from "@date-fns/tz";
 
 const functions = {
   addDays,
@@ -27,25 +28,28 @@ const functions = {
   format,
 } as DateFunctions;
 
-export default async function DateFnsPage({ searchParams }: PaginationPageProps) {
+export default async function RawDateWithLocalizedFetch({ searchParams }: PaginationPageProps) {
   const { interval, selectedDates } = parseSearchParams<PaginationSearchParams>(searchParams);
   if (!interval || !selectedDates) return <>Missing params</>;
 
-  const [first, second = new Date()] = await mockFetchBoundaries();
+  const [first, second = new TZDate()] = await mockFetchLocalizedBoundaries();
+
+  const [boundaryStart, boundaryEnd] = [new TZDate(first), new TZDate(second)];
+  const [selectedStart, selectedEnd] = [new TZDate(selectedDates[0]), new TZDate(selectedDates[1])];
 
   return (
     <div className="flex flex-col gap-12">
       <IntervalPagination
         interval={interval}
-        selectedDates={selectedDates}
+        selectedDates={[selectedStart, selectedEnd]}
         functions={functions}
-        boundaries={[first, second]}
+        boundaries={[boundaryStart, boundaryEnd]}
       />
       <IntervalSelect
         interval={interval}
-        selectedDates={selectedDates}
+        selectedDates={[selectedStart, selectedEnd]}
         functions={functions}
-        boundaries={[first, second]}
+        boundaries={[boundaryStart, boundaryEnd]}
       />
     </div>
   );
