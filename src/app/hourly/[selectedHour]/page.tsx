@@ -5,9 +5,9 @@ import { Button } from "~/components/button";
 import { Time } from "~/components/time";
 
 type HourlyParams = Readonly<{ selectedHour: Date }>;
-type PageProps = { params: PageParams<HourlyParams> };
+type SelectHourPageProps = { params: PageParams<HourlyParams> };
 
-export default function HourPage({ params }: PageProps) {
+export default function SelectHourPage({ params }: SelectHourPageProps) {
   const { selectedHour } = parseParams<HourlyParams>(params);
 
   if (!(selectedHour instanceof Date)) {
@@ -31,7 +31,7 @@ export default function HourPage({ params }: PageProps) {
             <code>&quot;selectedHour.toUTCString()&quot;</code>
           </dfn>
 
-          <time>{selectedHour.toUTCString()}</time>
+          <time suppressHydrationWarning>{selectedHour.toUTCString()}</time>
         </div>
 
         <div className="flex items-center justify-between text-primary">
@@ -39,7 +39,7 @@ export default function HourPage({ params }: PageProps) {
             <code>&quot;selectedHour.toISOString()&quot;</code>
           </dfn>
 
-          <time>{selectedHour.toISOString()}</time>
+          <time suppressHydrationWarning>{selectedHour.toISOString()}</time>
         </div>
       </div>
       <div className="flex flex-col gap-1">

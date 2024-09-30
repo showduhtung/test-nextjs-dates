@@ -49,9 +49,9 @@ export default function HourlyBlocks() {
           </dfn>
 
           <div className="flex w-[550px] justify-between gap-4">
-            <time>{boundaryStart.toUTCString()}</time>
+            <time suppressHydrationWarning>{boundaryStart.toUTCString()}</time>
             <p>|</p>
-            <time>{boundaryEnd.toUTCString()}</time>
+            <time suppressHydrationWarning>{boundaryEnd.toUTCString()}</time>
           </div>
         </div>
 
@@ -61,9 +61,9 @@ export default function HourlyBlocks() {
           </dfn>
 
           <div className="flex w-[550px] justify-between gap-4">
-            <time>{boundaryStart.toISOString()}</time>
+            <time suppressHydrationWarning>{boundaryStart.toISOString()}</time>
             <p>|</p>
-            <time>{boundaryEnd.toISOString()}</time>
+            <time suppressHydrationWarning>{boundaryEnd.toISOString()}</time>
           </div>
         </div>
 
@@ -96,9 +96,10 @@ export default function HourlyBlocks() {
             </h6>
             <div className="flex flex-wrap gap-4 pl-1">
               {hours.map(({ timestamp }) => {
+                const url = new URL(`/hourly/${timestamp.toISOString()}`, "http://localhost:3000");
                 return (
                   <Button asChild key={timestamp.toISOString()} className="w-32">
-                    <Link href={`/hourly/${timestamp.toISOString()}`}>
+                    <Link href={url} prefetch={false}>
                       <Time
                         className="whitespace-nowrap text-nowrap text-lg font-semibold uppercase"
                         pattern="hh:mm a"

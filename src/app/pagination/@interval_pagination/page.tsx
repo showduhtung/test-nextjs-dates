@@ -66,9 +66,9 @@ async function IntervalPagination({ searchParams }: PaginationPageProps) {
                 </dfn>
               </span>
               <div className="flex w-[550px] justify-between text-primary">
-                <time>{format(start, "MMM dd yyyy, hh:mm:ss a z")}</time>
+                <time suppressHydrationWarning>{format(start, "MMM dd yyyy, hh:mm:ss a z")}</time>
                 <p>|</p>
-                <time>{format(end, "MMM dd yyyy, hh:mm:ss a z")}</time>
+                <time suppressHydrationWarning>{format(end, "MMM dd yyyy, hh:mm:ss a z")}</time>
               </div>
             </div>
 
@@ -80,9 +80,9 @@ async function IntervalPagination({ searchParams }: PaginationPageProps) {
                 </dfn>
               </span>
               <div className="flex w-[550px] justify-between text-primary">
-                <time>{start.toISOString()}</time>
+                <time suppressHydrationWarning>{start.toISOString()}</time>
                 <p>|</p>
-                <time>{end.toISOString()}</time>
+                <time suppressHydrationWarning>{end.toISOString()}</time>
               </div>
             </div>
           </div>

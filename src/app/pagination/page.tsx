@@ -30,9 +30,9 @@ export default async function PaginationPage({ searchParams }: PaginationPagePro
           </dfn>
 
           <div className="flex w-[550px] justify-between gap-4">
-            <time>{boundaryStart.toUTCString()}</time>
+            <time suppressHydrationWarning>{boundaryStart.toUTCString()}</time>
             <p>|</p>
-            <time>{boundaryEnd.toUTCString()}</time>
+            <time suppressHydrationWarning>{boundaryEnd.toUTCString()}</time>
           </div>
         </div>
 
@@ -42,9 +42,9 @@ export default async function PaginationPage({ searchParams }: PaginationPagePro
           </dfn>
 
           <div className="flex w-[550px] justify-between gap-4">
-            <time>{boundaryStart.toISOString()}</time>
+            <time suppressHydrationWarning>{boundaryStart.toISOString()}</time>
             <p>|</p>
-            <time>{boundaryEnd.toISOString()}</time>
+            <time suppressHydrationWarning>{boundaryEnd.toISOString()}</time>
           </div>
         </div>
       </div>
@@ -58,9 +58,9 @@ export default async function PaginationPage({ searchParams }: PaginationPagePro
           </dfn>
 
           <div className="flex w-[550px] justify-between gap-4">
-            <time>{urlStart.toISOString()}</time>
+            <time suppressHydrationWarning>{urlStart.toISOString()}</time>
             <p>|</p>
-            <time>{urlEnd.toISOString()}</time>
+            <time suppressHydrationWarning>{urlEnd.toISOString()}</time>
           </div>
         </div>
       </div>
