@@ -12,7 +12,18 @@ import {
   isAfter,
   startOfDay,
   subDays,
+  format,
 } from "~/libs/date-fns";
+
+const functions = {
+  addDays,
+  differenceInCalendarDays,
+  endOfDay,
+  isAfter,
+  startOfDay,
+  subDays,
+  format,
+} as typeof DateFns;
 
 export default async function PaginationPage({ searchParams }: PaginationPageProps) {
   const { interval, selectedDates } = parseSearchParams<PaginationSearchParams>(searchParams);
@@ -20,21 +31,8 @@ export default async function PaginationPage({ searchParams }: PaginationPagePro
 
   return (
     <div className="flex flex-col gap-12">
-      <IntervalSelect
-        interval={interval}
-        selectedDates={selectedDates}
-        functions={
-          {
-            addDays,
-            differenceInCalendarDays,
-            endOfDay,
-            isAfter,
-            startOfDay,
-            subDays,
-          } as typeof DateFns
-        }
-      />
-      <IntervalPagination interval={interval} selectedDates={selectedDates} />
+      <IntervalSelect interval={interval} selectedDates={selectedDates} functions={functions} />
+      <IntervalPagination interval={interval} selectedDates={selectedDates} functions={functions} />
     </div>
   );
 }

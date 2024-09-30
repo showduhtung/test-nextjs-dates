@@ -1,9 +1,6 @@
-import React from "react";
 import Link from "next/link";
-import { parseSearchParams, SearchParams } from "~/common/utilities";
-
 import * as DateFns from "date-fns";
-
+import { parseSearchParams, SearchParams } from "~/common/utilities";
 import {
   DropdownMenu,
   DropdownMenuContent,

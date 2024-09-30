@@ -1,4 +1,5 @@
 import React, { type ReactNode } from "react";
+import * as DateFns from "date-fns";
 import { max, min } from "date-fns";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
@@ -6,14 +7,24 @@ import Link from "next/link";
 import { SearchParams } from "~/common/utilities";
 import { cn } from "~/libs/tailwind";
 import { Button } from "~/components/button";
-import { addDays, endOfDay, isSameDay, startOfDay, subDays, format } from "~/libs/date-fns";
 import { intervals, mockFetchBoundaries, type Interval, type IntervalDateRange } from "../common";
 import { PATTERN } from "~/common";
 
-type IntervalPaginationProps = { interval: Interval; selectedDates: IntervalDateRange };
+type IntervalPaginationProps = {
+  interval: Interval;
+  selectedDates: IntervalDateRange;
+  functions: typeof DateFns;
+};
 
-export async function IntervalPagination({ interval, selectedDates }: IntervalPaginationProps) {
+type LinkArrowProps = { params: SearchParams; boundary: Date; url: Date; children: ReactNode };
+
+export async function IntervalPagination({
+  interval,
+  selectedDates,
+  functions,
+}: IntervalPaginationProps) {
   const [boundaryStart, boundaryEnd] = await mockFetchBoundaries();
+  const { addDays, endOfDay, startOfDay, subDays, format, isSameDay } = functions;
 
   const [urlStart, urlEnd] = selectedDates;
   const [prev, next] = (() => {
@@ -36,6 +47,20 @@ export async function IntervalPagination({ interval, selectedDates }: IntervalPa
   const nextParams = new SearchParams();
   nextParams.set("interval", interval);
   nextParams.set("selectedDates", next);
+
+  function LinkArrow({ params, boundary, url, children }: LinkArrowProps) {
+    const isDisabled = isSameDay(boundary, url);
+    return (
+      <Button
+        asChild
+        size="icon"
+        disabled={isDisabled}
+        className={cn(isDisabled ? "pointer-events-none opacity-50" : "pointer-events-auto")}
+      >
+        <Link href={`/pagination?${params.toString()}`}>{children}</Link>
+      </Button>
+    );
+  }
 
   return (
     <div className="flex w-full flex-col gap-4">
@@ -84,20 +109,5 @@ export async function IntervalPagination({ interval, selectedDates }: IntervalPa
         ))}
       </div>
     </div>
-  );
-}
-
-type LinkArrowProps = { params: SearchParams; boundary: Date; url: Date; children: ReactNode };
-function LinkArrow({ params, boundary, url, children }: LinkArrowProps) {
-  const isDisabled = isSameDay(boundary, url);
-  return (
-    <Button
-      asChild
-      size="icon"
-      disabled={isDisabled}
-      className={cn(isDisabled ? "pointer-events-none opacity-50" : "pointer-events-auto")}
-    >
-      <Link href={`/pagination?${params.toString()}`}>{children}</Link>
-    </Button>
   );
 }
