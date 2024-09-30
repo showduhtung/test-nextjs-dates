@@ -6,17 +6,18 @@ import Link from "next/link";
 import { SearchParams } from "~/common/utilities";
 import { cn } from "~/libs/tailwind";
 import { Button } from "~/components/button";
-import { intervals, mockFetchBoundaries, type IntervalComponenntProps } from "../common";
+import { IntervalDateRange, intervals, type IntervalComponenntProps } from "../common";
 import { PATTERN } from "~/common";
 
 type LinkArrowProps = { params: SearchParams; boundary: Date; url: Date; children: ReactNode };
+type IntervalPaginationProps = IntervalComponenntProps & { boundaries: IntervalDateRange };
 
-export async function IntervalPagination({
+export function IntervalPagination({
   interval,
   selectedDates,
   functions,
-}: IntervalComponenntProps) {
-  const [boundaryStart, boundaryEnd] = await mockFetchBoundaries();
+  boundaries: [boundaryStart, boundaryEnd],
+}: IntervalPaginationProps) {
   const { addDays, endOfDay, startOfDay, subDays, format, isSameDay } = functions;
 
   const [urlStart, urlEnd] = selectedDates;
