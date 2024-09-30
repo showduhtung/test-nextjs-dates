@@ -31,7 +31,7 @@ const functions = {
   isSameDay,
 } as DateFunctions;
 
-export default async function PaginationPage({ searchParams }: PaginationPageProps) {
+export default async function SolutionPage({ searchParams }: PaginationPageProps) {
   const { interval, selectedDates } = parseSearchParams<PaginationSearchParams>(searchParams);
   if (!interval || !selectedDates) return <>Missing params</>;
 

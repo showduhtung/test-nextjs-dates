@@ -25,7 +25,7 @@ const functions = {
   format,
 };
 
-export default async function NativePage({ searchParams }: PaginationPageProps) {
+export default async function DateFnsPage({ searchParams }: PaginationPageProps) {
   const { interval, selectedDates } = parseSearchParams<PaginationSearchParams>(searchParams);
   if (!interval || !selectedDates) return <>Missing params</>;
 

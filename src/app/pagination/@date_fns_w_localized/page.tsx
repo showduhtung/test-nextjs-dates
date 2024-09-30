@@ -13,6 +13,7 @@ import {
   isSameDay,
   format,
 } from "date-fns";
+import { TZDate } from "~/libs/date-fns";
 
 const functions = {
   addDays,
@@ -25,20 +26,27 @@ const functions = {
   format,
 };
 
-export default async function NativePage({ searchParams }: PaginationPageProps) {
+export default DateFnsWithLocalizedDatesPage;
+
+async function DateFnsWithLocalizedDatesPage({ searchParams }: PaginationPageProps) {
   const { interval, selectedDates } = parseSearchParams<PaginationSearchParams>(searchParams);
   if (!interval || !selectedDates) return <>Missing params</>;
 
-  const boundaries = await mockFetchBoundaries();
+  const [boundaryStart, boundaryEnd] = await mockFetchBoundaries();
+  const [selectedStart, selectedEnd] = selectedDates;
 
   return (
     <div className="flex flex-col gap-12">
-      <IntervalSelect interval={interval} selectedDates={selectedDates} functions={functions} />
+      <IntervalSelect
+        interval={interval}
+        selectedDates={[new TZDate(selectedStart), new TZDate(selectedEnd)]}
+        functions={functions}
+      />
       <IntervalPagination
         interval={interval}
-        selectedDates={selectedDates}
+        selectedDates={[new TZDate(selectedStart), new TZDate(selectedEnd)]}
         functions={functions}
-        boundaries={boundaries}
+        boundaries={[new TZDate(boundaryStart), new TZDate(boundaryEnd)]}
       />
     </div>
   );

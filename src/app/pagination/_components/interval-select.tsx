@@ -29,7 +29,6 @@ export async function IntervalSelect({
     const cycle = intervals[interval];
     const maxDifference = differenceInCalendarDays(boundaryEnd, boundaryStart);
 
-    // console.log({ maxDifference });
     if (maxDifference < cycle) return [boundaryStart, boundaryEnd];
 
     // Calculate the projected end of the cycle, and check if it fits within boundaries.

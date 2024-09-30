@@ -3,7 +3,7 @@ import type { PageSearchParams } from "~/common/utilities";
 import { TZDate } from "~/libs/date-fns";
 
 type Interval = "hourly" | "daily" | "weekly";
-type IntervalDateRange = [Date, Date];
+type IntervalDateRange = [Date, Date] | [TZDate, TZDate];
 
 type PaginationSearchParams = Partial<{ selectedDates: IntervalDateRange; interval: Interval }>;
 type PaginationPageProps = { searchParams: PageSearchParams<PaginationSearchParams> };
