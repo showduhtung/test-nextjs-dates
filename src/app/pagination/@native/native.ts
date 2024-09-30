@@ -17,13 +17,17 @@ const endOfDay = (date: Date) => {
   time.setHours(23, 59, 59, 999);
   return time;
 };
-const differenceInCalendarDays = (start: Date, end: Date) =>
-  Math.floor((end.getTime() - start.getTime()) / day);
+const differenceInCalendarDays = (start: Date, end: Date) => {
+  return Math.abs(Math.floor((end.getTime() - start.getTime()) / day));
+};
+
 const isSameDay = (dateLeft: Date, dateRight: Date) =>
   startOfDay(dateLeft).getTime() === startOfDay(dateRight).getTime();
 
 const format = (date: Date, _pattern: string) =>
   date.toLocaleDateString(undefined, { timeZone: "UTC" });
+
+const isAfter = (dateLeft: Date, dateRight: Date) => dateLeft.getTime() > dateRight.getTime();
 
 const functions = {
   addDays,
@@ -33,6 +37,7 @@ const functions = {
   differenceInCalendarDays,
   isSameDay,
   format,
+  isAfter,
 } as typeof DateFns;
 
 export { functions };
