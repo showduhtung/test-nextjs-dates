@@ -2,9 +2,10 @@ import React from "react";
 import { redirect } from "next/navigation";
 import { parseSearchParams, SearchParams } from "~/common/utilities";
 import { endOfDay } from "~/libs/date-fns";
-import { mockFetchBoundaries, PaginationPageProps, PaginationSearchParams } from "./common";
+import { mockFetchBoundaries } from "~/data";
 import { Time } from "~/components/time";
 import { PATTERN } from "~/common";
+import { PaginationPageProps, PaginationSearchParams } from "./common";
 
 export default async function PaginationPage({ searchParams }: PaginationPageProps) {
   const { interval, selectedDates } = parseSearchParams<PaginationSearchParams>(searchParams);

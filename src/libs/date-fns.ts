@@ -80,6 +80,22 @@ function subDays(...args: Parameters<typeof DateFns.subDays>) {
   return DateFns.subDays(new TZDate(date), ...options);
 }
 
+type DateFunctions = {
+  addDays: typeof DateFns.addDays;
+  differenceInCalendarDays: typeof DateFns.differenceInCalendarDays;
+  endOfDay: typeof DateFns.endOfDay;
+  isAfter: typeof DateFns.isAfter;
+  startOfDay: typeof DateFns.startOfDay;
+  subDays: typeof DateFns.subDays;
+  format: typeof DateFns.format;
+  isSameDay: typeof DateFns.isSameDay;
+  startOfHour: typeof DateFns.startOfHour;
+  addHours: typeof DateFns.addHours;
+  getHours: typeof DateFns.getHours;
+};
+
+export type { DateFunctions };
+
 export {
   addDays,
   differenceInCalendarDays,

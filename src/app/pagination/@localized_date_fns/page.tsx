@@ -1,11 +1,6 @@
 import React from "react";
 import { parseSearchParams } from "~/common/utilities";
-import {
-  DateFunctions,
-  mockFetchBoundaries,
-  PaginationPageProps,
-  PaginationSearchParams,
-} from "../common";
+import { PaginationPageProps, PaginationSearchParams } from "../common";
 import { IntervalPagination } from "../_components/interval-pagination";
 import { IntervalSelect } from "../_components/interval-select";
 
@@ -18,7 +13,9 @@ import {
   subDays,
   format,
   isSameDay,
+  DateFunctions,
 } from "~/libs/date-fns";
+import { mockFetchBoundaries } from "~/data";
 
 const functions = {
   addDays,
