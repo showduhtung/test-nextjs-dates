@@ -80,7 +80,7 @@ export function IntervalPagination({
                 <code>&quot;format(date, pattern)&quot;</code>
               </dfn>
 
-              <div className="flex w-[450px] gap-2 text-sm">
+              <div className="flex w-[550px] gap-2">
                 <time suppressHydrationWarning>{format(start, PATTERN)}</time>
                 <p>|</p>
                 <time suppressHydrationWarning>{format(end, PATTERN)}</time>
@@ -92,7 +92,7 @@ export function IntervalPagination({
                 <code>&quot;date.toISOString()&quot;</code>
               </dfn>
 
-              <div className="flex w-[450px] gap-2 text-sm">
+              <div className="flex w-[550px] gap-2">
                 <time suppressHydrationWarning>{start.toISOString()}</time>
                 <p>|</p>
                 <time suppressHydrationWarning>{end.toISOString()}</time>

@@ -42,7 +42,6 @@ const formatter = new Intl.DateTimeFormat("en-GB", {
   day: "2-digit",
   hour: "2-digit",
   minute: "numeric",
-  second: "numeric",
 });
 
 const isAfter = (dateLeft: Date, dateRight: Date) => dateLeft.getTime() > dateRight.getTime();

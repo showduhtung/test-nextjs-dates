@@ -73,7 +73,7 @@ export function IntervalSelect({
                 <code>&quot;selectedDates.toISOString()&quot;</code>
               </dfn>
 
-              <div className="flex w-[450px] gap-2 text-sm">
+              <div className="flex w-[550px] gap-2">
                 <time suppressHydrationWarning>{start.toISOString()}</time>
                 <p>|</p>
                 <time suppressHydrationWarning>{end.toISOString()}</time>
