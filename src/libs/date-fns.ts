@@ -10,7 +10,7 @@ class TZDate extends DateFnsTz.TZDate {
     else if (date instanceof Date) super(date, TIME_ZONE);
     else throw new Error("Invalid date type");
   }
-  tz(_timeZone: string) {
+  static tz(_timeZone?: string) {
     return DateFnsTz.TZDate.tz(TIME_ZONE);
   }
 }

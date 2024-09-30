@@ -8,7 +8,7 @@ import { PATTERN } from "~/common";
 
 export default async function PaginationPage({ searchParams }: PaginationPageProps) {
   const { interval, selectedDates } = parseSearchParams<PaginationSearchParams>(searchParams);
-  const [boundaryStart, boundaryEnd] = await mockFetchBoundaries();
+  const [boundaryStart, boundaryEnd = new Date()] = await mockFetchBoundaries();
 
   if (!interval || !selectedDates) {
     const queries = new SearchParams(searchParams);

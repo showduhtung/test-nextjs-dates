@@ -8,19 +8,18 @@ import {
 } from "~/components/dropdown-menu";
 import { Button } from "~/components/button";
 import {
-  mockFetchBoundaries,
   intervals,
   type Interval,
   type IntervalDateRange,
   type IntervalComponenntProps,
 } from "../common";
 
-export async function IntervalSelect({
+export function IntervalSelect({
   interval,
   selectedDates,
   functions,
+  boundaries: [boundaryStart, boundaryEnd],
 }: IntervalComponenntProps) {
-  const [boundaryStart, boundaryEnd] = await mockFetchBoundaries();
   const [start] = selectedDates;
   const { addDays, differenceInCalendarDays, endOfDay, isAfter, startOfDay, subDays } = functions;
 

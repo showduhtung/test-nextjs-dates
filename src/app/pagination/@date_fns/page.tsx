@@ -29,16 +29,21 @@ export default async function DateFnsPage({ searchParams }: PaginationPageProps)
   const { interval, selectedDates } = parseSearchParams<PaginationSearchParams>(searchParams);
   if (!interval || !selectedDates) return <>Missing params</>;
 
-  const boundaries = await mockFetchBoundaries();
+  const [boundaryStart, boundaryEnd = new Date()] = await mockFetchBoundaries();
 
   return (
     <div className="flex flex-col gap-12">
-      <IntervalSelect interval={interval} selectedDates={selectedDates} functions={functions} />
+      <IntervalSelect
+        interval={interval}
+        selectedDates={selectedDates}
+        functions={functions}
+        boundaries={[boundaryStart, boundaryEnd]}
+      />
       <IntervalPagination
         interval={interval}
         selectedDates={selectedDates}
         functions={functions}
-        boundaries={boundaries}
+        boundaries={[boundaryStart, boundaryEnd]}
       />
     </div>
   );

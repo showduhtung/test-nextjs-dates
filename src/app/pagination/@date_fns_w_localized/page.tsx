@@ -1,6 +1,10 @@
 import React from "react";
 import { parseSearchParams } from "~/common/utilities";
-import { mockFetchBoundaries, PaginationPageProps, PaginationSearchParams } from "../common";
+import {
+  mockFetchLocalizedBoundaries,
+  PaginationPageProps,
+  PaginationSearchParams,
+} from "../common";
 import { IntervalPagination } from "../_components/interval-pagination";
 import { IntervalSelect } from "../_components/interval-select";
 import {
@@ -32,7 +36,7 @@ async function DateFnsWithLocalizedDatesPage({ searchParams }: PaginationPagePro
   const { interval, selectedDates } = parseSearchParams<PaginationSearchParams>(searchParams);
   if (!interval || !selectedDates) return <>Missing params</>;
 
-  const [boundaryStart, boundaryEnd] = await mockFetchBoundaries();
+  const [boundaryStart, boundaryEnd = TZDate.tz()] = await mockFetchLocalizedBoundaries();
   const [selectedStart, selectedEnd] = selectedDates;
 
   return (
@@ -41,6 +45,7 @@ async function DateFnsWithLocalizedDatesPage({ searchParams }: PaginationPagePro
         interval={interval}
         selectedDates={[new TZDate(selectedStart), new TZDate(selectedEnd)]}
         functions={functions}
+        boundaries={[boundaryStart, boundaryEnd]}
       />
       <IntervalPagination
         interval={interval}

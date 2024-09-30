@@ -10,14 +10,20 @@ type PaginationPageProps = { searchParams: PageSearchParams<PaginationSearchPara
 
 const intervals = { hourly: 1, daily: 7, weekly: 30 } as const;
 
-const boundaries: IntervalDateRange = [
-  new Date("Aug 31 2022, 04:00:00 PM GMT+0"),
-  new Date("Sep 29 2026, 04:00:00 PM GMT+0"),
-];
+type BoundaryResponse = [Date, Date | undefined];
+async function mockFetchBoundaries(): Promise<BoundaryResponse> {
+  const boundaries = [new Date("Aug 31 2022, 04:00:00 PM GMT+0"), undefined];
+  const response = await new Promise<BoundaryResponse>((resolve) =>
+    setTimeout(() => resolve(boundaries as BoundaryResponse), 100),
+  );
+  return response;
+}
 
-async function mockFetchBoundaries(): Promise<IntervalDateRange> {
-  const response = await new Promise<IntervalDateRange>((resolve) =>
-    setTimeout(() => resolve(boundaries), 100),
+type LocalizedBoundaryResponse = [TZDate, TZDate | undefined];
+async function mockFetchLocalizedBoundaries(): Promise<BoundaryResponse> {
+  const boundaries = [new TZDate("Aug 31 2022, 04:00:00 PM GMT+0"), undefined];
+  const response = await new Promise<LocalizedBoundaryResponse>((resolve) =>
+    setTimeout(() => resolve(boundaries as LocalizedBoundaryResponse), 100),
   );
   return response;
 }
@@ -37,6 +43,7 @@ type IntervalComponenntProps = {
   interval: Interval;
   selectedDates: IntervalDateRange;
   functions: DateFunctions;
+  boundaries: IntervalDateRange;
 };
 
 export type {
@@ -47,4 +54,4 @@ export type {
   IntervalComponenntProps,
   DateFunctions,
 };
-export { mockFetchBoundaries, intervals };
+export { mockFetchLocalizedBoundaries, mockFetchBoundaries, intervals };
