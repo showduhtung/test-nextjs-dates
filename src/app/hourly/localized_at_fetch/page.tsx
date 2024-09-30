@@ -13,6 +13,7 @@ import {
   startOfHour,
   addHours,
   getHours,
+  TZDate,
 } from "~/libs/date-fns";
 
 import { mockFetchBoundaries } from "~/data";
@@ -35,8 +36,8 @@ const functions = {
 export default HourlyLocalizedAtFetch;
 
 async function HourlyLocalizedAtFetch() {
-  const [boundaryStart, boundaryEnd = new Date()] = await mockFetchBoundaries(
-    new Date("Sep 14 2024, 2:00:00 PM GMT+0"),
+  const [boundaryStart, boundaryEnd = TZDate.tz()] = await mockFetchBoundaries(
+    new TZDate("Sep 14 2024, 2:00:00 PM GMT+0"),
   );
 
   return <HourlyBlocks boundaries={[boundaryStart, boundaryEnd]} functions={functions} />;

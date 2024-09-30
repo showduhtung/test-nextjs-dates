@@ -1,5 +1,5 @@
 import React from "react";
-
+import * as DateFns from "date-fns";
 import {
   addDays,
   differenceInCalendarDays,
@@ -9,11 +9,10 @@ import {
   subDays,
   isSameDay,
   format,
-  type DateFunctions,
   startOfHour,
   addHours,
   getHours,
-} from "~/libs/date-fns";
+} from "date-fns";
 
 import { mockFetchBoundaries } from "~/data";
 import { HourlyBlocks } from "../_components/hourly-block";
@@ -30,11 +29,9 @@ const functions = {
   getHours,
   format,
   addHours,
-} as DateFunctions;
+} as typeof DateFns;
 
-export default HourlyLocalizedAtFetch;
-
-async function HourlyLocalizedAtFetch() {
+export default async function RawDateFnsPage() {
   const [boundaryStart, boundaryEnd = new Date()] = await mockFetchBoundaries(
     new Date("Sep 14 2024, 2:00:00 PM GMT+0"),
   );
