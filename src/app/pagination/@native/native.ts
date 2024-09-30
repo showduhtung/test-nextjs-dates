@@ -24,8 +24,16 @@ const differenceInCalendarDays = (start: Date, end: Date) => {
 const isSameDay = (dateLeft: Date, dateRight: Date) =>
   startOfDay(dateLeft).getTime() === startOfDay(dateRight).getTime();
 
-const format = (date: Date, _pattern: string) =>
-  date.toLocaleDateString(undefined, { timeZone: "UTC" });
+const format = (date: Date, _pattern: string) => formatter.format(date);
+
+const formatter = new Intl.DateTimeFormat("en-GB", {
+  year: "2-digit",
+  month: "short",
+  day: "2-digit",
+  hour: "2-digit",
+  minute: "numeric",
+  second: "numeric",
+});
 
 const isAfter = (dateLeft: Date, dateRight: Date) => dateLeft.getTime() > dateRight.getTime();
 
