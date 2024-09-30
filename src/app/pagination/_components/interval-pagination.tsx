@@ -13,7 +13,18 @@ import { PATTERN } from "~/common";
 type IntervalPaginationProps = {
   interval: Interval;
   selectedDates: IntervalDateRange;
-  functions: typeof DateFns;
+  functions: DateFunctions;
+};
+
+type DateFunctions = {
+  addDays: typeof DateFns.addDays;
+  differenceInCalendarDays: typeof DateFns.differenceInCalendarDays;
+  endOfDay: typeof DateFns.endOfDay;
+  isAfter: typeof DateFns.isAfter;
+  startOfDay: typeof DateFns.startOfDay;
+  subDays: typeof DateFns.subDays;
+  format: typeof DateFns.format;
+  isSameDay: typeof DateFns.isSameDay;
 };
 
 type LinkArrowProps = { params: SearchParams; boundary: Date; url: Date; children: ReactNode };

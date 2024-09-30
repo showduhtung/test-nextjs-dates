@@ -14,7 +14,18 @@ import { mockFetchBoundaries, type Interval, type IntervalDateRange, intervals }
 type IntervalSelectProps = {
   interval: Interval;
   selectedDates: IntervalDateRange;
-  functions: typeof DateFns;
+  functions: DateFunctions;
+};
+
+type DateFunctions = {
+  addDays: typeof DateFns.addDays;
+  differenceInCalendarDays: typeof DateFns.differenceInCalendarDays;
+  endOfDay: typeof DateFns.endOfDay;
+  isAfter: typeof DateFns.isAfter;
+  startOfDay: typeof DateFns.startOfDay;
+  subDays: typeof DateFns.subDays;
+  format: typeof DateFns.format;
+  isSameDay: typeof DateFns.isSameDay;
 };
 
 export async function IntervalSelect({ interval, selectedDates, functions }: IntervalSelectProps) {
