@@ -28,7 +28,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/app/ppr",
-    "src/app/pagination/@interval_pagination"
+    "src/app/pagination/@interval_pagination",
+    "src/app/pagination/@interva_select"
   ],
   "exclude": ["node_modules"]
 }
