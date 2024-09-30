@@ -1,5 +1,6 @@
 import * as DateFns from "date-fns";
 import type { PageSearchParams } from "~/common/utilities";
+import { TZDate } from "~/libs/date-fns";
 
 type Interval = "hourly" | "daily" | "weekly";
 type IntervalDateRange = [Date, Date];

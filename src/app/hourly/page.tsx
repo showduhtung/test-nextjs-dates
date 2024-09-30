@@ -50,7 +50,7 @@ export default function HourlyBlocks() {
         </span>
         <div className="flex items-center justify-between text-primary">
           <dfn className="text-xs">
-            <code>&quot;boundaryStart.toUTCString()&quot;</code>
+            <code>&quot;boundaries.toUTCString()&quot;</code>
           </dfn>
 
           <div className="flex w-[550px] justify-between gap-4">
@@ -62,7 +62,7 @@ export default function HourlyBlocks() {
 
         <div className="flex items-center justify-between text-primary">
           <dfn className="text-xs">
-            <code>&quot;boundaryStart.toISOString()&quot;</code>
+            <code>&quot;boundaries.toISOString()&quot;</code>
           </dfn>
 
           <div className="flex w-[550px] justify-between gap-4">
@@ -76,9 +76,7 @@ export default function HourlyBlocks() {
           <strong className="text-2xl">UI Display:</strong>
           <div className="flex items-center justify-between text-primary">
             <dfn className="text-xs">
-              <code>
-                &quot;&lt;Time&gt;&#123;boundaryStart.toISOString()&#125;&lt;/Time&gt;&quot;
-              </code>
+              <code>&quot;&lt;Time&gt;&#123;boundaries.toISOString()&#125;&lt;/Time&gt;&quot;</code>
             </dfn>
 
             <div className="flex w-[550px] justify-between gap-4">

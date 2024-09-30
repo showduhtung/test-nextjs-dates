@@ -41,7 +41,7 @@ export default async function PaginationPage({ searchParams }: PaginationPagePro
 
         <div className="flex items-center justify-between text-primary">
           <dfn className="text-xs">
-            <code>&quot;boundariesboundaryStart.toISOString()&quot;</code>
+            <code>&quot;boundaries.toISOString()&quot;</code>
           </dfn>
 
           <div className="flex w-[550px] justify-between gap-4">
@@ -70,7 +70,7 @@ export default async function PaginationPage({ searchParams }: PaginationPagePro
         <strong className="text-2xl">UI Display:</strong>
         <div className="flex items-center justify-between text-primary">
           <dfn className="text-xs">
-            <code>&quot;&lt;Time&gt;&#123;urlStart.toISOString()&#125;&lt;/Time&gt;&quot;</code>
+            <code>&quot;&lt;Time&gt;&#123;url.toISOString()&#125;&lt;/Time&gt;&quot;</code>
           </dfn>
 
           <div className="flex w-[550px] justify-between gap-4">
