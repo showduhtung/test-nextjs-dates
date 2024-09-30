@@ -12,9 +12,8 @@ import {
 import { type DateFunctions } from "~/libs/date-fns";
 import { mockFetchBoundaries } from "~/data";
 import { parseSearchParams } from "~/common/utilities";
-import { type PaginationPageProps, type PaginationSearchParams } from "../common";
-import { IntervalPagination } from "../_components/interval-pagination";
-import { IntervalSelect } from "../_components/interval-select";
+import type { PaginationPageProps, PaginationSearchParams } from "../common";
+import { IntervalPagination, IntervalSelect } from "../_components";
 
 const functions = {
   addDays,
