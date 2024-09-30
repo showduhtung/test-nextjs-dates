@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { max, min } from "date-fns";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
@@ -5,14 +6,13 @@ import Link from "next/link";
 import { parseSearchParams, SearchParams } from "~/common/utilities";
 import { cn } from "~/libs/tailwind";
 import { Button } from "~/components/button";
-import { addDays, endOfDay, format, isSameDay, startOfDay, subDays } from "~/libs/date-fns";
+import { addDays, endOfDay, format, isSameDay, startOfDay, subDays, TZDate } from "~/libs/date-fns";
 import {
   intervals,
   mockFetchBoundaries,
   type PaginationPageProps,
   type PaginationSearchParams,
 } from "../common";
-import { ReactNode } from "react";
 
 export default IntervalPagination;
 

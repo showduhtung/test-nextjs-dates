@@ -1,9 +1,9 @@
 import * as DateFns from "date-fns";
-import { TZDate as DateTZ } from "@date-fns/tz";
+import * as DateFnsTz from "@date-fns/tz";
 
 import { TIME_ZONE } from "~/common";
 
-export class TZDate extends DateTZ {
+class TZDate extends DateFnsTz.TZDate {
   constructor(date: Date | string | number, _timeZone?: string) {
     if (typeof date === "string") super(date, TIME_ZONE);
     else if (typeof date === "number") super(date, TIME_ZONE);
@@ -13,23 +13,23 @@ export class TZDate extends DateTZ {
 }
 
 function addDays(...args: Parameters<typeof DateFns.addDays>) {
-  const [date, days, ...rest] = args;
-  return DateFns.addDays(new TZDate(date, TIME_ZONE), days, ...rest);
+  const [date, ...rest] = args;
+  return DateFns.addDays(new TZDate(date, TIME_ZONE), ...rest);
 }
 
 function addHours(...args: Parameters<typeof DateFns.addHours>) {
-  const [date, hours, ...rest] = args;
-  return DateFns.addHours(new TZDate(date, TIME_ZONE), hours, ...rest);
+  const [date, ...rest] = args;
+  return DateFns.addHours(new TZDate(date, TIME_ZONE), ...rest);
 }
 
 function addMinutes(...args: Parameters<typeof DateFns.addMinutes>) {
-  const [date, minutes, ...rest] = args;
-  return DateFns.addMinutes(new TZDate(date, TIME_ZONE), minutes, ...rest);
+  const [date, ...rest] = args;
+  return DateFns.addMinutes(new TZDate(date, TIME_ZONE), ...rest);
 }
 
 function addSeconds(...args: Parameters<typeof DateFns.addSeconds>) {
-  const [date, seconds, ...rest] = args;
-  return DateFns.addSeconds(new TZDate(date, TIME_ZONE), seconds, ...rest);
+  const [date, ...rest] = args;
+  return DateFns.addSeconds(new TZDate(date, TIME_ZONE), ...rest);
 }
 
 function getHours(...args: Parameters<typeof DateFns.getHours>) {
@@ -52,8 +52,8 @@ function endOfDay(...args: Parameters<typeof DateFns.endOfDay>) {
 }
 
 function format(...args: Parameters<typeof DateFns.format>) {
-  const [date, pattern, ...options] = args;
-  return DateFns.format(new TZDate(date, TIME_ZONE), pattern, ...options);
+  const [date, ...options] = args;
+  return DateFns.format(new TZDate(date, TIME_ZONE), ...options);
 }
 
 function isAfter(...args: Parameters<typeof DateFns.isAfter>) {
@@ -81,8 +81,8 @@ function startOfHour(...args: Parameters<typeof DateFns.startOfHour>) {
 }
 
 function subDays(...args: Parameters<typeof DateFns.subDays>) {
-  const [date, days, ...options] = args;
-  return DateFns.subDays(new TZDate(date, TIME_ZONE), days, ...options);
+  const [date, ...options] = args;
+  return DateFns.subDays(new TZDate(date, TIME_ZONE), ...options);
 }
 
 export {
@@ -99,4 +99,5 @@ export {
   addMinutes,
   addSeconds,
   getHours,
+  TZDate,
 };

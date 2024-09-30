@@ -95,18 +95,20 @@ export default function HourlyBlocks() {
               {format(today, "eee, d MMM yyyy")}
             </h6>
             <div className="flex flex-wrap gap-4 pl-1">
-              {hours.map(({ timestamp }) => (
-                <Button asChild key={timestamp.toISOString()} className="w-32">
-                  <Link href={`/hourly/${timestamp.toISOString()}`}>
-                    <Time
-                      className="whitespace-nowrap text-nowrap text-lg font-semibold uppercase"
-                      pattern="hh:mm a"
-                    >
-                      {timestamp.toISOString()}
-                    </Time>
-                  </Link>
-                </Button>
-              ))}
+              {hours.map(({ timestamp }) => {
+                return (
+                  <Button asChild key={timestamp.toISOString()} className="w-32">
+                    <Link href={`/hourly/${timestamp.toISOString()}`}>
+                      <Time
+                        className="whitespace-nowrap text-nowrap text-lg font-semibold uppercase"
+                        pattern="hh:mm a"
+                      >
+                        {timestamp.toISOString()}
+                      </Time>
+                    </Link>
+                  </Button>
+                );
+              })}
             </div>
           </div>
         ))}
