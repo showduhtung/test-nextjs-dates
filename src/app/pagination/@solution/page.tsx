@@ -13,6 +13,7 @@ import {
   startOfDay,
   subDays,
   format,
+  isSameDay,
 } from "~/libs/date-fns";
 
 const functions = {
@@ -23,6 +24,7 @@ const functions = {
   startOfDay,
   subDays,
   format,
+  isSameDay,
 } as typeof DateFns;
 
 export default async function PaginationPage({ searchParams }: PaginationPageProps) {
