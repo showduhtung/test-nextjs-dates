@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { parseSearchParams, SearchParams } from "~/common/utilities";
+import { SearchParams } from "~/common/utilities";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -42,11 +42,11 @@ export function IntervalSelect({
     const param = new SearchParams({ interval: option });
     param.set("interval", option);
     param.set("selectedDates", createInterval(option));
-    return { searchParam: param, option };
+    return { searchParam: param, option, selectedDates: createInterval(option) };
   });
 
   return (
-    <div className="flex w-full flex-col gap-4">
+    <div className="flex w-full min-w-[850px] flex-col gap-4">
       <span className="flex items-center justify-between">
         <h1 className="text-3xl font-bold">Interval Selector Component</h1>
         <DropdownMenu>
@@ -65,37 +65,22 @@ export function IntervalSelect({
         </DropdownMenu>
       </span>
       <div className="flex flex-col gap-4 rounded-md border-2 border-primary p-4">
-        {params.map(({ searchParam, option }) => {
-          const {
-            selectedDates: [start, end],
-          } = parseSearchParams<{ selectedDates: [Date, Date] }>({
-            selectedDates: searchParam.get("selectedDates") as string,
-          });
+        {params.map(({ searchParam, option, selectedDates: [start, end] }) => (
+          <div className="flex flex-col" key={searchParam.toString()}>
+            <strong className="text-2xl capitalize">{option}:</strong>
+            <div className="flex items-center justify-between text-primary">
+              <dfn className="text-xs">
+                <code>&quot;selectedDates.toISOString()&quot;</code>
+              </dfn>
 
-          return (
-            <div className="flex flex-col" key={searchParam.toString()}>
-              <strong className="text-2xl capitalize">{option}:</strong>
-              <div className="flex items-center justify-between text-primary">
-                <dfn className="text-xs">
-                  <code>decodeURIComponent(searchParam.toString())</code>
-                </dfn>
-
-                <p className="w-[550px]">{decodeURIComponent(searchParam.toString())}</p>
-              </div>
-              <div className="flex items-center justify-between text-primary">
-                <dfn className="text-xs">
-                  <code>selectedDates.toISOString()</code>
-                </dfn>
-
-                <div className="flex w-[550px] justify-between gap-4">
-                  <time suppressHydrationWarning>{start.toISOString()}</time>
-                  <p>|</p>
-                  <time suppressHydrationWarning>{end.toISOString()}</time>
-                </div>
+              <div className="flex w-[450px] gap-2 text-sm">
+                <time suppressHydrationWarning>{start.toISOString()}</time>
+                <p>|</p>
+                <time suppressHydrationWarning>{end.toISOString()}</time>
               </div>
             </div>
-          );
-        })}
+          </div>
+        ))}
       </div>
     </div>
   );

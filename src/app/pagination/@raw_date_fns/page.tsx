@@ -38,32 +38,35 @@ export default async function DateFnsPage({ searchParams }: PaginationPageProps)
   const [selectedStart, selectedEnd] = [new TZDate(selectedDates[0]), new TZDate(selectedDates[1])];
 
   return (
-    <div className="flex flex-col gap-12">
-      <IntervalSelect
-        interval={interval}
-        selectedDates={[selectedStart, selectedEnd]}
-        functions={functions}
-        boundaries={[boundaryStart, boundaryEnd]}
-      />
-      <IntervalPagination
-        interval={interval}
-        selectedDates={[selectedStart, selectedEnd]}
-        functions={functions}
-        boundaries={[boundaryStart, boundaryEnd]}
-      />
-
-      <IntervalSelect
-        interval={interval}
-        selectedDates={selectedDates}
-        functions={functions}
-        boundaries={[first, second]}
-      />
-      <IntervalPagination
-        interval={interval}
-        selectedDates={selectedDates}
-        functions={functions}
-        boundaries={[first, second]}
-      />
+    <div className="flex flex-row gap-20">
+      <div className="flex flex-col gap-12">
+        <IntervalSelect
+          interval={interval}
+          selectedDates={[selectedStart, selectedEnd]}
+          functions={functions}
+          boundaries={[boundaryStart, boundaryEnd]}
+        />
+        <IntervalPagination
+          interval={interval}
+          selectedDates={[selectedStart, selectedEnd]}
+          functions={functions}
+          boundaries={[boundaryStart, boundaryEnd]}
+        />
+      </div>
+      <div className="flex flex-col gap-12">
+        <IntervalSelect
+          interval={interval}
+          selectedDates={selectedDates}
+          functions={functions}
+          boundaries={[first, second]}
+        />
+        <IntervalPagination
+          interval={interval}
+          selectedDates={selectedDates}
+          functions={functions}
+          boundaries={[first, second]}
+        />
+      </div>
     </div>
   );
 }
