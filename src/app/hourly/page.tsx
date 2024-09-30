@@ -1,4 +1,3 @@
-import { headers } from "next/headers";
 import Link from "next/link";
 import { PATTERN } from "~/common";
 import { Button } from "~/components/button";
@@ -21,10 +20,6 @@ const [boundaryStart, boundaryEnd] = [
 export default function HourlyBlocks() {
   const dayCount = differenceInCalendarDays(boundaryEnd, boundaryStart) + 1;
   const [start, end] = [startOfHour(boundaryStart), addHours(startOfHour(boundaryEnd), 1)];
-
-  const headersList = headers();
-  const host = headersList.get("host");
-  const protocol = headersList.get("x-forwarded-proto") || "http"; // Default to http if no proto header is set
 
   const blocks = [...Array(dayCount).keys()].reverse().map((day) => {
     let hourCount = 24;
@@ -100,25 +95,21 @@ export default function HourlyBlocks() {
               {format(today, "eee, d MMM yyyy")}
             </h6>
             <div className="flex flex-wrap gap-4 pl-1">
-              {hours.map(({ timestamp }) => {
-                // const url = new URL(`/hourly/${timestamp.toISOString()}`, `${protocol}://${host}`);
-
-                return (
-                  <Button asChild key={timestamp.toISOString()} className="w-32">
-                    <Link
-                      href={`/hourly/${encodeURIComponent(timestamp.toISOString())}`}
-                      prefetch={false}
+              {hours.map(({ timestamp }) => (
+                <Button asChild key={timestamp.toISOString()} className="w-32">
+                  <Link
+                    href={`/hourly/${encodeURIComponent(timestamp.toISOString())}`}
+                    prefetch={false}
+                  >
+                    <Time
+                      className="whitespace-nowrap text-nowrap text-lg font-semibold uppercase"
+                      pattern="hh:mm a"
                     >
-                      <Time
-                        className="whitespace-nowrap text-nowrap text-lg font-semibold uppercase"
-                        pattern="hh:mm a"
-                      >
-                        {timestamp.toISOString()}
-                      </Time>
-                    </Link>
-                  </Button>
-                );
-              })}
+                      {timestamp.toISOString()}
+                    </Time>
+                  </Link>
+                </Button>
+              ))}
             </div>
           </div>
         ))}

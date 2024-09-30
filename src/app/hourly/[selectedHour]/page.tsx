@@ -10,15 +10,6 @@ type SelectHourPageProps = { params: PageParams<HourlyParams> };
 export default function SelectHourPage({ params }: SelectHourPageProps) {
   const { selectedHour } = parseParams<HourlyParams>(params);
 
-  if (!(selectedHour instanceof Date)) {
-    console.error(
-      `[console] Missing selectedHour ${JSON.stringify(params)} ${typeof selectedHour}`,
-    );
-    throw new Error(
-      `[thrown] Missing selectedHour ${JSON.stringify(params)} ${typeof selectedHour}`,
-    );
-  }
-
   return (
     <div className="flex flex-col gap-4">
       <Button className="w-fit" asChild>
