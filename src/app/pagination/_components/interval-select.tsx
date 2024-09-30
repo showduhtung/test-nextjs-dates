@@ -93,7 +93,7 @@ export async function IntervalSelect({ interval, selectedDates, functions }: Int
               </div>
               <div className="flex items-center justify-between text-primary">
                 <dfn className="text-xs">
-                  <code>selectedDates[0].toISOString()</code>
+                  <code>selectedDates.toISOString()</code>
                 </dfn>
 
                 <div className="flex w-[550px] justify-between gap-4">

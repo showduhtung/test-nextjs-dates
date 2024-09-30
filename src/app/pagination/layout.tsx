@@ -17,7 +17,7 @@ export default function PaginationLayout({
     <div className="flex flex-col gap-4">
       {children}
       <div className="my-8 w-full border border-dashed border-primary" />
-      <Tabs defaultValue="date-fns">
+      <Tabs defaultValue="native">
         <TabsList>
           <TabsTrigger value="native">Native JS</TabsTrigger>
           <TabsTrigger value="date-fns">Raw date-fns</TabsTrigger>
