@@ -3,7 +3,27 @@ import { parseSearchParams } from "~/common/utilities";
 import { PaginationPageProps, PaginationSearchParams } from "../common";
 import { IntervalPagination } from "../_components/interval-pagination";
 import { IntervalSelect } from "../_components/interval-select";
-import * as DateFns from "date-fns";
+import {
+  addDays,
+  differenceInCalendarDays,
+  endOfDay,
+  isAfter,
+  startOfDay,
+  subDays,
+  isSameDay,
+  format,
+} from "date-fns";
+
+const functions = {
+  addDays,
+  differenceInCalendarDays,
+  endOfDay,
+  isAfter,
+  startOfDay,
+  subDays,
+  isSameDay,
+  format,
+};
 
 export default async function NativePage({ searchParams }: PaginationPageProps) {
   const { interval, selectedDates } = parseSearchParams<PaginationSearchParams>(searchParams);
@@ -11,8 +31,8 @@ export default async function NativePage({ searchParams }: PaginationPageProps) 
 
   return (
     <div className="flex flex-col gap-12">
-      <IntervalSelect interval={interval} selectedDates={selectedDates} functions={DateFns} />
-      <IntervalPagination interval={interval} selectedDates={selectedDates} functions={DateFns} />
+      <IntervalSelect interval={interval} selectedDates={selectedDates} functions={functions} />
+      <IntervalPagination interval={interval} selectedDates={selectedDates} functions={functions} />
     </div>
   );
 }

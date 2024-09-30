@@ -1,10 +1,9 @@
 import React from "react";
 import { parseSearchParams } from "~/common/utilities";
-import { PaginationPageProps, PaginationSearchParams } from "../common";
+import { DateFunctions, PaginationPageProps, PaginationSearchParams } from "../common";
 import { IntervalPagination } from "../_components/interval-pagination";
 import { IntervalSelect } from "../_components/interval-select";
 
-import * as DateFns from "date-fns";
 import {
   addDays,
   differenceInCalendarDays,
@@ -25,7 +24,7 @@ const functions = {
   subDays,
   format,
   isSameDay,
-} as typeof DateFns;
+} as DateFunctions;
 
 export default async function PaginationPage({ searchParams }: PaginationPageProps) {
   const { interval, selectedDates } = parseSearchParams<PaginationSearchParams>(searchParams);

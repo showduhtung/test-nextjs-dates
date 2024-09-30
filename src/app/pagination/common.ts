@@ -44,5 +44,6 @@ export type {
   PaginationPageProps,
   PaginationSearchParams,
   IntervalComponenntProps,
+  DateFunctions,
 };
 export { mockFetchBoundaries, intervals };
