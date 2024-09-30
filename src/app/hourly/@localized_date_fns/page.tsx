@@ -10,7 +10,10 @@ import {
   subDays,
   isSameDay,
   format,
-  DateFunctions,
+  type DateFunctions,
+  startOfHour,
+  addHours,
+  getHours,
 } from "~/libs/date-fns";
 
 import { mockFetchBoundaries } from "~/data";
@@ -24,13 +27,18 @@ const functions = {
   startOfDay,
   subDays,
   isSameDay,
+  startOfHour,
+  getHours,
   format,
+  addHours,
 } as DateFunctions;
 
 export default HourlyLocalizedAtFetch;
 
 async function HourlyLocalizedAtFetch() {
-  const [boundaryStart, boundaryEnd = TZDate.tz()] = await mockFetchBoundaries();
+  const [boundaryStart, boundaryEnd = new Date()] = await mockFetchBoundaries(
+    new Date("Sep 14 2024, 2:00:00 PM GMT+0"),
+  );
 
   return <HourlyBlocks boundaries={[boundaryStart, boundaryEnd]} functions={functions} />;
 }

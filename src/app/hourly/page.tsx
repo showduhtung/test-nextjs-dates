@@ -1,18 +1,19 @@
 import { PATTERN } from "~/common";
 import { Time } from "~/components/time";
+import { mockFetchBoundaries } from "~/data";
 
-const [boundaryStart, boundaryEnd] = [
-  new Date("Aug 31 2024, 02:00:00 PM GMT+0"),
-  new Date("Oct 01 2024, 02:00:00 PM GMT+0"),
-];
+export default async function HourlyPage() {
+  const [boundaryStart, boundaryEnd = new Date()] = await mockFetchBoundaries(
+    new Date("Sep 14 2024, 2:00:00 PM GMT+0"),
+  );
 
-export default function HourlyPage() {
   return (
     <div className="flex flex-col gap-1">
       <span className="flex items-baseline gap-2">
         <strong className="text-2xl">Boundaries:</strong>
         <dfn className="inline-flex gap-1 text-xs text-primary">
-          Sept 1, 2024 10PM - Oct 1, 2024 10PM
+          <Time pattern={"MMM dd yyyy, hh:mm a"}>{boundaryStart.toISOString()}</Time> to{" "}
+          <Time pattern={"MMM dd yyyy, hh:mm a"}>{boundaryEnd.toISOString()}</Time>
         </dfn>
       </span>
       <div className="flex items-center justify-between text-primary">
