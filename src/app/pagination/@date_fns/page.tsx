@@ -1,6 +1,11 @@
 import React from "react";
 import { parseSearchParams } from "~/common/utilities";
-import { mockFetchBoundaries, PaginationPageProps, PaginationSearchParams } from "../common";
+import {
+  mockFetchBoundaries,
+  type DateFunctions,
+  type PaginationPageProps,
+  type PaginationSearchParams,
+} from "../common";
 import { IntervalPagination } from "../_components/interval-pagination";
 import { IntervalSelect } from "../_components/interval-select";
 import {
@@ -23,7 +28,7 @@ const functions = {
   subDays,
   isSameDay,
   format,
-};
+} as DateFunctions;
 
 export default async function DateFnsPage({ searchParams }: PaginationPageProps) {
   const { interval, selectedDates } = parseSearchParams<PaginationSearchParams>(searchParams);

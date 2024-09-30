@@ -17,75 +17,67 @@ class TZDate extends DateFnsTz.TZDate {
 
 function addDays(...args: Parameters<typeof DateFns.addDays>) {
   const [date, ...rest] = args;
-  return DateFns.addDays(new TZDate(date, TIME_ZONE), ...rest);
+  return DateFns.addDays(new TZDate(date), ...rest);
 }
 
 function addHours(...args: Parameters<typeof DateFns.addHours>) {
   const [date, ...rest] = args;
-  return DateFns.addHours(new TZDate(date, TIME_ZONE), ...rest);
+  return DateFns.addHours(new TZDate(date), ...rest);
 }
 
 function addMinutes(...args: Parameters<typeof DateFns.addMinutes>) {
   const [date, ...rest] = args;
-  return DateFns.addMinutes(new TZDate(date, TIME_ZONE), ...rest);
+  return DateFns.addMinutes(new TZDate(date), ...rest);
 }
 
 function addSeconds(...args: Parameters<typeof DateFns.addSeconds>) {
   const [date, ...rest] = args;
-  return DateFns.addSeconds(new TZDate(date, TIME_ZONE), ...rest);
+  return DateFns.addSeconds(new TZDate(date), ...rest);
 }
 
 function getHours(...args: Parameters<typeof DateFns.getHours>) {
   const [date, ...rest] = args;
-  return DateFns.getHours(new TZDate(date, TIME_ZONE), ...rest);
+  return DateFns.getHours(new TZDate(date), ...rest);
 }
 
 function differenceInCalendarDays(...args: Parameters<typeof DateFns.differenceInCalendarDays>) {
   const [dateLeft, dateRight, ...rest] = args;
-  return DateFns.differenceInCalendarDays(
-    new TZDate(dateLeft, TIME_ZONE),
-    new TZDate(dateRight, TIME_ZONE),
-    ...rest,
-  );
+  return DateFns.differenceInCalendarDays(new TZDate(dateLeft), new TZDate(dateRight), ...rest);
 }
 
 function endOfDay(...args: Parameters<typeof DateFns.endOfDay>) {
   const [date, ...options] = args;
-  return DateFns.endOfDay(new TZDate(date, TIME_ZONE), ...options);
+  return DateFns.endOfDay(new TZDate(date), ...options);
 }
 
 function format(...args: Parameters<typeof DateFns.format>) {
   const [date, ...options] = args;
-  return DateFns.format(new TZDate(date, TIME_ZONE), ...options);
+  return DateFns.format(new TZDate(date), ...options);
 }
 
 function isAfter(...args: Parameters<typeof DateFns.isAfter>) {
   const [dateLeft, dateRight] = args;
-  return DateFns.isAfter(new TZDate(dateLeft, TIME_ZONE), new TZDate(dateRight, TIME_ZONE));
+  return DateFns.isAfter(new TZDate(dateLeft), new TZDate(dateRight));
 }
 
 function isSameDay(...args: Parameters<typeof DateFns.isSameDay>) {
   const [dateLeft, dateRight, ...options] = args;
-  return DateFns.isSameDay(
-    new TZDate(dateLeft, TIME_ZONE),
-    new TZDate(dateRight, TIME_ZONE),
-    ...options,
-  );
+  return DateFns.isSameDay(new TZDate(dateLeft), new TZDate(dateRight), ...options);
 }
 
 function startOfDay(...args: Parameters<typeof DateFns.startOfDay>) {
   const [date, ...options] = args;
-  return DateFns.startOfDay(new TZDate(date, TIME_ZONE), ...options);
+  return DateFns.startOfDay(new TZDate(date), ...options);
 }
 
 function startOfHour(...args: Parameters<typeof DateFns.startOfHour>) {
   const [date, ...options] = args;
-  return DateFns.startOfHour(new TZDate(date, TIME_ZONE), ...options);
+  return DateFns.startOfHour(new TZDate(date), ...options);
 }
 
 function subDays(...args: Parameters<typeof DateFns.subDays>) {
   const [date, ...options] = args;
-  return DateFns.subDays(new TZDate(date, TIME_ZONE), ...options);
+  return DateFns.subDays(new TZDate(date), ...options);
 }
 
 export {

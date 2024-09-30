@@ -2,12 +2,25 @@ import React from "react";
 import { parseSearchParams } from "~/common/utilities";
 import {
   mockFetchLocalizedBoundaries,
-  PaginationPageProps,
-  PaginationSearchParams,
+  type DateFunctions,
+  type PaginationPageProps,
+  type PaginationSearchParams,
 } from "../common";
 import { IntervalPagination } from "../_components/interval-pagination";
 import { IntervalSelect } from "../_components/interval-select";
+// import {
+//   addDays,
+//   differenceInCalendarDays,
+//   endOfDay,
+//   isAfter,
+//   startOfDay,
+//   subDays,
+//   isSameDay,
+//   format,
+// } from "date-fns";
+
 import {
+  TZDate,
   addDays,
   differenceInCalendarDays,
   endOfDay,
@@ -16,8 +29,7 @@ import {
   subDays,
   isSameDay,
   format,
-} from "date-fns";
-import { TZDate } from "~/libs/date-fns";
+} from "~/libs/date-fns";
 
 const functions = {
   addDays,
@@ -28,7 +40,7 @@ const functions = {
   subDays,
   isSameDay,
   format,
-};
+} as DateFunctions;
 
 export default DateFnsWithLocalizedDatesPage;
 
