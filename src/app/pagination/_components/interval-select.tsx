@@ -1,5 +1,4 @@
 import Link from "next/link";
-import * as DateFns from "date-fns";
 import { parseSearchParams, SearchParams } from "~/common/utilities";
 import {
   DropdownMenu,
@@ -8,27 +7,19 @@ import {
   DropdownMenuTrigger,
 } from "~/components/dropdown-menu";
 import { Button } from "~/components/button";
+import {
+  mockFetchBoundaries,
+  intervals,
+  type Interval,
+  type IntervalDateRange,
+  type IntervalComponenntProps,
+} from "../common";
 
-import { mockFetchBoundaries, type Interval, type IntervalDateRange, intervals } from "../common";
-
-type IntervalSelectProps = {
-  interval: Interval;
-  selectedDates: IntervalDateRange;
-  functions: DateFunctions;
-};
-
-type DateFunctions = {
-  addDays: typeof DateFns.addDays;
-  differenceInCalendarDays: typeof DateFns.differenceInCalendarDays;
-  endOfDay: typeof DateFns.endOfDay;
-  isAfter: typeof DateFns.isAfter;
-  startOfDay: typeof DateFns.startOfDay;
-  subDays: typeof DateFns.subDays;
-  format: typeof DateFns.format;
-  isSameDay: typeof DateFns.isSameDay;
-};
-
-export async function IntervalSelect({ interval, selectedDates, functions }: IntervalSelectProps) {
+export async function IntervalSelect({
+  interval,
+  selectedDates,
+  functions,
+}: IntervalComponenntProps) {
   const [boundaryStart, boundaryEnd] = await mockFetchBoundaries();
   const [start] = selectedDates;
   const { addDays, differenceInCalendarDays, endOfDay, isAfter, startOfDay, subDays } = functions;

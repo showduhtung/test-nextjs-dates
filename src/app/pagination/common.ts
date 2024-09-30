@@ -1,3 +1,4 @@
+import * as DateFns from "date-fns";
 import type { PageSearchParams } from "~/common/utilities";
 
 type Interval = "hourly" | "daily" | "weekly";
@@ -20,5 +21,28 @@ async function mockFetchBoundaries(): Promise<IntervalDateRange> {
   return response;
 }
 
-export type { Interval, IntervalDateRange, PaginationPageProps, PaginationSearchParams };
+type DateFunctions = {
+  addDays: typeof DateFns.addDays;
+  differenceInCalendarDays: typeof DateFns.differenceInCalendarDays;
+  endOfDay: typeof DateFns.endOfDay;
+  isAfter: typeof DateFns.isAfter;
+  startOfDay: typeof DateFns.startOfDay;
+  subDays: typeof DateFns.subDays;
+  format: typeof DateFns.format;
+  isSameDay: typeof DateFns.isSameDay;
+};
+
+type IntervalComponenntProps = {
+  interval: Interval;
+  selectedDates: IntervalDateRange;
+  functions: DateFunctions;
+};
+
+export type {
+  Interval,
+  IntervalDateRange,
+  PaginationPageProps,
+  PaginationSearchParams,
+  IntervalComponenntProps,
+};
 export { mockFetchBoundaries, intervals };

@@ -1,5 +1,4 @@
 import React, { type ReactNode } from "react";
-import * as DateFns from "date-fns";
 import { max, min } from "date-fns";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
@@ -7,25 +6,8 @@ import Link from "next/link";
 import { SearchParams } from "~/common/utilities";
 import { cn } from "~/libs/tailwind";
 import { Button } from "~/components/button";
-import { intervals, mockFetchBoundaries, type Interval, type IntervalDateRange } from "../common";
+import { intervals, mockFetchBoundaries, type IntervalComponenntProps } from "../common";
 import { PATTERN } from "~/common";
-
-type IntervalPaginationProps = {
-  interval: Interval;
-  selectedDates: IntervalDateRange;
-  functions: DateFunctions;
-};
-
-type DateFunctions = {
-  addDays: typeof DateFns.addDays;
-  differenceInCalendarDays: typeof DateFns.differenceInCalendarDays;
-  endOfDay: typeof DateFns.endOfDay;
-  isAfter: typeof DateFns.isAfter;
-  startOfDay: typeof DateFns.startOfDay;
-  subDays: typeof DateFns.subDays;
-  format: typeof DateFns.format;
-  isSameDay: typeof DateFns.isSameDay;
-};
 
 type LinkArrowProps = { params: SearchParams; boundary: Date; url: Date; children: ReactNode };
 
@@ -33,7 +15,7 @@ export async function IntervalPagination({
   interval,
   selectedDates,
   functions,
-}: IntervalPaginationProps) {
+}: IntervalComponenntProps) {
   const [boundaryStart, boundaryEnd] = await mockFetchBoundaries();
   const { addDays, endOfDay, startOfDay, subDays, format, isSameDay } = functions;
 
