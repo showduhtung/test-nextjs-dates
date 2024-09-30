@@ -23,8 +23,8 @@ export default function HourlyBlocks() {
   const [start, end] = [startOfHour(boundaryStart), addHours(startOfHour(boundaryEnd), 1)];
 
   const headersList = headers();
-  const host = headersList.get("host");
-  const protocol = headersList.get("x-forwarded-proto") || "http"; // Default to http if no proto header is set
+  const _host = headersList.get("host");
+  const _protocol = headersList.get("x-forwarded-proto") || "http"; // Default to http if no proto header is set
 
   const blocks = [...Array(dayCount).keys()].reverse().map((day) => {
     let hourCount = 24;
