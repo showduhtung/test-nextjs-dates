@@ -101,11 +101,14 @@ export default function HourlyBlocks() {
             </h6>
             <div className="flex flex-wrap gap-4 pl-1">
               {hours.map(({ timestamp }) => {
-                const url = new URL(`/hourly/${timestamp.toISOString()}`, `${protocol}://${host}`);
+                // const url = new URL(`/hourly/${timestamp.toISOString()}`, `${protocol}://${host}`);
 
                 return (
-                  <Button asChild key={url.toString()} className="w-32">
-                    <Link href={url.toString()} prefetch={false}>
+                  <Button asChild key={timestamp.toISOString()} className="w-32">
+                    <Link
+                      href={`/hourly/${encodeURIComponent(timestamp.toISOString())}`}
+                      prefetch={false}
+                    >
                       <Time
                         className="whitespace-nowrap text-nowrap text-lg font-semibold uppercase"
                         pattern="hh:mm a"
