@@ -15,7 +15,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           enableSystem
           disableTransitionOnChange
         >
-          <div className="container mx-auto flex min-h-screen flex-col justify-between p-8">
+          <div className="container mx-auto flex min-h-screen flex-col justify-between gap-8 p-8">
             <div className="font-[family-name:var(--font-geist-sans)]">
               <div className="mb-12 flex justify-between">
                 <Navigation />

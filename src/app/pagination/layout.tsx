@@ -1,39 +1,27 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/tabs";
 
-type RootLayoutProps = {
+type PaginationLayoutProps = {
   children: React.ReactNode;
-  interval_select: React.ReactNode;
-  interval_pagination: React.ReactNode;
   native: React.ReactNode;
   solution: React.ReactNode;
 };
 
-export default function RootLayout({
-  children,
-  interval_select,
-  interval_pagination,
-  native,
-  solution,
-}: RootLayoutProps) {
+export default function PaginationLayout({ children, native, solution }: PaginationLayoutProps) {
   return (
     <div className="flex flex-col gap-4">
       {children}
-      <Tabs defaultValue="Native">
-        <TabsList className="mb-8">
-          <TabsTrigger value="account">Native</TabsTrigger>
+      <div className="my-8 w-full border border-dashed border-primary" />
+      <Tabs defaultValue="native">
+        <TabsList>
+          <TabsTrigger value="native">Native</TabsTrigger>
           <TabsTrigger value="solution">Solution</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="account">{native}</TabsContent>
+        <TabsContent value="native" className="w-full">
+          {native}
+        </TabsContent>
         <TabsContent value="solution">{solution}</TabsContent>
       </Tabs>
-
-      <br />
-
-      <div className="mb-8 flex items-center gap-2">
-        <div className="flex justify-between text-lg">{interval_select}</div>
-      </div>
-      {interval_pagination}
     </div>
   );
 }

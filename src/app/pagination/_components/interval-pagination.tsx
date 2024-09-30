@@ -1,26 +1,18 @@
-import type { ReactNode } from "react";
+import React, { type ReactNode } from "react";
 import { max, min } from "date-fns";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
 
-import { parseSearchParams, SearchParams } from "~/common/utilities";
+import { SearchParams } from "~/common/utilities";
 import { cn } from "~/libs/tailwind";
 import { Button } from "~/components/button";
 import { addDays, endOfDay, isSameDay, startOfDay, subDays, format } from "~/libs/date-fns";
-import {
-  intervals,
-  mockFetchBoundaries,
-  type PaginationPageProps,
-  type PaginationSearchParams,
-} from "../common";
+import { intervals, mockFetchBoundaries, type Interval, type IntervalDateRange } from "../common";
 import { PATTERN } from "~/common";
 
-export default IntervalPagination;
+type IntervalPaginationProps = { interval: Interval; selectedDates: IntervalDateRange };
 
-async function IntervalPagination({ searchParams }: PaginationPageProps) {
-  const { interval, selectedDates } = parseSearchParams<PaginationSearchParams>(searchParams);
-  if (!selectedDates || !interval) return <>Missing params</>;
-
+export async function IntervalPagination({ interval, selectedDates }: IntervalPaginationProps) {
   const [boundaryStart, boundaryEnd] = await mockFetchBoundaries();
 
   const [urlStart, urlEnd] = selectedDates;
@@ -37,23 +29,28 @@ async function IntervalPagination({ searchParams }: PaginationPageProps) {
     ];
   })();
 
-  const prevParams = new SearchParams(searchParams);
+  const prevParams = new SearchParams();
+  prevParams.set("interval", interval);
   prevParams.set("selectedDates", prev);
 
-  const nextParams = new SearchParams(searchParams);
+  const nextParams = new SearchParams();
+  nextParams.set("interval", interval);
   nextParams.set("selectedDates", next);
 
   return (
-    <>
-      <div className="flex items-center gap-2">
-        <LinkArrow params={prevParams} boundary={boundaryStart} url={urlStart}>
-          <ChevronLeftIcon />
-        </LinkArrow>
-        <LinkArrow params={nextParams} boundary={boundaryEnd} url={urlEnd}>
-          <ChevronRightIcon />
-        </LinkArrow>
-      </div>
-      <div className="flex flex-col gap-4">
+    <div className="flex w-full flex-col gap-4">
+      <span className="flex items-center justify-between">
+        <h1 className="text-3xl font-bold">Interval Pagination Component</h1>
+        <div className="flex items-center gap-2">
+          <LinkArrow params={prevParams} boundary={boundaryStart} url={urlStart}>
+            <ChevronLeftIcon />
+          </LinkArrow>
+          <LinkArrow params={nextParams} boundary={boundaryEnd} url={urlEnd}>
+            <ChevronRightIcon />
+          </LinkArrow>
+        </div>
+      </span>
+      <div className="flex flex-col gap-4 rounded-md border-2 border-primary p-4">
         {[
           { title: "Prev", intervals: prev },
           { title: "Next", intervals: next },
@@ -86,7 +83,7 @@ async function IntervalPagination({ searchParams }: PaginationPageProps) {
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 }
 

@@ -1,9 +1,8 @@
 "use client";
 
-import { TZDate } from "@date-fns/tz";
-import { format } from "date-fns";
 import { isValidElement, ReactNode } from "react";
-import { TIME_ZONE } from "~/common";
+import { format } from "date-fns";
+import { TZDate } from "~/libs/date-fns";
 
 type TimeProps = React.ComponentPropsWithoutRef<"time">;
 
@@ -35,7 +34,7 @@ function formatDateTime(node?: ReactNode): Date | null {
   } else return null;
 
   if (typeof dateInput === "string" || typeof dateInput === "number") {
-    const parsedDate = new TZDate(dateInput as string, TIME_ZONE);
+    const parsedDate = new TZDate(dateInput as string);
 
     if (isNaN(parsedDate.getTime())) return null; // Checks for invalid dates
     dateInput = parsedDate;
