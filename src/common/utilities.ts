@@ -4,6 +4,7 @@ const DATE_REGEX = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(.\d+)?(Z|[+-]\d{2}:\d{2
 const isValidDate = (date: string) => !isNaN(new Date(date).getTime());
 
 function parseParams<T extends Record<string, unknown>>(entries: Record<string, string>) {
+  console.log("entries", entries);
   const queries = Object.entries(entries).reduce((acc, [key, val]) => {
     const value = decodeURIComponent(val);
 

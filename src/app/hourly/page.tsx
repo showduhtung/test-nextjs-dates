@@ -104,7 +104,7 @@ export default function HourlyBlocks() {
                 const url = new URL(`/hourly/${timestamp.toISOString()}`, `${protocol}://${host}`);
 
                 return (
-                  <Button asChild key={timestamp.toISOString()} className="w-32">
+                  <Button asChild key={url.toString()} className="w-32">
                     <Link href={url.toString()} prefetch={false}>
                       <Time
                         className="whitespace-nowrap text-nowrap text-lg font-semibold uppercase"
