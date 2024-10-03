@@ -43,6 +43,7 @@ function Navigation() {
       <NavLink href="/ppr">PPR</NavLink>
       <NavLink href="/pagination">Pagination</NavLink>
       <NavLink href="/hourly">Hourly Blocks</NavLink>
+      <NavLink href="/shifts">Shifts</NavLink>
     </div>
   );
 }
