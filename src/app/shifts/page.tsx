@@ -5,8 +5,10 @@ export default function Page() {
   const hour = getHours(new Date());
   return (
     <div>
-      <p>Hour is : {hour}</p>
-      <Time>This is the time : {format(new Date(), "dd MMM hh:mm a")}</Time>
+      <p>Hour is: {hour}</p>
+      <p>
+        This is the time: <Time>{format(new Date(), "dd MMM hh:mm a")}</Time>
+      </p>
     </div>
   );
 }
